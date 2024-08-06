@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+body{
+    height: 100vh;
+    background-color: #dbd1ca;
+    padding: 6rem 16rem 2rem 2rem;
+}
+
+*{
+    box-sizing: border-box;
+}
