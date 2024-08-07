@@ -4,12 +4,28 @@
 
 
 
-body{
+body {
     height: 100vh;
     background-color: #dbd1ca;
-    padding: 6rem 16rem 2rem 2rem;
+    padding: 6rem 18rem 4rem 4rem;
 }
 
-*{
+* {
     box-sizing: border-box;
+}
+
+td:first-child {
+    border-top-right-radius: 30px;
+}
+
+td:last-child {
+    border-top-left-radius: 30px;
+}
+
+td:first-child {
+    border-bottom-right-radius: 30px;
+}
+
+td:last-child {
+    border-bottom-left-radius: 30px;
 }

@@ -22,7 +22,7 @@ function Sidebar({ setTitle }) {
 
     return (
         <>
-            <div className="bg-sand fixed right-0 top-0 w-56 h-full z-10 shadow-lg flex flex-col justify-between items-center py-16">
+            <div className="bg-sand fixed right-0 top-0 w-56 h-full z-50 shadow-lg flex flex-col justify-between items-center py-16">
                 <div className="flex flex-col justify-center gap-3">
                     <div className="rounded-full w-24 h-24 bg-sandals"></div>
                     <h1 className="font-bold text-xl text-sandals">مهشاد علیایی</h1>

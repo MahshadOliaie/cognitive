@@ -7,7 +7,8 @@ export default {
       'linen' : '#dbd1ca',
       'ocean' : '#B5CBD0',
       'sand' : '#F1F0ED',
-      'sandals' : '#84664B'
+      'sandals' : '#84664B',
+      "white" : "white"
     }
   },
   plugins: [],
