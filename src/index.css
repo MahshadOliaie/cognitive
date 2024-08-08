@@ -29,3 +29,11 @@ td:first-child {
 td:last-child {
     border-bottom-left-radius: 30px;
 }
+
+
+.categoryContainer:hover .moreBtn{
+   opacity: 1;
+   bottom: -1rem;
+}
+
+

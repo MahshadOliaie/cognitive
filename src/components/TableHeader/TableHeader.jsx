@@ -4,7 +4,7 @@
 function TableHeader({children}){
     return(
         <>
-        <thead className="">
+        <thead >
             <tr className="text-center">
                 {children}
             </tr>

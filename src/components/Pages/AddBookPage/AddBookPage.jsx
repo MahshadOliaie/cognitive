@@ -28,7 +28,6 @@ function AddBookPage() {
         {
             accessorKey: "published_date",
             header: "تاریخ انتشار",
-            size: 90,
             cell: (props) => <p>{props.getValue()}</p>
         },
         {
@@ -62,7 +61,7 @@ function AddBookPage() {
                 <tbody>
                     {table.getRowModel().rows.map(row => <TableRow key={row.id}>
                         {row.getVisibleCells().map(cell =>
-                            <td className="py-9" key={cell.id} width={cell.column.getSize()}>
+                            <td className="py-6" key={cell.id} width={cell.column.getSize()}>
                                 {
                                     flexRender(
                                         cell.column.columnDef.cell,

@@ -1,0 +1,43 @@
+
+[
+    {
+        "id": 1,
+        "firstName": "string",
+        "lastName": "string",
+        "description": "string",
+        "type": "WRITER",
+        "enable": true,
+        "createAt": "2024-08-08T10:19:49.912Z",
+        "updateAt": "2024-08-08T10:19:49.912Z"
+      },
+      {
+        "id": 2,
+        "firstName": "string",
+        "lastName": "string",
+        "description": "string",
+        "type": "WRITER",
+        "enable": true,
+        "createAt": "2024-08-08T10:19:49.912Z",
+        "updateAt": "2024-08-08T10:19:49.912Z"
+      },
+      {
+        "id": 3,
+        "firstName": "string",
+        "lastName": "string",
+        "description": "string",
+        "type": "WRITER",
+        "enable": true,
+        "createAt": "2024-08-08T10:19:49.912Z",
+        "updateAt": "2024-08-08T10:19:49.912Z"
+      },
+      {
+        "id": 4,
+        "firstName": "string",
+        "lastName": "string",
+        "description": "string",
+        "type": "WRITER",
+        "enable": true,
+        "createAt": "2024-08-08T10:19:49.912Z",
+        "updateAt": "2024-08-08T10:19:49.912Z"
+      }
+]
