@@ -3,12 +3,14 @@ export default {
   content: ["./src/**/*.{js,jsx}"],
   theme: {
     extend: {},
-    colors:{
-      'linen' : '#dbd1ca',
-      'ocean' : '#B5CBD0',
-      'sand' : '#F1F0ED',
-      'sandals' : '#84664B',
-      "white" : "white"
+    colors: {
+      'linen': '#F3F3F3',
+      'ocean': '#A1CED6',
+      'sand': '#FFFFFF',
+      'sandals': '#D1BAA7',
+      "white": "white",
+      "dark": "#101321",
+      "orange": "#F26D5E"
     }
   },
   plugins: [],

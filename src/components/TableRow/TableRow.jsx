@@ -5,9 +5,9 @@ import EditBtn from "../Buttons/EditBtn"
 function TableRow({ children }) {
     return (
         <>
-            <tr className="bg-sand rounded-full shadow-md text-center" >
+            <tr className="bg-sand rounded-xl shadow-md text-center" >
                 {children}
-                <td className="py-6 gap-2 items-end" width={60}>
+                <td className="py-4 gap-2 items-end" width={60}>
                     <EditBtn />
                     <DeleteBtn />
                 </td>

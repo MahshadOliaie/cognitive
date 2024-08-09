@@ -14,7 +14,7 @@ function CategoryCard({ category }) {
 
     return (
         <div className="flex flex-col" style={{ width: "31%" }}>
-            <div className="categoryContainer flex items-center justify-between p-9 relative rounded-lg shadow-lg bg-ocean" style={(children.length > 0) ? { cursor: "pointer" } : {}} >
+            <div className="categoryContainer flex items-center justify-between p-8 relative rounded-xl shadow-lg bg-sand" style={(children.length > 0) ? { cursor: "pointer" } : {}} >
                 <EditBtn />
                 <p className="text-lg font-semibold">{title}</p>
                 <DeleteBtn />
@@ -34,7 +34,7 @@ function CategoryCard({ category }) {
             </div>
 
             {(openSub) && children.map(sub => {
-                return <div className="flex items-center justify-center border-b p-4 rounded-lg shadow-lg" style={{ backgroundColor: "#c1d8dd" }} >
+                return <div className="flex items-center justify-center mb-0.5 p-4 rounded-lg shadow-lg bg-sand" >
                     <p className="text-md font-medium">{sub}</p>
                 </div>
             })}

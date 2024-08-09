@@ -6,7 +6,7 @@
 
 body {
     height: 100vh;
-    background-color: #dbd1ca;
+    background-color: #F3F3F3;
     padding: 6rem 18rem 4rem 4rem;
 }
 
@@ -15,19 +15,19 @@ body {
 }
 
 td:first-child {
-    border-top-right-radius: 30px;
+    border-top-right-radius: 0.75rem;
 }
 
 td:last-child {
-    border-top-left-radius: 30px;
+    border-top-left-radius: 0.75rem;
 }
 
 td:first-child {
-    border-bottom-right-radius: 30px;
+    border-bottom-right-radius: 0.75rem;
 }
 
 td:last-child {
-    border-bottom-left-radius: 30px;
+    border-bottom-left-radius: 0.75rem;
 }
 
 
