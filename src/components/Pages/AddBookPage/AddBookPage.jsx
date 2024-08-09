@@ -1,12 +1,15 @@
 
-import { flexRender, getCoreRowModel, useReactTable } from "@tanstack/react-table"
+import { flexRender, getCoreRowModel, getFilteredRowModel, useReactTable } from "@tanstack/react-table"
 import { useState } from "react"
 import DATA from "../../../../public/object"
 import TableHeader from "../../TableHeader/TableHeader"
 import TableRow from "../../TableRow/TableRow"
+import SearchBar from "../../SearchBar/SearchBar"
+import AddBtn from "../../Buttons/AddBtn"
 
 function AddBookPage() {
     const [data, setData] = useState(DATA)
+    const [columnFilters , setColumnFilters] = useState([])
 
     const columns = [
         {
@@ -45,11 +48,19 @@ function AddBookPage() {
     const table = useReactTable({
         data,
         columns,
+        state:{
+            columnFilters
+        },
+        getFilteredRowModel: getFilteredRowModel(),
         getCoreRowModel: getCoreRowModel(),
     })
 
     return (
         <>
+            <div className="flex items-center justify-between px-4">
+                <SearchBar columnFilters={columnFilters} setColumnFilters={setColumnFilters} title="title" />
+                <AddBtn />
+            </div>
             <table className="w-full relative border-separate" style={{ borderSpacing: "0 20px" }}>
 
                 <TableHeader>

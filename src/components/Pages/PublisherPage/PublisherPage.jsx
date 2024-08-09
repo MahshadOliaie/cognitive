@@ -1,13 +1,16 @@
 import { useEffect, useState } from "react"
 import useFetch from "../../../hooks/useFetch"
-import { flexRender, getCoreRowModel, useReactTable } from "@tanstack/react-table"
+import { flexRender, getCoreRowModel, getFilteredRowModel, useReactTable } from "@tanstack/react-table"
 import TableHeader from "../../TableHeader/TableHeader"
 import TableRow from "../../TableRow/TableRow"
+import SearchBar from "../../SearchBar/SearchBar"
+import AddBtn from "../../Buttons/AddBtn"
 
 
 function PublisherPage() {
     const [data, setData] = useState([])
     const publishers = useFetch('/publishers.json')
+    const [columnFilters, setColumnFilters] = useState([])
 
     useEffect(() => {
         setData(publishers)
@@ -48,12 +51,20 @@ function PublisherPage() {
     const table = useReactTable({
         data,
         columns,
+        state: {
+            columnFilters
+        },
+        getFilteredRowModel: getFilteredRowModel(),
         getCoreRowModel: getCoreRowModel(),
     })
 
 
     return (
         <>
+            <div className="flex items-center justify-between px-4">
+                <SearchBar columnFilters={columnFilters} setColumnFilters={setColumnFilters} title="name" />
+                <AddBtn />
+            </div>
             <table className="w-full relative border-separate" style={{ borderSpacing: "0 20px" }}>
                 <TableHeader>
                     {table.getHeaderGroups()[0].headers.map(header => {
