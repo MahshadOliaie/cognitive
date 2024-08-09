@@ -1,4 +1,4 @@
-import { flexRender, getCoreRowModel, getFilteredRowModel, useReactTable } from "@tanstack/react-table"
+import { flexRender, getCoreRowModel, getFilteredRowModel, getPaginationRowModel, useReactTable } from "@tanstack/react-table"
 import { useEffect, useState } from "react"
 import useFetch from "../../../hooks/useFetch"
 import TableHeader from "../../TableHeader/TableHeader"
@@ -6,6 +6,7 @@ import TableRow from "../../TableRow/TableRow"
 import SearchBar from "../../SearchBar/SearchBar"
 import AddBtn from "../../Buttons/AddBtn"
 import TableHeaderItem from "../../TableHeaderItem/TableHeaderItem"
+import Pagination from "../../Pagination/Pagination"
 
 
 
@@ -14,6 +15,8 @@ function AuthorPage() {
     const [data, setData] = useState([])
     const [columnFilters, setColumnFilters] = useState([])
     const authors = useFetch('/authors.json')
+    const [filtering , setFiltering] = useState("")
+
 
 
     useEffect(() => {
@@ -65,34 +68,32 @@ function AuthorPage() {
         data,
         columns,
         state: {
-            columnFilters
+            columnFilters,
+            globalFilter: filtering,
         },
         getFilteredRowModel: getFilteredRowModel(),
         getCoreRowModel: getCoreRowModel(),
-    })
+        onGlobalFilterChange: setFiltering,
+        getPaginationRowModel: getPaginationRowModel()
 
-    function getFilterList(title) {
-        let filterList = table.getRowModel().rows.map(row => {
-            return row.original[title]
-        })
-        console.log(filterList)
-    }
+
+    })
 
 
     return (
         <>
             <div className="flex items-center justify-between px-4">
-                <SearchBar columnFilters={columnFilters} setColumnFilters={setColumnFilters} title={"firstName"} />
+                <SearchBar filtering={filtering} setFiltering={setFiltering} />
                 <AddBtn />
             </div>
             <table className="w-full relative border-separate" style={{ borderSpacing: "0 20px" }}>
 
                 <TableHeader>
                     {table.getHeaderGroups()[0].headers.map(header => {
-                        let filterList = table.getRowModel().rows.map(row => {
-                            return row.original[header.id]
+                          let filterList = data.map(obj => {
+                            return obj[header.id]
                         })
-                        return <TableHeaderItem header={header} filterList={filterList} />
+                        return <TableHeaderItem header={header} key={header.id} filterList={filterList} />
                     })}
                 </TableHeader>
 
@@ -116,7 +117,7 @@ function AuthorPage() {
                 </tbody>
 
             </table>
-
+            <Pagination table={table} />
         </>
     )
 }

@@ -1,17 +1,20 @@
 import { useEffect, useState } from "react"
 import useFetch from "../../../hooks/useFetch"
-import { flexRender, getCoreRowModel, getFilteredRowModel, useReactTable } from "@tanstack/react-table"
+import { flexRender, getCoreRowModel, getFilteredRowModel, getPaginationRowModel, useReactTable } from "@tanstack/react-table"
 import TableHeader from "../../TableHeader/TableHeader"
 import TableRow from "../../TableRow/TableRow"
 import SearchBar from "../../SearchBar/SearchBar"
 import AddBtn from "../../Buttons/AddBtn"
 import TableHeaderItem from "../../TableHeaderItem/TableHeaderItem"
+import Pagination from "../../Pagination/Pagination"
 
 
 function PublisherPage() {
     const [data, setData] = useState([])
     const publishers = useFetch('/publishers.json')
     const [columnFilters, setColumnFilters] = useState([])
+    const [filtering, setFiltering] = useState("")
+
 
     useEffect(() => {
         setData(publishers)
@@ -53,26 +56,29 @@ function PublisherPage() {
         data,
         columns,
         state: {
-            columnFilters
+            columnFilters,
+            globalFilter: filtering,
         },
         getFilteredRowModel: getFilteredRowModel(),
         getCoreRowModel: getCoreRowModel(),
+        onGlobalFilterChange: setFiltering,
+        getPaginationRowModel: getPaginationRowModel()
     })
 
 
     return (
         <>
             <div className="flex items-center justify-between px-4">
-                <SearchBar columnFilters={columnFilters} setColumnFilters={setColumnFilters} title="name" />
+                <SearchBar filtering={filtering} setFiltering={setFiltering} />
                 <AddBtn />
             </div>
             <table className="w-full relative border-separate" style={{ borderSpacing: "0 20px" }}>
                 <TableHeader>
                     {table.getHeaderGroups()[0].headers.map(header => {
-                         let filterList = table.getRowModel().rows.map(row => {
-                            return row.original[header.id]
+                        let filterList = data.map(obj => {
+                            return obj[header.id]
                         })
-                        return <TableHeaderItem header={header} filterList={filterList} />
+                        return <TableHeaderItem header={header} key={header.id} filterList={filterList} />
                     })}
                 </TableHeader>
 
@@ -96,6 +102,7 @@ function PublisherPage() {
                 </tbody>
 
             </table>
+            <Pagination table={table} />
         </>
     )
 }

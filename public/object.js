@@ -142,6 +142,85 @@ let DATA = [
     "language": "spanish",
     "genre": "درام",
     "imgSrc": "16.jpg"
+  },
+  {
+    "id": 14,
+    "title": "اودیسه",
+    "author": "هومر",
+    "published_date": 725,
+    "language": "greek",
+    "genre": "شعر",
+    "imgSrc": "14.jpg"
+  },
+  {
+    "id": 15,
+    "title": "هملت",
+    "author": "ویلیام شکسپیر",
+    "published_date": 1609,
+    "language": "greek",
+    "genre": "درام",
+    "imgSrc": "15.jpg"
+  },
+  {
+    "id": 16,
+    "title": "دن کیشوت",
+    "author": "میگل دسروانتس",
+    "published_date": 1605,
+    "language": "spanish",
+    "genre": "درام",
+    "imgSrc": "16.jpg"
+  }, {
+    "id": 14,
+    "title": "اودیسه",
+    "author": "هومر",
+    "published_date": 725,
+    "language": "greek",
+    "genre": "شعر",
+    "imgSrc": "14.jpg"
+  },
+  {
+    "id": 15,
+    "title": "هملت",
+    "author": "ویلیام شکسپیر",
+    "published_date": 1609,
+    "language": "greek",
+    "genre": "درام",
+    "imgSrc": "15.jpg"
+  },
+  {
+    "id": 16,
+    "title": "دن کیشوت",
+    "author": "میگل دسروانتس",
+    "published_date": 1605,
+    "language": "spanish",
+    "genre": "درام",
+    "imgSrc": "16.jpg"
+  }, {
+    "id": 14,
+    "title": "اودیسه",
+    "author": "هومر",
+    "published_date": 725,
+    "language": "greek",
+    "genre": "شعر",
+    "imgSrc": "14.jpg"
+  },
+  {
+    "id": 15,
+    "title": "هملت",
+    "author": "ویلیام شکسپیر",
+    "published_date": 1609,
+    "language": "greek",
+    "genre": "درام",
+    "imgSrc": "15.jpg"
+  },
+  {
+    "id": 16,
+    "title": "دن کیشوت",
+    "author": "میگل دسروانتس",
+    "published_date": 1605,
+    "language": "spanish",
+    "genre": "درام",
+    "imgSrc": "16.jpg"
   }
 ]
 
