@@ -4,6 +4,7 @@
 
 
 
+
 body {
     height: 100vh;
     background-color: #F3F3F3;
@@ -35,5 +36,4 @@ td:last-child {
    opacity: 1;
    bottom: -1rem;
 }
-
 

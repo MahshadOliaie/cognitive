@@ -5,6 +5,7 @@ import TableHeader from "../../TableHeader/TableHeader"
 import TableRow from "../../TableRow/TableRow"
 import SearchBar from "../../SearchBar/SearchBar"
 import AddBtn from "../../Buttons/AddBtn"
+import TableHeaderItem from "../../TableHeaderItem/TableHeaderItem"
 
 
 function PublisherPage() {
@@ -68,7 +69,10 @@ function PublisherPage() {
             <table className="w-full relative border-separate" style={{ borderSpacing: "0 20px" }}>
                 <TableHeader>
                     {table.getHeaderGroups()[0].headers.map(header => {
-                        return <th className="py-10" width={header.getSize()} key={header.id}>{header.column.columnDef.header}</th>
+                         let filterList = table.getRowModel().rows.map(row => {
+                            return row.original[header.id]
+                        })
+                        return <TableHeaderItem header={header} filterList={filterList} />
                     })}
                 </TableHeader>
 

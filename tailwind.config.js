@@ -10,7 +10,7 @@ export default {
       'sandals': '#D1BAA7',
       "white": "white",
       "dark": "#101321",
-      "orange": "#F26D5E"
+      "orange": "#DF5330"
     }
   },
   plugins: [],
