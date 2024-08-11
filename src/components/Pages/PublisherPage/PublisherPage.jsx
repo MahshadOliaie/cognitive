@@ -24,7 +24,7 @@ function PublisherPage() {
     const columns = [
         {
             accessorKey: "id",
-            header: "شماره",
+            header: "ID",
             size: 50,
             cell: (props) => <p>{props.getValue()}</p>
         },
