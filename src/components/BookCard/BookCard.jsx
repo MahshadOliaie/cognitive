@@ -15,7 +15,7 @@ function BookCard({ data }) {
                 <p><span className="opacity-50 text-sm">ژانر: </span>{category.title}</p>
                 <p className="flex items-center gap-1"><span className="opacity-50 text-sm">نویسنده‌ها: </span>
                     <span className="flex gap-4">{authors.map(author => {
-                        return <p>{author.firstName + author.lastName}</p>
+                        return <p>{author.firstName+ " " + author.lastName}</p>
                     })}
                     </span>
                 </p>
