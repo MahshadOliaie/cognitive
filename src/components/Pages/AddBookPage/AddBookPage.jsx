@@ -18,6 +18,10 @@ function AddBookPage() {
 
     useEffect(() => {
         setData(books)
+        return () => {
+
+        }
+
     }, [books])
 
 
@@ -35,7 +39,7 @@ function AddBookPage() {
         },
         {
             accessorKey: "authors",
-            header: "نام نویسنده",
+            header: "نویسنده ها",
             cell: (props) => <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
                 {props.getValue().map(author => {
                     return <p>{author.firstName + author.lastName}</p>
@@ -43,9 +47,9 @@ function AddBookPage() {
             </div>
         },
         {
-            accessorKey: "publisher",
+            accessorKey: "publisher.name",
             header: "ناشر",
-            cell: (props) => <p>{props.getValue().name}</p>
+            cell: (props) => <p>{props.getValue()}</p>
         },
         {
             accessorKey: "publish",
@@ -94,7 +98,6 @@ function AddBookPage() {
             columnFilters,
             globalFilter: filtering,
         },
-        onColumnFiltersChange: setColumnFilters,
         getFilteredRowModel: getFilteredRowModel(),
         getCoreRowModel: getCoreRowModel(),
         onGlobalFilterChange: setFiltering,

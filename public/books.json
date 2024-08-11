@@ -58,5 +58,75 @@
     "createAt": "2024-08-08T12:15:25.018Z",
     "updateAt": "2024-08-08T12:15:25.018Z",
     "public": true
+  },
+  {
+    "id": 2,
+    "name": "string",
+    "coverImage": "string",
+    "description": "string",
+    "pageNumber": 200,
+    "publicationYear": 2002,
+    "authors": [
+      {
+        "id": 0,
+        "firstName": "name",
+        "lastName": "string",
+        "description": "string",
+        "type": "WRITER",
+        "enable": true,
+        "createAt": "2024-08-08T12:15:25.018Z",
+        "updateAt": "2024-08-08T12:15:25.018Z"
+      },
+      {
+        "id": 1,
+        "firstName": "dfkjl",
+        "lastName": "string",
+        "description": "string",
+        "type": "WRITER",
+        "enable": true,
+        "createAt": "2024-08-08T12:15:25.018Z",
+        "updateAt": "2024-08-08T12:15:25.018Z"
+      }
+    ],
+    "publisher": {
+      "id": 0,
+      "name": "name",
+      "enable": true,
+      "createAt": "2024-08-08T12:15:25.018Z",
+      "updateAt": "2024-08-08T12:15:25.018Z"
+    },
+    "category": {
+      "id": 0,
+      "title": "string",
+      "scopeId": 0,
+      "scopeTitle": "string",
+      "parentId": 0,
+      "children": [
+        "string"
+      ],
+      "createAt": "2024-08-08T12:15:25.018Z",
+      "updateAt": "2024-08-08T12:15:25.018Z",
+      "enable": true
+    },
+    "feedbackStats": {
+      "modelId": 0,
+      "comment": {
+        "count": 0
+      },
+      "reaction": {
+        "LIKE": {
+          "count": 50,
+          "userReacted": true
+        },
+        "DISLIKE": {
+          "count": 21,
+          "userReacted": true
+        }
+      }
+    },
+    "publish": false,
+    "createAt": "2024-08-08T12:15:25.018Z",
+    "updateAt": "2024-08-08T12:15:25.018Z",
+    "public": true
   }
 ]
