@@ -2,7 +2,7 @@
   {
     "id": 1,
     "name": "string",
-    "coverImage": "string",
+    "coverImage": "/4.jpg",
     "description": "string",
     "pageNumber": 200,
     "publicationYear": 2002,
@@ -62,7 +62,7 @@
   {
     "id": 2,
     "name": "string",
-    "coverImage": "string",
+    "coverImage": "/4.jpg",
     "description": "string",
     "pageNumber": 200,
     "publicationYear": 2002,
