@@ -1,9 +1,10 @@
+import BookCard from "../../BookCard/BookCard"
 
 function BooksPage() {
 
     return (
         <>
-           books Page
+            <BookCard />
         </>
     )
 }
