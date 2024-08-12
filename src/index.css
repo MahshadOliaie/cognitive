@@ -9,6 +9,30 @@ body {
     height: 100vh;
     background-color: #F3F3F3;
     padding: 6rem 18rem 4rem 4rem;
+    font-family: vazir;
+}
+
+@font-face {
+    font-family: vazir;
+    src: url('/public/fonts/vazir-font-v16.1.0/Vazir.ttf');
+}
+
+@font-face {
+    font-family: vazirBold;
+    src: url('/public/fonts/vazir-font-v16.1.0/Vazir-Bold.ttf');
+}
+
+@font-face {
+    font-family: vazirMedium;
+    src: url('/public/fonts/vazir-font-v16.1.0/Vazir-Medium.ttf');
+}
+
+.font-bold{
+    font-family: vazirBold;
+}
+
+.font-semibold{
+    font-family: vazirMedium;
 }
 
 * {
