@@ -1,7 +1,30 @@
+import { useEffect, useState } from "react"
 import CancelBtn from "./Btns/CancelBtn"
 import CheckBox from "./Checkbox/CheckBox"
+import ModalHeader from "./ModalHeader/ModalHeader"
+import useFetch from "../../hooks/useFetch"
+import CategoryInput from "./CategoryInput/CategoryInput"
+import AuthorsInput from "./AuthorsInput/AuthorsInput"
+import PublishersInput from "./PublishersInput/PublishersInput"
+import FileInput from "./FileInput/FileInput"
 
 function BookModal({ setIsModalOpen }) {
+    const [lastId, setLastId] = useState(0)
+
+    const data = useFetch('/books.json')
+
+    useEffect(() => {
+
+        let id = data.length
+
+        setLastId(id)
+
+        return () => {
+
+        }
+
+    }, [data])
+
 
     function handleClose() {
         setIsModalOpen(false)
@@ -10,17 +33,12 @@ function BookModal({ setIsModalOpen }) {
     return (
         <div className="flex items-center justify-center top-0 right-0 fixed w-screen h-screen z-50" style={{ backgroundColor: "rgba(0 ,0 ,0 , 0.1)", backdropFilter: "blur(3px)" }}>
             <div className="shadow-md rounded-lg p-10 pt-0 bg-linen" >
-                <div className="flex items-center justify-between py-5 mb-4" style={{ borderBottom: "0.5px solid gray" }}>
-                    <p className="text-xl font-bold text-dark">افزودن کتاب</p>
-                    <p className="text-lg font-bold text-dark"><span className="text-base font-normal">ID: </span>3</p>
-                </div>
+
+                <ModalHeader title={'افزودن کتاب'} id={lastId + 1} />
+
                 <div className="flex flex-col gap-6" style={{ minWidth: "450px" }}>
                     <div className="flex gap-5 items-end">
-                        <div className="flex flex-col flex-1 items-center justify-center bg-sand py-3 rounded-md shadow-inner">
-                            <label htmlFor="image" className=" cursor-pointer opacity-70 text-sm p-5">انتخاب عکس</label>
-                            <input type="file" name="image" id="image" accept="image/png, image/jpeg, image/jpg" style={{ display: "none" }} />
-                        </div>
-
+                        <FileInput />
                         <div className="flex flex-col flex-1">
                             <label htmlFor="name" className="opacity-70 text-sm mb-1">نام کتاب</label>
                             <input className="p-2 rounded-md shadow-inner focus-visible:border-2 border-dark outline-none" type="text" name="name" id="name" />
@@ -33,28 +51,13 @@ function BookModal({ setIsModalOpen }) {
                             <input className="p-2 rounded-md shadow-inner focus-visible:border-2 border-dark outline-none" type="number" name="pages" id="pages" />
                         </div>
 
-                        <div className="flex flex-col flex-1">
-                            <label htmlFor="category" className="opacity-70 text-sm mb-1">ژانر</label>
-                            <select className="p-2 rounded-md shadow-inner focus-visible:border-2 border-dark outline-none" name="category" id="category">
-                                <option value="default">انتخاب کنید</option>
-                            </select>
-                        </div>
+                        <CategoryInput />
                     </div>
 
-                    <div className="flex flex-col">
-                        <label htmlFor="authors" className="opacity-70 text-sm mb-1">نویسندگان</label>
-                        <select className="p-2 rounded-md shadow-inner focus-visible:border-2 border-dark outline-none" name="authors" id="authors">
-                            <option value="default">انتخاب کنید</option>
-                        </select>
-                    </div>
+                    <AuthorsInput />
 
                     <div className="flex justify-between gap-5">
-                        <div className="flex flex-col flex-1">
-                            <label htmlFor="publisher" className="opacity-70 text-sm mb-1">ناشر</label>
-                            <select className="p-2 rounded-md shadow-inner focus-visible:border-2 border-dark outline-none" name="publisher" id="publisher">
-                                <option value="default">انتخاب کنید</option>
-                            </select>
-                        </div>
+                        <PublishersInput />
 
                         <div className="flex flex-col flex-1">
                             <label htmlFor="year" className="opacity-70 text-sm mb-1">سال انتشار</label>

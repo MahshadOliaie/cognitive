@@ -49,7 +49,7 @@ function AddBookPage() {
             header: "نویسنده ها",
             cell: (props) => <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
                 {props.getValue().map(author => {
-                    return <p>{author.firstName + author.lastName}</p>
+                    return <p key={author.id}>{author.firstName + author.lastName}</p>
                 })}
             </div>
         },
