@@ -8,11 +8,13 @@ import AddBtn from "../../Buttons/AddBtn"
 import TableHeaderItem from "../../TableHeaderItem/TableHeaderItem"
 import Pagination from "../../Pagination/Pagination"
 import useFetch from "../../../hooks/useFetch"
+import BookModal from "../../Modals/BookModal"
 
 function AddBookPage() {
     const [data, setData] = useState([])
     const [columnFilters, setColumnFilters] = useState([])
     const [filtering, setFiltering] = useState("")
+    const [isModalOpen, setIsModalOpen] = useState(false)
 
     const books = useFetch('/books.json')
 
@@ -23,6 +25,11 @@ function AddBookPage() {
         }
 
     }, [books])
+
+
+    function openModal() {
+        setIsModalOpen(true)
+    }
 
 
     const columns = [
@@ -109,9 +116,10 @@ function AddBookPage() {
 
     return (
         <>
+            {(isModalOpen) && <BookModal setIsModalOpen={setIsModalOpen} />}
             <div className="flex items-center justify-between px-4">
                 <SearchBar filtering={filtering} setFiltering={setFiltering} />
-                <AddBtn />
+                <AddBtn onClick={openModal} />
             </div>
             <table className="w-full relative border-separate" style={{ borderSpacing: "0 20px" }}>
 
@@ -126,8 +134,8 @@ function AddBookPage() {
 
                 <tbody>
                     {table.getRowModel().rows.map(row => <TableRow key={row.id}>
-                        {row.getVisibleCells().map(cell =>
-                            <td className="py-6" key={cell.id} width={cell.column.getSize()}>
+                        {row.getVisibleCells().map((cell, index) =>
+                            <td className="py-6" key={index} width={cell.column.getSize()}>
                                 {
                                     flexRender(
                                         cell.column.columnDef.cell,
