@@ -7,6 +7,7 @@ import SearchBar from "../../SearchBar/SearchBar"
 import AddBtn from "../../Buttons/AddBtn"
 import TableHeaderItem from "../../TableHeaderItem/TableHeaderItem"
 import Pagination from "../../Pagination/Pagination"
+import AuthorModal from "../../Modals/AuthorModal"
 
 
 
@@ -15,7 +16,8 @@ function AuthorPage() {
     const [data, setData] = useState([])
     const [columnFilters, setColumnFilters] = useState([])
     const authors = useFetch('/authors.json')
-    const [filtering , setFiltering] = useState("")
+    const [filtering, setFiltering] = useState("")
+    const [isModalOpen, setIsModalOpen] = useState(false)
 
 
 
@@ -79,18 +81,24 @@ function AuthorPage() {
 
     })
 
+    function openModal() {
+        setIsModalOpen(true)
+    }
+
+
 
     return (
         <>
+            {(isModalOpen) && <AuthorModal setIsModalOpen={setIsModalOpen} />}
             <div className="flex items-center justify-between px-4">
                 <SearchBar filtering={filtering} setFiltering={setFiltering} />
-                <AddBtn />
+                <AddBtn onClick={openModal} />
             </div>
-            <table className="w-full relative border-separate" style={{ borderSpacing: "0 20px" }}>
+            <table className="w-full relative border-separate" style={{ borderSpacing: "0 10px" }}>
 
                 <TableHeader>
                     {table.getHeaderGroups()[0].headers.map(header => {
-                          let filterList = data.map(obj => {
+                        let filterList = data.map(obj => {
                             return obj[header.id]
                         })
                         return <TableHeaderItem header={header} key={header.id} filterList={filterList} />

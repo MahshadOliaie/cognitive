@@ -7,7 +7,7 @@ function TableRow({ children }) {
         <>
             <tr className="bg-sand rounded-xl shadow-md text-center" >
                 {children}
-                <td className="py-4 gap-2 items-end" width={60}>
+                <td className="py-2 gap-1 items-end" width={60}>
                     <EditBtn />
                     <DeleteBtn />
                 </td>

@@ -61,10 +61,6 @@
         "scopeTitle": "string",
         "parentId": 0,
         "children": [
-            "string",
-            "string",
-            "string",
-            "string"
         ],
         "enable": true
     },

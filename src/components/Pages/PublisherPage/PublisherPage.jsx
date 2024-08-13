@@ -7,6 +7,7 @@ import SearchBar from "../../SearchBar/SearchBar"
 import AddBtn from "../../Buttons/AddBtn"
 import TableHeaderItem from "../../TableHeaderItem/TableHeaderItem"
 import Pagination from "../../Pagination/Pagination"
+import PublisherModal from "../../Modals/PublisherModal"
 
 
 function PublisherPage() {
@@ -14,6 +15,7 @@ function PublisherPage() {
     const publishers = useFetch('/publishers.json')
     const [columnFilters, setColumnFilters] = useState([])
     const [filtering, setFiltering] = useState("")
+    const [isModalOpen, setIsModalOpen] = useState(false)
 
 
     useEffect(() => {
@@ -66,13 +68,19 @@ function PublisherPage() {
     })
 
 
+    function openModal() {
+        setIsModalOpen(true)
+    }
+
+
     return (
         <>
+            {(isModalOpen) && <PublisherModal setIsModalOpen={setIsModalOpen} />}
             <div className="flex items-center justify-between px-4">
                 <SearchBar filtering={filtering} setFiltering={setFiltering} />
-                <AddBtn />
+                <AddBtn onClick={openModal} />
             </div>
-            <table className="w-full relative border-separate" style={{ borderSpacing: "0 20px" }}>
+            <table className="w-full relative border-separate" style={{ borderSpacing: "0 10px" }}>
                 <TableHeader>
                     {table.getHeaderGroups()[0].headers.map(header => {
                         let filterList = data.map(obj => {
