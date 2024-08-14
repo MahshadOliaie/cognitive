@@ -31,6 +31,11 @@ function PublisherPage() {
             cell: (props) => <p>{props.getValue()}</p>
         },
         {
+            accessorKey: "coverImage",
+            header: "عکس",
+            cell: (props) => <img src={props.getValue()} alt="" className="w-11 m-auto hover:scale-150 duration-500 cursor-pointer" />
+        },
+        {
             accessorKey: "name",
             header: "نام",
             cell: (props) => <p>{props.getValue()}</p>
@@ -49,6 +54,11 @@ function PublisherPage() {
                 let date = new Date(props.getValue()).toLocaleDateString()
                 return <p>{date}</p>
             }
+        },
+        {
+            accessorKey: "enable",
+            header: "وضعیت",
+            cell: (props) => <p>{(props.getValue()) ? "فعال" : "غیرفعال"}</p>
         },
 
     ]

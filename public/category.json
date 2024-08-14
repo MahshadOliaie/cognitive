@@ -2,96 +2,41 @@
     {
         "id": 1,
         "title": "string",
+        "coverImage": "string",
+        "fileKey": "string",
         "scopeId": 0,
-        "scopeTitle": "string",
-        "parentId": 0,
-        "children": [ 
-        ],
-        "enable": true
+        "enable": true,
+        "createdAt": "2024-08-08T10:19:49.912Z",
+        "updatedAt": "2024-08-08T10:19:49.912Z"
     },
     {
         "id": 2,
         "title": "string",
+        "coverImage": "string",
+        "fileKey": "string",
         "scopeId": 0,
-        "scopeTitle": "string",
-        "parentId": 0,
-        "children": [
-            "string",
-            "string",
-            "string"
-        ],
-        "enable": true
+        "enable": true,
+        "createdAt": "2024-08-14T17:35:18.316Z",
+        "updatedAt": "2024-08-14T17:35:18.316Z"
     },
     {
         "id": 3,
         "title": "string",
+        "coverImage": "string",
+        "fileKey": "string",
         "scopeId": 0,
-        "scopeTitle": "string",
-        "parentId": 0,
-        "children": [
-            "string"
-        ],
-        "enable": true
+        "enable": true,
+        "createdAt": "2024-08-14T17:35:18.316Z",
+        "updatedAt": "2024-08-14T17:35:18.316Z"
     },
     {
         "id": 4,
-        "title": "dkfgj",
-        "scopeId": 0,
-        "scopeTitle": "string",
-        "parentId": 0,
-        "children": [
-            "string"
-        ],
-        "enable": true
-    },
-    {
-        "id": 5,
         "title": "string",
+        "coverImage": "string",
+        "fileKey": "string",
         "scopeId": 0,
-        "scopeTitle": "string",
-        "parentId": 0,
-        "children": [
-        ],
-        "enable": true
-    },
-    {
-        "id": 6,
-        "title": "one",
-        "scopeId": 0,
-        "scopeTitle": "string",
-        "parentId": 0,
-        "children": [
-        ],
-        "enable": true
-    },
-    {
-        "id": 7,
-        "title": "two",
-        "scopeId": 0,
-        "scopeTitle": "string",
-        "parentId": 0,
-        "children": [
-        ],
-        "enable": true
-    },
-    {
-        "id": 8,
-        "title": "two",
-        "scopeId": 0,
-        "scopeTitle": "string",
-        "parentId": 0,
-        "children": [
-        ],
-        "enable": true
-    },
-    {
-        "id": 9,
-        "title": "two",
-        "scopeId": 0,
-        "scopeTitle": "string",
-        "parentId": 0,
-        "children": [
-        ],
-        "enable": true
+        "enable": true,
+        "createdAt": "2024-08-14T17:35:18.316Z",
+        "updatedAt": "2024-08-14T17:35:18.316Z"
     }
 ]

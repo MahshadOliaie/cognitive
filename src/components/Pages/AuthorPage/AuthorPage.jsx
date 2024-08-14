@@ -35,8 +35,13 @@ function AuthorPage() {
         {
             accessorKey: "id",
             header: "ID",
-            size: 50,
+            size: 40,
             cell: (props) => <p>{props.getValue()}</p>
+        },
+        {
+            accessorKey: "coverImage",
+            header: "عکس",
+            cell: (props) => <img src={props.getValue()} alt="" className="w-11 m-auto hover:scale-150 duration-500 cursor-pointer" />
         },
         {
             accessorKey: "firstName",
@@ -50,7 +55,7 @@ function AuthorPage() {
         },
         {
             accessorKey: "createAt",
-            header: "تاریخ ثبت",
+            header: "ثبت",
             cell: (props) => {
                 let date = new Date(props.getValue()).toLocaleDateString()
                 return <p>{date}</p>
@@ -62,6 +67,16 @@ function AuthorPage() {
                 let date = new Date(props.getValue()).toLocaleDateString()
                 return <p>{date}</p>
             }
+        },
+        {
+            accessorKey: "type",
+            header: "نوع",
+            cell: (props) => <p>{(props.getValue())}</p>
+        },
+        {
+            accessorKey: "enable",
+            header: "وضعیت",
+            cell: (props) => <p>{(props.getValue()) ? "فعال" : "غیرفعال"}</p>
         },
 
     ]

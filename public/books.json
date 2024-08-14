@@ -1,132 +1,88 @@
 [
   {
-    "id": 1,
-    "name": "kuhuklmn",
+    "id": 0,
+    "name": "string",
     "coverImage": "/4.jpg",
+    "file": "string",
+    "fileKey": "string",
     "description": "string",
-    "pageNumber": 200,
-    "publicationYear": 2002,
+    "pageNumber": 0,
+    "publicationYear": 0,
     "authors": [
       {
         "id": 0,
         "firstName": "string",
         "lastName": "string",
+        "coverImage": "string",
+        "fileKey": "string",
         "description": "string",
         "type": "WRITER",
         "enable": true,
-        "createAt": "2024-08-08T12:15:25.018Z",
-        "updateAt": "2024-08-08T12:15:25.018Z"
+        "createdAt": "2024-08-14T18:42:07.234Z",
+        "updatedAt": "2024-08-14T18:42:07.234Z"
       }
     ],
     "publisher": {
       "id": 0,
       "name": "string",
+      "coverImage": "string",
+      "fileKey": "string",
       "enable": true,
-      "createAt": "2024-08-08T12:15:25.018Z",
-      "updateAt": "2024-08-08T12:15:25.018Z"
+      "createdAt": "2024-08-14T18:42:07.234Z",
+      "updatedAt": "2024-08-14T18:42:07.234Z"
     },
     "category": {
       "id": 0,
       "title": "string",
+      "coverImage": "string",
+      "fileKey": "string",
       "scopeId": 0,
-      "scopeTitle": "string",
-      "parentId": 0,
-      "children": [
-        "string"
-      ],
-      "createAt": "2024-08-08T12:15:25.018Z",
-      "updateAt": "2024-08-08T12:15:25.018Z",
-      "enable": true
+      "enable": true,
+      "createdAt": "2024-08-14T18:42:07.234Z",
+      "updatedAt": "2024-08-14T18:42:07.234Z"
     },
     "feedbackStats": {
+      "modelType": 0,
       "modelId": 0,
-      "comment": {
-        "count": 0
+      "commentCount": 0,
+      "rating": {
+        "average": 0,
+        "total": 0,
+        "userScore": 0,
+        "result": {
+          "additionalProp1": {
+            "count": 0,
+            "percent": 0
+          },
+          "additionalProp2": {
+            "count": 0,
+            "percent": 0
+          },
+          "additionalProp3": {
+            "count": 0,
+            "percent": 0
+          }
+        }
       },
       "reaction": {
-        "LIKE": {
-          "count": 100,
+        "additionalProp1": {
+          "count": 0,
           "userReacted": true
         },
-        "DISLIKE": {
-          "count": 21,
+        "additionalProp2": {
+          "count": 0,
+          "userReacted": true
+        },
+        "additionalProp3": {
+          "count": 0,
           "userReacted": true
         }
       }
     },
     "publish": true,
-    "createAt": "2024-08-08T12:15:25.018Z",
-    "updateAt": "2024-08-08T12:15:25.018Z",
-    "public": true
-  },
-  {
-    "id": 2,
-    "name": "string",
-    "coverImage": "/4.jpg",
-    "description": "string",
-    "pageNumber": 200,
-    "publicationYear": 2002,
-    "authors": [
-      {
-        "id": 0,
-        "firstName": "name",
-        "lastName": "string",
-        "description": "string",
-        "type": "WRITER",
-        "enable": true,
-        "createAt": "2024-08-08T12:15:25.018Z",
-        "updateAt": "2024-08-08T12:15:25.018Z"
-      },
-      {
-        "id": 1,
-        "firstName": "dfkjl",
-        "lastName": "string",
-        "description": "string",
-        "type": "WRITER",
-        "enable": true,
-        "createAt": "2024-08-08T12:15:25.018Z",
-        "updateAt": "2024-08-08T12:15:25.018Z"
-      }
-    ],
-    "publisher": {
-      "id": 0,
-      "name": "name",
-      "enable": true,
-      "createAt": "2024-08-08T12:15:25.018Z",
-      "updateAt": "2024-08-08T12:15:25.018Z"
-    },
-    "category": {
-      "id": 0,
-      "title": "string",
-      "scopeId": 0,
-      "scopeTitle": "string",
-      "parentId": 0,
-      "children": [
-        "string"
-      ],
-      "createAt": "2024-08-08T12:15:25.018Z",
-      "updateAt": "2024-08-08T12:15:25.018Z",
-      "enable": true
-    },
-    "feedbackStats": {
-      "modelId": 0,
-      "comment": {
-        "count": 0
-      },
-      "reaction": {
-        "LIKE": {
-          "count": 50,
-          "userReacted": true
-        },
-        "DISLIKE": {
-          "count": 21,
-          "userReacted": true
-        }
-      }
-    },
-    "publish": false,
-    "createAt": "2024-08-08T12:15:25.018Z",
-    "updateAt": "2024-08-08T12:15:25.018Z",
+    "userId": 0,
+    "createdAt": "2024-08-14T18:42:07.234Z",
+    "updatedAt": "2024-08-14T18:42:07.234Z",
     "public": true
   }
 ]

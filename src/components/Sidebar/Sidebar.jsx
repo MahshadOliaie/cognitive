@@ -7,7 +7,6 @@ function Sidebar({ setTitle }) {
     let obj = {
         "/": "داشبورد",
         "/categories": "مدیریت کتگوری‌ها",
-        "/books": "لیست کتاب‌ها",
         "/addBook": "افزودن کتاب",
         "/publishers": "مدیریت ناشران",
         "/authors": "مدیریت نویسندگان",
@@ -29,7 +28,6 @@ function Sidebar({ setTitle }) {
                 </div>
                 <div className="flex flex-col items-center gap-8">
                     <h2 className="cursor-pointer font-medium hover:scale-105 duration-200 hover:duration-200" onClick={() => nav('/')} style={(location.pathname == ("/")) ? { backgroundColor: "#D1BAA7", color: "#101321", padding: "5px 20px", borderRadius: "1000px"} : {}}>داشبورد</h2>
-                    <h2 className="cursor-pointer font-medium hover:scale-105 duration-200 hover:duration-200" onClick={() => nav('/books')} style={(location.pathname == ("/books")) ? { backgroundColor: "#D1BAA7", color: "#101321", padding: "5px 20px", borderRadius: "1000px" } : {}}>لیست کتاب‌ها</h2>
                     <h2 className="cursor-pointer font-medium hover:scale-105 duration-200 hover:duration-200" onClick={() => nav('/addBook')} style={(location.pathname == ("/addBook")) ? { backgroundColor: "#D1BAA7", color: "#101321", padding: "5px 20px", borderRadius: "1000px" } : {}}>افزودن کتاب</h2>
                     <h2 className="cursor-pointer font-medium hover:scale-105 duration-200 hover:duration-200" onClick={() => nav('/categories')} style={(location.pathname == ("/categories")) ? { backgroundColor: "#D1BAA7", color: "#101321", padding: "5px 20px", borderRadius: "1000px" } : {}}>مدیریت کتگوری‌ها</h2>
                     <h2 className="cursor-pointer font-medium hover:scale-105 duration-200 hover:duration-200" onClick={() => nav('/authors')} style={(location.pathname == ("/authors")) ? { backgroundColor: "#D1BAA7", color: "#101321", padding: "5px 20px", borderRadius: "1000px" } : {}}>مدیریت نویسندگان</h2>

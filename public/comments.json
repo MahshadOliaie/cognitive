@@ -1,0 +1,62 @@
+[
+    {
+        "totalElements": 0,
+        "totalPages": 0,
+        "size": 0,
+        "content": [
+            {
+                "id": 0,
+                "text": "string",
+                "userName": "string",
+                "userImage": "string",
+                "fileKey": "string",
+                "modelType": {
+                    "id": 0,
+                    "title": "string"
+                },
+                "modelId": 0,
+                "publish": true,
+                "unPublishReason": "string",
+                "publishAt": "2024-08-14T18:19:28.880Z",
+                "createAt": "2024-08-14T18:19:28.880Z",
+                "updateAt": "2024-08-14T18:19:28.880Z",
+                "reaction": {
+                    "additionalProp1": {
+                        "count": 0,
+                        "userReacted": true
+                    },
+                    "additionalProp2": {
+                        "count": 0,
+                        "userReacted": true
+                    },
+                    "additionalProp3": {
+                        "count": 0,
+                        "userReacted": true
+                    }
+                }
+            }
+        ],
+        "number": 0,
+        "sort": {
+            "empty": true,
+            "sorted": true,
+            "unsorted": true
+        },
+        "pageable": {
+            "offset": 0,
+            "sort": {
+                "empty": true,
+                "sorted": true,
+                "unsorted": true
+            },
+            "pageNumber": 0,
+            "pageSize": 0,
+            "unpaged": true,
+            "paged": true
+        },
+        "first": true,
+        "last": true,
+        "numberOfElements": 0,
+        "empty": true
+    }
+]
