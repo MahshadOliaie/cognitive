@@ -18,6 +18,7 @@ function AuthorPage() {
     const authors = useFetch('/authors.json')
     const [filtering, setFiltering] = useState("")
     const [isModalOpen, setIsModalOpen] = useState(false)
+    const [editModal, setEditModal] = useState({})
 
 
 
@@ -104,7 +105,7 @@ function AuthorPage() {
 
     return (
         <>
-            {(isModalOpen) && <AuthorModal setIsModalOpen={setIsModalOpen} />}
+            {(isModalOpen) && <AuthorModal setIsModalOpen={setIsModalOpen} modalData={editModal} setEditModal={setEditModal}  />}
             <div className="flex items-center justify-between px-4">
                 <SearchBar filtering={filtering} setFiltering={setFiltering} />
                 <AddBtn onClick={openModal} />
@@ -122,7 +123,7 @@ function AuthorPage() {
 
                 <tbody>
                     {table.getRowModel().rows.map(row =>
-                        <TableRow key={row.id}>
+                        <TableRow key={row.id} modalData={row} setEditModal={setEditModal} openModal={openModal}>
                             {
                                 row.getVisibleCells().map(cell =>
                                     <td className="py-6" key={cell.id} width={cell.column.getSize()}>

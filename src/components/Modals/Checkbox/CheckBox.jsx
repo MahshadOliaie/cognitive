@@ -1,9 +1,9 @@
 import { useState } from "react"
 
 
-function CheckBox() {
+function CheckBox({ modalData }) {
 
-    const [isActive, setIsActive] = useState(false)
+    const [isActive, setIsActive] = useState(modalData)
 
     function handleClick() {
         setIsActive(prev => !prev)

@@ -2,10 +2,9 @@ import { useEffect, useState } from "react"
 import useFetch from "../../../hooks/useFetch"
 
 
-function CategoryInput() {
+function CategoryInput({ modalData }) {
     const [data, setData] = useState([])
     const categories = useFetch('/category.json')
-
 
     useEffect(() => {
         setData(categories)
@@ -21,7 +20,11 @@ function CategoryInput() {
             <div className="flex flex-col flex-1">
                 <label htmlFor="category" className="opacity-70 text-sm mb-1">ژانر</label>
                 <select className="p-2 rounded-md shadow-inner focus-visible:border-2 border-dark outline-none" name="category" id="category">
-                    <option value="default">انتخاب کنید</option>
+                    {(modalData.id) ?
+                        <option value={modalData.original.category.title}>{modalData.original.category.title}</option>
+                        :
+                        <option value="default">انتخاب کنید</option>
+                    }
                     {data.map(category => {
                         return <option value={category.id} key={category.id}>{category.title}</option>
                     })}

@@ -15,6 +15,7 @@ function AddBookPage() {
     const [columnFilters, setColumnFilters] = useState([])
     const [filtering, setFiltering] = useState("")
     const [isModalOpen, setIsModalOpen] = useState(false)
+    const [editModal, setEditModal] = useState({})
 
     const books = useFetch('/books.json')
 
@@ -100,7 +101,7 @@ function AddBookPage() {
         {
             accessorKey: "public",
             header: "دسترسی",
-            cell: (props) => <p>{(props.getValue())? "عمومی" : "خصوصی"}</p>
+            cell: (props) => <p>{(props.getValue()) ? "عمومی" : "خصوصی"}</p>
         },
         {
             accessorKey: "createdAt",
@@ -117,7 +118,7 @@ function AddBookPage() {
                 return <p>{date}</p>
             }
         },
-       
+
         // {
         //     accessorKey: "content feedbackStats",
         //     header: "",
@@ -151,7 +152,7 @@ function AddBookPage() {
 
     return (
         <>
-            {(isModalOpen) && <BookModal setIsModalOpen={setIsModalOpen} />}
+            {(isModalOpen) && <BookModal setIsModalOpen={setIsModalOpen} modalData={editModal} setEditModal={setEditModal} />}
             <div className="flex items-center justify-between px-4">
                 <SearchBar filtering={filtering} setFiltering={setFiltering} />
                 <AddBtn onClick={openModal} />
@@ -164,8 +165,8 @@ function AddBookPage() {
                     })}
                 </TableHeader>
 
-                <tbody style={{fontSize: "14px"}}>
-                    {table.getRowModel().rows.map(row => <TableRow key={row.id}>
+                <tbody style={{ fontSize: "14px" }}>
+                    {table.getRowModel().rows.map(row => <TableRow key={row.id} modalData={row} setEditModal={setEditModal} openModal={openModal} >
                         {row.getVisibleCells().map((cell, index) =>
                             <td className="py-2" key={index} width={cell.column.getSize()}>
                                 {
