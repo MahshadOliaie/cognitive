@@ -6,7 +6,7 @@ function AuthorsInput({ modalData }) {
     const [data, setData] = useState([])
     const authors = useFetch('/authors.json')
 
-console.log(modalData)
+
     useEffect(() => {
         setData(authors)
 
