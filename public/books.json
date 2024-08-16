@@ -65,11 +65,11 @@
         }
       },
       "reaction": {
-        "additionalProp1": {
+        "LIKE": {
           "count": 0,
           "userReacted": true
         },
-        "additionalProp2": {
+        "DISLIKE": {
           "count": 0,
           "userReacted": true
         },

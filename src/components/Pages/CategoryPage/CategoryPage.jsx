@@ -17,7 +17,7 @@ function CategoryPage() {
     const [editModal, setEditModal] = useState({})
 
 
-    const categoryData = useFetch('/category.json')
+    const categoryData = useFetch('https://cogcenter.ir/library/api/v1/categories')
 
     useEffect(() => {
 
