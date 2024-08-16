@@ -6,6 +6,7 @@ import EnableCheckbox from "./EnableCheckbox/EnableCheckbox"
 import AddDoneBtn from "./Btns/AddDoneBtn"
 import EditDoneBtn from "./Btns/EditDoneBtn"
 import { useForm } from "react-hook-form"
+import FileInput from "./FileInput/FileInput"
 
 
 function CategoryModal({ setIsModalOpen, modalData, setEditModal }) {
@@ -33,14 +34,31 @@ function CategoryModal({ setIsModalOpen, modalData, setEditModal }) {
         setEditModal({})
     }
 
+    register("id")
+    register("scopeId")
 
-    setValue("categoryEnable", enable)
+
+    setValue("enable", enable)
+    setValue("scopeId", 0)
+    setValue("id", (modalData.id) ? (modalData.original.id) : lastId + 1)
 
 
-    function submit(data) {
+
+    function putData(data) {
         console.log(data)
     }
 
+    async function postData(data) {
+        fetch('url', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        });
+        await setIsModalOpen(false)
+    }
 
 
     return (
@@ -51,17 +69,18 @@ function CategoryModal({ setIsModalOpen, modalData, setEditModal }) {
 
 
                     <form className="flex flex-col gap-6 py-5 pb-7" style={{ minWidth: "450px" }}>
+                        <FileInput modalData={modalData} register={register} />
                         <div className="flex flex-col flex-1">
                             <label htmlFor="name" className="opacity-70 text-sm mb-1">عنوان کتگوری</label>
-                            <input className="p-2 rounded-md shadow-inner focus-visible:border-2 border-dark outline-none" type="text" name="name" id="name" defaultValue={(modalData.id) && modalData.original.title} {...register("categoryTitle", {
+                            <input className="p-2 rounded-md shadow-inner focus-visible:border-2 border-dark outline-none" type="text" name="name" id="name" defaultValue={(modalData.id) && modalData.original.title} {...register("title", {
                                 required: "فیلد را پر کنید"
                             })} />
-                            {errors.categoryTitle && <p style={{ color: "red", fontSize: "12px" }}>{errors.categoryTitle.message}</p>}
+                            {errors.title && <p style={{ color: "red", fontSize: "12px" }}>{errors.title.message}</p>}
 
                         </div>
 
                         <div className="flex items-center gap-2">
-                            <EnableCheckbox enable={enable} setEnable={setEnable} {...register("categoryEnable")} />
+                            <EnableCheckbox enable={enable} setEnable={setEnable} {...register("enable")} />
                             <label htmlFor="enable" className="opacity-70 text-sm">فعال کردن</label>
                         </div>
                     </form>
@@ -69,9 +88,9 @@ function CategoryModal({ setIsModalOpen, modalData, setEditModal }) {
 
                     <div className="flex justify-between gap-5">
                         {(modalData.id) ?
-                            <EditDoneBtn onClick={handleSubmit(submit)} />
+                            <EditDoneBtn onClick={handleSubmit(putData)} />
                             :
-                            <AddDoneBtn onClick={handleSubmit(submit)} />
+                            <AddDoneBtn onClick={handleSubmit(postData)} />
                         }
                         <CancelBtn handleClose={handleClose} />
                     </div>

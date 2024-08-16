@@ -15,9 +15,9 @@ function BookModal({ setIsModalOpen, modalData, setEditModal }) {
     const [lastId, setLastId] = useState(0)
     const [isPublic, setIsPublic] = useState((modalData.id) ? modalData.original.public : false)
     const [isPublish, setIsPublish] = useState((modalData.id) ? modalData.original.publish : false)
-    const [categoryValue, setCategoryValue] = useState((modalData.id) ? modalData.original.category.title : "")
-    const [publisherValue, setPublisherValue] = useState((modalData.id) ? modalData.original.publisher.name : "")
-    const [authorValue, setAuthorValue] = useState((modalData.id) ? `${modalData.original.authors[0].firstName + modalData.original.authors[0].lastName}` : "")
+    const [categoryValue, setCategoryValue] = useState((modalData.id) ? modalData.original.category.id : "")
+    const [publisherValue, setPublisherValue] = useState((modalData.id) ? modalData.original.publisher.id : "")
+    const [authorValue, setAuthorValue] = useState((modalData.id) ? modalData.original.authors[0].id : "")
     const { register, handleSubmit, formState: { errors }, setValue } = useForm()
 
     const data = useFetch('/books.json')
@@ -47,16 +47,29 @@ function BookModal({ setIsModalOpen, modalData, setEditModal }) {
         setIsPublish((prev) => !prev)
     }
 
-    function submit(data) {
+    function putData(data) {
         console.log(data)
     }
 
-    setValue("bookCategory", categoryValue)
-    setValue("bookAuthor", authorValue)
-    setValue("bookPublisher", publisherValue)
-    setValue("publishBook", isPublish)
-    setValue("publicBook", isPublic)
+    async function postData(data) {
+        fetch('url', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        });
+        await setIsModalOpen(false)
+    }
 
+    setValue("categoryId", categoryValue)
+    setValue("authorIds", authorValue)
+    setValue("publisherId", publisherValue)
+    setValue("publish", isPublish)
+    setValue("public", isPublic)
+    setValue("id", (modalData.id) ? (modalData.original.id) : lastId + 1)
+    register("id")
 
 
 
@@ -72,7 +85,7 @@ function BookModal({ setIsModalOpen, modalData, setEditModal }) {
                         <div className="flex flex-col flex-1">
                             <label htmlFor="name" className="opacity-70 text-sm mb-1">نام کتاب</label>
                             <input className="p-2 rounded-md shadow-inner focus-visible:border-2 border-dark outline-none" type="text" name="name" id="name" defaultValue={(modalData.id) && modalData.original.name}
-                                {...register("bookName", {
+                                {...register("name", {
                                     required: "فیلد را پر کنید"
                                 })} />
                             {errors.bookName && <p style={{ color: "red", fontSize: "12px" }}>{errors.bookName.message}</p>}
@@ -83,46 +96,46 @@ function BookModal({ setIsModalOpen, modalData, setEditModal }) {
                         <div className="flex flex-col flex-1">
                             <label htmlFor="pages" className="opacity-70 text-sm mb-1">تعداد صفحات</label>
                             <input className="p-2 rounded-md shadow-inner focus-visible:border-2 border-dark outline-none" type="number" name="pages" id="pages" defaultValue={(modalData.id) && modalData.original.pageNumber}
-                                {...register("bookPages", {
+                                {...register("pageNumber", {
                                     required: "فیلد را پر کنید"
                                 })} />
-                            {errors.bookPages && <p style={{ color: "red", fontSize: "12px" }}>{errors.bookPages.message}</p>}
+                            {errors.pageNumber && <p style={{ color: "red", fontSize: "12px" }}>{errors.pageNumber.message}</p>}
 
                         </div>
 
                         <div className="flex flex-col flex-1">
-                            <CategoryInput modalData={modalData} setCategoryValue={setCategoryValue} {...register("bookCategory", {
+                            <CategoryInput modalData={modalData} setCategoryValue={setCategoryValue} {...register("categoryId", {
                                 required: "انتخاب کنید"
                             })} />
-                            {errors.bookCategory && <p style={{ color: "red", fontSize: "12px" }}>{errors.bookCategory.message}</p>}
+                            {errors.categoryId && <p style={{ color: "red", fontSize: "12px" }}>{errors.categoryId.message}</p>}
                         </div>
 
                     </div>
 
                     <div className="flex flex-col flex-1">
-                        <AuthorsInput modalData={modalData} setAuthorValue={setAuthorValue} {...register("bookAuthor", {
+                        <AuthorsInput modalData={modalData} setAuthorValue={setAuthorValue} {...register("authorIds", {
                             required: "انتخاب کنید"
                         })} />
-                        {errors.bookAuthor && <p style={{ color: "red", fontSize: "12px" }}>{errors.bookAuthor.message}</p>}
+                        {errors.authorIds && <p style={{ color: "red", fontSize: "12px" }}>{errors.authorIds.message}</p>}
                     </div>
 
                     <div className="flex justify-between gap-5">
 
                         <div className="flex flex-col flex-1">
-                            <PublishersInput modalData={modalData} setPublisherValue={setPublisherValue} {...register("bookPublisher", {
+                            <PublishersInput modalData={modalData} setPublisherValue={setPublisherValue} {...register("publisherId", {
                                 required: "انتخاب کنید"
                             })} />
-                            {errors.bookPublisher && <p style={{ color: "red", fontSize: "12px" }}>{errors.bookPublisher.message}</p>}
+                            {errors.publisherId && <p style={{ color: "red", fontSize: "12px" }}>{errors.publisherId.message}</p>}
 
                         </div>
 
                         <div className="flex flex-col flex-1">
                             <label htmlFor="year" className="opacity-70 text-sm mb-1">سال انتشار</label>
                             <input className="p-2 rounded-md shadow-inner focus-visible:border-2 border-dark outline-none" type="number" name="year" id="year" defaultValue={(modalData.id) && modalData.original.publicationYear}
-                                {...register("publishYear", {
+                                {...register("publicationYear", {
                                     required: "فیلد را پر کنید"
                                 })} />
-                            {errors.publishYear && <p style={{ color: "red", fontSize: "12px" }}>{errors.publishYear.message}</p>}
+                            {errors.publicationYear && <p style={{ color: "red", fontSize: "12px" }}>{errors.publicationYear.message}</p>}
 
                         </div>
 
@@ -131,27 +144,27 @@ function BookModal({ setIsModalOpen, modalData, setEditModal }) {
                     <div className="flex flex-col">
                         <label htmlFor="desc" className="opacity-70 text-sm mb-1">توضیحات</label>
                         <input className="p-4 rounded-md shadow-inner focus-visible:border-2 border-dark outline-none" type="text" name="desc" id="desc" defaultValue={(modalData.id) && modalData.original.description}
-                            {...register("bookDesc")} />
+                            {...register("description")} />
                     </div>
 
                     <div className="flex justify-between px-5 pb-5">
                         <div className="flex items-center gap-2">
                             <label htmlFor="publish" className="opacity-70 text-sm mb-1"> منتشر کردن</label>
-                            <CheckBox isActive={isPublish} onClick={handlePublish} {...register("publishBook")} />
+                            <CheckBox isActive={isPublish} onClick={handlePublish} {...register("publish")} />
 
                         </div>
                         <div className="flex items-center gap-2">
                             <label htmlFor="public" className="opacity-70 text-sm mb-1">عمومی</label>
-                            <CheckBox isActive={isPublic} onClick={handlePublicity} {...register("publicBook")} />
+                            <CheckBox isActive={isPublic} onClick={handlePublicity} {...register("public")} />
                         </div>
                     </div>
                 </form>
 
                 <div className="flex justify-between gap-5">
                     {(modalData.id) ?
-                        <EditDoneBtn onClick={handleSubmit(submit)} />
+                        <EditDoneBtn onClick={handleSubmit(putData)} />
                         :
-                        <AddDoneBtn onClick={handleSubmit(submit)} />
+                        <AddDoneBtn onClick={handleSubmit(postData)} />
                     }
                     <CancelBtn handleClose={handleClose} />
                 </div>

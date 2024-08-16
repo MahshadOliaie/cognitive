@@ -1,5 +1,5 @@
 
-import { useEffect, useState } from "react"
+import { useState } from "react"
 
 
 function FileInput({ modalData, register }) {
@@ -19,7 +19,7 @@ function FileInput({ modalData, register }) {
                     :
                     <label htmlFor="image" className="cursor-pointer opacity-70 text-sm p-5">انتخاب عکس</label>
                 }
-                <input type="file" name="image" id="image" accept="image/png, image/jpeg, image/jpg" style={{ display: "none" }}{...register("bookImage")} onChange={handleChange} />
+                <input type="file" name="image" id="image" accept="image/png, image/jpeg, image/jpg" style={{ display: "none" }}{...register("coverImage")} onChange={handleChange} />
             </div>
 
         </>
