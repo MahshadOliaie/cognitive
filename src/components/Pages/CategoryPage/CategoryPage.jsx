@@ -8,6 +8,7 @@ import TableHeaderItem from "../../TableHeaderItem/TableHeaderItem"
 import TableRow from "../../TableRow/TableRow"
 import Pagination from "../../Pagination/Pagination"
 import TableHeader from "../../TableHeader/TableHeader"
+import Filter from "../../Filter/Filter"
 
 
 function CategoryPage() {
@@ -17,7 +18,7 @@ function CategoryPage() {
     const [editModal, setEditModal] = useState({})
 
 
-    const categoryData = useFetch('https://cogcenter.ir/library/api/v1/categories')
+    const categoryData = useFetch('/category.json')
 
     useEffect(() => {
 
@@ -89,18 +90,18 @@ function CategoryPage() {
 
     return (
         <>
-            {(isModalOpen) && <CategoryModal setIsModalOpen={setIsModalOpen} modalData={editModal} setEditModal={setEditModal}  />}
+            {(isModalOpen) && <CategoryModal setIsModalOpen={setIsModalOpen} modalData={editModal} setEditModal={setEditModal} />}
             <div className="flex items-center justify-between px-4">
-                <SearchBar filtering={filtering} setFiltering={setFiltering} />
+                <div className="flex items-center gap-4">
+                    <Filter title={"عنوان کتگوری"} totalData={data} filterTitle={"title"} />
+                    <Filter title={"وضعیت"} totalData={data} filterTitle={"enable"} />
+                </div>
                 <AddBtn onClick={openModal} />
             </div>
             <table className="w-full relative border-separate" style={{ borderSpacing: "0 10px" }}>
                 <TableHeader>
                     {table.getHeaderGroups()[0].headers.map(header => {
-                        let filterList = data.map(obj => {
-                            return obj[header.id]
-                        })
-                        return <TableHeaderItem header={header} key={header.id} filterList={filterList} />
+                        return <TableHeaderItem header={header} key={header.id} />
                     })}
                 </TableHeader>
 

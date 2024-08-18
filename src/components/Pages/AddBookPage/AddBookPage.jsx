@@ -3,16 +3,15 @@ import { flexRender, getCoreRowModel, getFilteredRowModel, getPaginationRowModel
 import { useEffect, useState } from "react"
 import TableHeader from "../../TableHeader/TableHeader"
 import TableRow from "../../TableRow/TableRow"
-import SearchBar from "../../SearchBar/SearchBar"
 import AddBtn from "../../Buttons/AddBtn"
 import TableHeaderItem from "../../TableHeaderItem/TableHeaderItem"
 import Pagination from "../../Pagination/Pagination"
 import useFetch from "../../../hooks/useFetch"
 import BookModal from "../../Modals/BookModal"
+import Filter from "../../Filter/Filter"
 
 function AddBookPage() {
     const [data, setData] = useState([])
-    const [columnFilters, setColumnFilters] = useState([])
     const [filtering, setFiltering] = useState("")
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [editModal, setEditModal] = useState({})
@@ -137,7 +136,6 @@ function AddBookPage() {
         data,
         columns,
         state: {
-            columnFilters,
             globalFilter: filtering,
         },
         getFilteredRowModel: getFilteredRowModel(),
@@ -147,20 +145,34 @@ function AddBookPage() {
 
     })
 
+    let authorsFullName = []
+    data.map(book => {
+        book.authors.map(author => {
+            authorsFullName.push({ "fullName": author.firstName + " " + author.lastName })
+        })
+    })
 
+    let genres = data.map(book => {
+        return book.category
+    })
 
     return (
         <>
             {(isModalOpen) && <BookModal setIsModalOpen={setIsModalOpen} modalData={editModal} setEditModal={setEditModal} />}
             <div className="flex items-center justify-between px-4">
-                <SearchBar filtering={filtering} setFiltering={setFiltering} />
+                <div className="flex items-center gap-4">
+                    <Filter title={"نام کتاب"} totalData={data} filterTitle={"name"} />
+                    <Filter title={"نام نویسنده"} totalData={authorsFullName} filterTitle={"fullName"} />
+                    <Filter title={"ژانر"} totalData={genres} filterTitle={"title"} />
+                    <Filter title={"سال انتشار"} totalData={data} filterTitle={"publicationYear"} />
+                </div>
                 <AddBtn onClick={openModal} />
             </div>
             <table className="w-full relative border-separate" style={{ borderSpacing: "0 10px" }}>
 
                 <TableHeader>
                     {table.getHeaderGroups()[0].headers.map(header => {
-                        return <TableHeaderItem header={header} key={header.id} columnFilters={columnFilters} setColumnFilters={setColumnFilters} />
+                        return <TableHeaderItem header={header} key={header.id} />
                     })}
                 </TableHeader>
 

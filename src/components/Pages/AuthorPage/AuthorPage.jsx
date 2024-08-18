@@ -8,13 +8,13 @@ import AddBtn from "../../Buttons/AddBtn"
 import TableHeaderItem from "../../TableHeaderItem/TableHeaderItem"
 import Pagination from "../../Pagination/Pagination"
 import AuthorModal from "../../Modals/AuthorModal"
+import Filter from "../../Filter/Filter"
 
 
 
 function AuthorPage() {
 
     const [data, setData] = useState([])
-    const [columnFilters, setColumnFilters] = useState([])
     const authors = useFetch('/authors.json')
     const [filtering, setFiltering] = useState("")
     const [isModalOpen, setIsModalOpen] = useState(false)
@@ -86,7 +86,6 @@ function AuthorPage() {
         data,
         columns,
         state: {
-            columnFilters,
             globalFilter: filtering,
         },
         getFilteredRowModel: getFilteredRowModel(),
@@ -101,23 +100,27 @@ function AuthorPage() {
         setIsModalOpen(true)
     }
 
+    let authorsFullName = data.map(author => {
+        return { "fullName" : author.firstName + " " + author.lastName}
+    })
 
 
     return (
         <>
-            {(isModalOpen) && <AuthorModal setIsModalOpen={setIsModalOpen} modalData={editModal} setEditModal={setEditModal}  />}
+            {(isModalOpen) && <AuthorModal setIsModalOpen={setIsModalOpen} modalData={editModal} setEditModal={setEditModal} />}
             <div className="flex items-center justify-between px-4">
-                <SearchBar filtering={filtering} setFiltering={setFiltering} />
+                <div className="flex items-center gap-4">
+                    <Filter title={"نام نویسنده"} totalData={authorsFullName} filterTitle={"fullName"} />
+                    <Filter title={"نوع نویسنده"} totalData={data} filterTitle={"type"} />
+                    <Filter title={"وضعیت"} totalData={data} filterTitle={"enable"} />
+                </div>
                 <AddBtn onClick={openModal} />
             </div>
             <table className="w-full relative border-separate" style={{ borderSpacing: "0 10px" }}>
 
                 <TableHeader>
                     {table.getHeaderGroups()[0].headers.map(header => {
-                        let filterList = data.map(obj => {
-                            return obj[header.id]
-                        })
-                        return <TableHeaderItem header={header} key={header.id} filterList={filterList} />
+                        return <TableHeaderItem header={header} key={header.id} />
                     })}
                 </TableHeader>
 

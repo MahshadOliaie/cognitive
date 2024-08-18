@@ -8,12 +8,12 @@ import AddBtn from "../../Buttons/AddBtn"
 import TableHeaderItem from "../../TableHeaderItem/TableHeaderItem"
 import Pagination from "../../Pagination/Pagination"
 import PublisherModal from "../../Modals/PublisherModal"
+import Filter from "../../Filter/Filter"
 
 
 function PublisherPage() {
     const [data, setData] = useState([])
     const publishers = useFetch('/publishers.json')
-    const [columnFilters, setColumnFilters] = useState([])
     const [filtering, setFiltering] = useState("")
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [editModal, setEditModal] = useState({})
@@ -70,7 +70,6 @@ function PublisherPage() {
         data,
         columns,
         state: {
-            columnFilters,
             globalFilter: filtering,
         },
         getFilteredRowModel: getFilteredRowModel(),
@@ -87,18 +86,18 @@ function PublisherPage() {
 
     return (
         <>
-            {(isModalOpen) && <PublisherModal setIsModalOpen={setIsModalOpen} modalData={editModal} setEditModal={setEditModal}  />}
+            {(isModalOpen) && <PublisherModal setIsModalOpen={setIsModalOpen} modalData={editModal} setEditModal={setEditModal} />}
             <div className="flex items-center justify-between px-4">
-                <SearchBar filtering={filtering} setFiltering={setFiltering} />
+                <div className="flex items-center gap-4">
+                    <Filter title={"نام ناشر"} totalData={data} filterTitle={"name"} />
+                    <Filter title={"وضعیت"} totalData={data} filterTitle={"enable"} />
+                </div>
                 <AddBtn onClick={openModal} />
             </div>
             <table className="w-full relative border-separate" style={{ borderSpacing: "0 10px" }}>
                 <TableHeader>
                     {table.getHeaderGroups()[0].headers.map(header => {
-                        let filterList = data.map(obj => {
-                            return obj[header.id]
-                        })
-                        return <TableHeaderItem header={header} key={header.id} filterList={filterList} />
+                        return <TableHeaderItem header={header} key={header.id} />
                     })}
                 </TableHeader>
 
