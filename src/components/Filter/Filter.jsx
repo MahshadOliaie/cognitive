@@ -1,11 +1,19 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import arrowDown from '/arrowUp.svg'
 import FilterItems from './FilterItems'
 
 function Filter({ title, totalData, filterTitle }) {
     const [isListOpen, setIsListOpen] = useState(false)
-
+    const ref = useRef()
     let itemsArray = []
+
+    useEffect(() => {
+        document.addEventListener("click", () => {
+            if (!ref.current.contains(event.target)) {
+                handleClose()
+            }
+        })
+    }, [])
 
     function handleOpen() {
         setIsListOpen(true)
@@ -15,9 +23,11 @@ function Filter({ title, totalData, filterTitle }) {
         setIsListOpen(false)
     }
 
+
+
     return (
-        <div className='relative'>
-            <div className='flex justify-between py-1.5 px-4 pl-2 shadow-sm rounded-xl bg-sand items-center cursor-pointer' style={{ border: "0.8px solid gray" }} onFocus={handleOpen} onBlur={handleClose} >
+        <div className='relative' ref={ref} onClick={handleOpen}>
+            <div className='flex justify-between py-1.5 px-4 pl-2 shadow-sm rounded-xl bg-sand items-center cursor-pointer' style={{ border: "0.8px solid gray" }}>
                 <input type="text" name='filter' placeholder={title} className='focus-visible:outline-none  focus-visible:border-0 cursor-pointer w-32' />
                 <img src={arrowDown} alt="" className='w-3' />
             </div>
