@@ -79,11 +79,11 @@
         }
       }
     },
-    "publish": true,
+    "publish": false,
     "userId": 0,
     "createdAt": "2024-08-14T18:42:07.234Z",
     "updatedAt": "2024-08-14T18:42:07.234Z",
-    "public": true
+    "public": false
   },
   {
     "id": 2,
@@ -108,7 +108,7 @@
         "updatedAt": "2024-08-14T18:42:07.234Z"
       },
       {
-        "id": 0,
+        "id": 1,
         "firstName": "sdfijvn",
         "lastName": "akdfjn",
         "coverImage": "string",

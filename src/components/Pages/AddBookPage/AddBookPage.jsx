@@ -159,12 +159,15 @@ function AddBookPage() {
     return (
         <>
             {(isModalOpen) && <BookModal setIsModalOpen={setIsModalOpen} modalData={editModal} setEditModal={setEditModal} />}
-            <div className="flex items-center justify-between px-4">
-                <div className="flex items-center gap-4">
+            <div className="flex justify-between px-4">
+                <div className="flex items-center gap-4 flex-wrap max-w-5xl">
                     <Filter title={"نام کتاب"} totalData={data} filterTitle={"name"} />
                     <Filter title={"نام نویسنده"} totalData={authorsFullName} filterTitle={"fullName"} />
                     <Filter title={"ژانر"} totalData={genres} filterTitle={"title"} />
                     <Filter title={"سال انتشار"} totalData={data} filterTitle={"publicationYear"} />
+                    <Filter title={"وضعیت انتشار"} totalData={data} filterTitle={"publish"} />
+                    <Filter title={"سطح دسترسی"} totalData={data} filterTitle={"public"} />
+
                 </div>
                 <AddBtn onClick={openModal} />
             </div>
