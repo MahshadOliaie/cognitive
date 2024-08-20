@@ -16,13 +16,20 @@ function CategoryPage() {
     const [filtering, setFiltering] = useState("")
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [editModal, setEditModal] = useState({})
+    const [filteredList, setFilteredList] = useState({
+        "title": [],
+        "enable": []
+    })
 
 
-    const categoryData = useFetch('/category.json')
+    const categoryData = useFetch('https://cogcenter.ir/library/api/v1/categories')
+    // const categoryData = useFetch('/category.json')
+
 
     useEffect(() => {
 
         setData(categoryData)
+        console.log(categoryData)
 
         return () => {
 
@@ -93,8 +100,8 @@ function CategoryPage() {
             {(isModalOpen) && <CategoryModal setIsModalOpen={setIsModalOpen} modalData={editModal} setEditModal={setEditModal} />}
             <div className="flex items-center justify-between px-4">
                 <div className="flex items-center gap-4">
-                    <Filter title={"عنوان کتگوری"} totalData={data} filterTitle={"title"} />
-                    <Filter title={"وضعیت"} totalData={data} filterTitle={"enable"} />
+                    <Filter title={"عنوان کتگوری"} totalData={data} filterTitle={"title"} filteredList={filteredList} setFilteredList={setFilteredList} />
+                    <Filter title={"وضعیت"} totalData={data} filterTitle={"enable"} filteredList={filteredList} setFilteredList={setFilteredList} />
                 </div>
                 <AddBtn onClick={openModal} />
             </div>

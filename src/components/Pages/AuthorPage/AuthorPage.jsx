@@ -3,7 +3,6 @@ import { useEffect, useState } from "react"
 import useFetch from "../../../hooks/useFetch"
 import TableHeader from "../../TableHeader/TableHeader"
 import TableRow from "../../TableRow/TableRow"
-import SearchBar from "../../SearchBar/SearchBar"
 import AddBtn from "../../Buttons/AddBtn"
 import TableHeaderItem from "../../TableHeaderItem/TableHeaderItem"
 import Pagination from "../../Pagination/Pagination"
@@ -19,6 +18,11 @@ function AuthorPage() {
     const [filtering, setFiltering] = useState("")
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [editModal, setEditModal] = useState({})
+    const [filteredList, setFilteredList] = useState({
+        "fullName": [],
+        "enable": [],
+        "type": [],
+    })
 
 
 
@@ -110,9 +114,9 @@ function AuthorPage() {
             {(isModalOpen) && <AuthorModal setIsModalOpen={setIsModalOpen} modalData={editModal} setEditModal={setEditModal} />}
             <div className="flex items-center justify-between px-4">
                 <div className="flex items-center gap-4">
-                    <Filter title={"نام نویسنده"} totalData={authorsFullName} filterTitle={"fullName"} />
-                    <Filter title={"نوع نویسنده"} totalData={data} filterTitle={"type"} />
-                    <Filter title={"وضعیت"} totalData={data} filterTitle={"enable"} />
+                    <Filter title={"نام نویسنده"} totalData={authorsFullName} filterTitle={"fullName"} filteredList={filteredList} setFilteredList={setFilteredList} />
+                    <Filter title={"نوع نویسنده"} totalData={data} filterTitle={"type"} filteredList={filteredList} setFilteredList={setFilteredList} />
+                    <Filter title={"وضعیت"} totalData={data} filterTitle={"enable"} filteredList={filteredList} setFilteredList={setFilteredList} />
                 </div>
                 <AddBtn onClick={openModal} />
             </div>

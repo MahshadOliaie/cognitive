@@ -17,6 +17,10 @@ function PublisherPage() {
     const [filtering, setFiltering] = useState("")
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [editModal, setEditModal] = useState({})
+    const [filteredList, setFilteredList] = useState({
+        "name": [],
+        "enable": []
+    })
 
 
 
@@ -89,8 +93,8 @@ function PublisherPage() {
             {(isModalOpen) && <PublisherModal setIsModalOpen={setIsModalOpen} modalData={editModal} setEditModal={setEditModal} />}
             <div className="flex items-center justify-between px-4">
                 <div className="flex items-center gap-4">
-                    <Filter title={"نام ناشر"} totalData={data} filterTitle={"name"} />
-                    <Filter title={"وضعیت"} totalData={data} filterTitle={"enable"} />
+                    <Filter title={"نام ناشر"} totalData={data} filterTitle={"name"} filteredList={filteredList} setFilteredList={setFilteredList} />
+                    <Filter title={"وضعیت"} totalData={data} filterTitle={"enable"} filteredList={filteredList} setFilteredList={setFilteredList} />
                 </div>
                 <AddBtn onClick={openModal} />
             </div>

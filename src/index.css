@@ -14,17 +14,17 @@ body {
 
 @font-face {
     font-family: vazir;
-    src: url('/public/fonts/vazir-font-v16.1.0/Vazir.ttf');
+    src: url('/fonts/vazir-font-v16.1.0/Vazir.ttf');
 }
 
 @font-face {
     font-family: vazirBold;
-    src: url('/public/fonts/vazir-font-v16.1.0/Vazir-Bold.ttf');
+    src: url('/fonts/vazir-font-v16.1.0/Vazir-Bold.ttf');
 }
 
 @font-face {
     font-family: vazirMedium;
-    src: url('/public/fonts/vazir-font-v16.1.0/Vazir-Medium.ttf');
+    src: url('/fonts/vazir-font-v16.1.0/Vazir-Medium.ttf');
 }
 
 .font-bold{
