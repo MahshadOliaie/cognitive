@@ -13,7 +13,6 @@ function AuthorModal({ setIsModalOpen, modalData, setEditModal }) {
     const [lastId, setLastId] = useState([])
     const data = useFetch('/publishers.json')
     const [enable, setEnable] = useState((modalData.id) ? modalData.original.enable : false)
-    const [isTranslator, setIsTranslator] = useState((modalData.id) ? (modalData.original.type === "WRITER") ? false : true : false)
     const { register, handleSubmit, formState: { errors }, setValue } = useForm()
 
     useEffect(() => {
@@ -50,7 +49,6 @@ function AuthorModal({ setIsModalOpen, modalData, setEditModal }) {
     }
 
     setValue("enable", enable)
-    setValue("type", (isTranslator) ? "TRANSLATOR" : "WRITER")
     setValue("id", (modalData.id) ? (modalData.original.id) : lastId + 1)
     register("id")
 
@@ -90,10 +88,6 @@ function AuthorModal({ setIsModalOpen, modalData, setEditModal }) {
                             <div className="flex items-center gap-2">
                                 <EnableCheckbox enable={enable} setEnable={setEnable} {...register("enable")} />
                                 <label htmlFor="enable" className="opacity-70 text-sm">فعال </label>
-                            </div>
-                            <div className="flex items-center gap-2">
-                                <EnableCheckbox enable={isTranslator} setEnable={setIsTranslator} {...register("type")} />
-                                <label htmlFor="translator" className="opacity-70 text-sm">مترجم است</label>
                             </div>
                         </div>
 

@@ -23,7 +23,6 @@ function CategoryPage() {
 
 
     const categoryData = useFetch('https://cogcenter.ir/library/api/v1/categories')
-    // const categoryData = useFetch('/category.json')
 
 
     useEffect(() => {

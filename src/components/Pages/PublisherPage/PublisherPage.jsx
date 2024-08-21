@@ -3,7 +3,6 @@ import useFetch from "../../../hooks/useFetch"
 import { flexRender, getCoreRowModel, getFilteredRowModel, getPaginationRowModel, useReactTable } from "@tanstack/react-table"
 import TableHeader from "../../TableHeader/TableHeader"
 import TableRow from "../../TableRow/TableRow"
-import SearchBar from "../../SearchBar/SearchBar"
 import AddBtn from "../../Buttons/AddBtn"
 import TableHeaderItem from "../../TableHeaderItem/TableHeaderItem"
 import Pagination from "../../Pagination/Pagination"
@@ -13,7 +12,7 @@ import Filter from "../../Filter/Filter"
 
 function PublisherPage() {
     const [data, setData] = useState([])
-    const publishers = useFetch('/publishers.json')
+    const publishers = useFetch('https://cogcenter.ir/library/api/v1/publishers?page=0&size=10&sort=')
     const [filtering, setFiltering] = useState("")
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [editModal, setEditModal] = useState({})
@@ -25,7 +24,9 @@ function PublisherPage() {
 
 
     useEffect(() => {
-        setData(publishers)
+        setData(publishers.content)
+        console.log(publishers.content)
+       
     }, [publishers])
 
 
@@ -47,14 +48,14 @@ function PublisherPage() {
             cell: (props) => <p>{props.getValue()}</p>
         },
         {
-            accessorKey: "createAt",
+            accessorKey: "createdAt",
             header: "تاریخ ثبت",
             cell: (props) => {
                 let date = new Date(props.getValue()).toLocaleDateString()
                 return <p>{date}</p>
             }
         }, {
-            accessorKey: "updateAt",
+            accessorKey: "updatedAt",
             header: "آخرین ویرایش",
             cell: (props) => {
                 let date = new Date(props.getValue()).toLocaleDateString()

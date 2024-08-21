@@ -38,7 +38,7 @@ function Filter({ title, totalData, filterTitle ,filteredList , setFilteredList 
 
     function handleChange() {
         let value = event.target.value
-        let newFilter = totalData.filter(item => item[filterTitle].startsWith(value))
+        let newFilter = totalData?.filter(item => item[filterTitle].startsWith(value))
         setFilteredData(newFilter)
         itemsArray = []
     }
@@ -52,7 +52,7 @@ function Filter({ title, totalData, filterTitle ,filteredList , setFilteredList 
             </div>
 
             <div className='p-5 pr-3 bg-sand rounded-md shadow-md flex flex-col gap-3 absolute z-10 left-0 min-w-full max-h-52 overflow-scroll' style={(!isListOpen) ? { display: "none" } : {}}>
-                {((filteredData) ? filteredData : totalData).map((item, index) => {
+                {((filteredData) ? filteredData : totalData)?.map((item, index) => {
                     if (!itemsArray.includes(item[filterTitle])) {
                         itemsArray.push(item[filterTitle])
                         return <FilterItems key={index} title={item[filterTitle]} filterTitle={filterTitle} filteredList={filteredList} setFilteredList={setFilteredList} />

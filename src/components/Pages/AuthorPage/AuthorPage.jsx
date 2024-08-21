@@ -14,23 +14,21 @@ import Filter from "../../Filter/Filter"
 function AuthorPage() {
 
     const [data, setData] = useState([])
-    const authors = useFetch('/authors.json')
     const [filtering, setFiltering] = useState("")
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [editModal, setEditModal] = useState({})
     const [filteredList, setFilteredList] = useState({
         "fullName": [],
         "enable": [],
-        "type": [],
     })
 
 
+    const authors = useFetch('https://cogcenter.ir/library/api/v1/authors?page=0&size=10&sort=')
 
     useEffect(() => {
-        setData(authors)
-
+        setData(authors.content)
+        
         return () => {
-
         }
 
     }, [authors])
@@ -59,24 +57,19 @@ function AuthorPage() {
             cell: (props) => <p>{props.getValue()}</p>
         },
         {
-            accessorKey: "createAt",
+            accessorKey: "createdAt",
             header: "ثبت",
             cell: (props) => {
                 let date = new Date(props.getValue()).toLocaleDateString()
                 return <p>{date}</p>
             }
         }, {
-            accessorKey: "updateAt",
+            accessorKey: "updatedAt",
             header: "آخرین ویرایش",
             cell: (props) => {
                 let date = new Date(props.getValue()).toLocaleDateString()
                 return <p>{date}</p>
             }
-        },
-        {
-            accessorKey: "type",
-            header: "نوع",
-            cell: (props) => <p>{(props.getValue())}</p>
         },
         {
             accessorKey: "enable",
@@ -104,8 +97,8 @@ function AuthorPage() {
         setIsModalOpen(true)
     }
 
-    let authorsFullName = data.map(author => {
-        return { "fullName" : author.firstName + " " + author.lastName}
+    let authorsFullName = data?.map(author => {
+        return { "fullName": author.firstName + " " + author.lastName }
     })
 
 
@@ -115,7 +108,6 @@ function AuthorPage() {
             <div className="flex items-center justify-between px-4">
                 <div className="flex items-center gap-4">
                     <Filter title={"نام نویسنده"} totalData={authorsFullName} filterTitle={"fullName"} filteredList={filteredList} setFilteredList={setFilteredList} />
-                    <Filter title={"نوع نویسنده"} totalData={data} filterTitle={"type"} filteredList={filteredList} setFilteredList={setFilteredList} />
                     <Filter title={"وضعیت"} totalData={data} filterTitle={"enable"} filteredList={filteredList} setFilteredList={setFilteredList} />
                 </div>
                 <AddBtn onClick={openModal} />
