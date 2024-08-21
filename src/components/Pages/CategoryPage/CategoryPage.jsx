@@ -58,14 +58,14 @@ function CategoryPage() {
             header: "تاریخ ثبت",
             cell: (props) => {
                 let date = new Date(props.getValue()).toLocaleDateString()
-                return <p>{date}</p>
+                return <p>{(props.getValue())? date : "-"}</p>
             }
         }, {
             accessorKey: "updatedAt",
             header: "آخرین ویرایش",
             cell: (props) => {
                 let date = new Date(props.getValue()).toLocaleDateString()
-                return <p>{date}</p>
+                return <p>{(props.getValue())? date : "-"}</p>
             }
         },
         {

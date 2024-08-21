@@ -17,7 +17,7 @@ defaults.plugins.title.color = "black";
 
 function LineChartYear() {
     const [data, setData] = useState([])
-    const yearReport = useFetch('/monthlyReport.json')
+    const yearReport = useFetch('https://cogcenter.ir/library/api/v1/report/monthly/books?scopeId=0')
 
     useEffect(() => {
         setData(yearReport)
@@ -28,7 +28,7 @@ function LineChartYear() {
     return (
         <>
             <Line data={{
-                labels: data.map(item => item.monthTitle),
+                labels: data.map(item => `${item.monthTitle} ${item.year}` ),
                 datasets: [
                     {
                         label: "تعداد کامنت‌ها",

@@ -23,7 +23,7 @@ function AuthorPage() {
     })
 
 
-    const authors = useFetch('https://cogcenter.ir/library/api/v1/authors?page=0&size=10&sort=')
+    const authors = useFetch('https://cogcenter.ir/library/api/v1/authors?page=0&size=10')
 
     useEffect(() => {
         setData(authors.content)
@@ -61,14 +61,14 @@ function AuthorPage() {
             header: "ثبت",
             cell: (props) => {
                 let date = new Date(props.getValue()).toLocaleDateString()
-                return <p>{date}</p>
+                return <p>{(props.getValue())? date : "-"}</p>
             }
         }, {
             accessorKey: "updatedAt",
             header: "آخرین ویرایش",
             cell: (props) => {
                 let date = new Date(props.getValue()).toLocaleDateString()
-                return <p>{date}</p>
+                return <p>{(props.getValue())? date : "-"}</p>
             }
         },
         {
