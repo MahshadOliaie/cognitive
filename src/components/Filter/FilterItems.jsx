@@ -3,9 +3,9 @@ import checkSvg from '/check.svg'
 
 
 function FilterItems({ title, filterTitle, filteredList, setFilteredList }) {
-    const [selected, setSelected] = useState(false)
 
     const ref = useRef()
+    const [selected, setSelected] = useState((filteredList[filterTitle]).includes(title)? true : false)
 
     let obj = {
         "public": {
