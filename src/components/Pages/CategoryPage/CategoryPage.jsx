@@ -9,6 +9,7 @@ import TableRow from "../../TableRow/TableRow"
 import Pagination from "../../Pagination/Pagination"
 import TableHeader from "../../TableHeader/TableHeader"
 import Filter from "../../Filter/Filter"
+import CategoryPagination from "./CategoryPagination"
 
 
 function CategoryPage() {
@@ -58,14 +59,14 @@ function CategoryPage() {
             header: "تاریخ ثبت",
             cell: (props) => {
                 let date = new Date(props.getValue()).toLocaleDateString()
-                return <p>{(props.getValue())? date : "-"}</p>
+                return <p>{(props.getValue()) ? date : "-"}</p>
             }
         }, {
             accessorKey: "updatedAt",
             header: "آخرین ویرایش",
             cell: (props) => {
                 let date = new Date(props.getValue()).toLocaleDateString()
-                return <p>{(props.getValue())? date : "-"}</p>
+                return <p>{(props.getValue()) ? date : "-"}</p>
             }
         },
         {
@@ -131,7 +132,7 @@ function CategoryPage() {
                 </tbody>
 
             </table>
-            <Pagination table={table} />
+            <CategoryPagination table={table} />
         </>
     )
 }

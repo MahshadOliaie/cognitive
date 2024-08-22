@@ -1,4 +1,4 @@
-import DeleteBtn from "../Buttons/DeleteBtn"
+
 import EditBtn from "../Buttons/EditBtn"
 
 
@@ -10,7 +10,6 @@ function TableRow({ children , modalData , setEditModal , openModal}) {
                 {children}
                 <td className="py-2 gap-1 items-end" width={60}>
                     <EditBtn setEditModal={setEditModal} modalData={modalData} openModal={openModal} />
-                    <DeleteBtn />
                 </td>
             </tr>
         </>

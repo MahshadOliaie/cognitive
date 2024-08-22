@@ -42,9 +42,7 @@ function CommentEditModal({ setIsModalOpen, modalData, setEditModal }) {
 
                         <div className="flex flex-col">
                             <label htmlFor="reply" className="opacity-70 text-sm mb-1">جواب</label>
-                            <input className="p-4 rounded-md shadow-inner focus-visible:border-2 border-dark outline-none" type="text" name="reply" id="reply" {...register("reply", {
-                                required: "فیلد را پر کنید"
-                            })} />
+                            <input className="p-4 rounded-md shadow-inner focus-visible:border-2 border-dark outline-none" type="text" name="reply" id="reply" defaultValue={modalData.replies[0]} {...register("reply")} />
                             {errors.reply && <p style={{ color: "red", fontSize: "12px" }}>{errors.reply.message}</p>}
                         </div>
 

@@ -10,7 +10,21 @@ body {
     background-color: #F3F3F3;
     padding: 6rem 18rem 4rem 4rem;
     font-family: vazir;
+
 }
+
+html,
+:host {
+    ::-webkit-scrollbar {
+       display: none;
+    }
+
+    /* Optional: show position indicator in red */
+    ::-webkit-scrollbar-thumb {
+        display: none;
+    }
+}
+
 
 @font-face {
     font-family: vazir;
@@ -27,11 +41,11 @@ body {
     src: url('/fonts/vazir-font-v16.1.0/Vazir-Medium.ttf');
 }
 
-.font-bold{
+.font-bold {
     font-family: vazirBold;
 }
 
-.font-semibold{
+.font-semibold {
     font-family: vazirMedium;
 }
 
@@ -56,8 +70,7 @@ td:last-child {
 }
 
 
-.categoryContainer:hover .moreBtn{
-   opacity: 1;
-   bottom: -1rem;
+.categoryContainer:hover .moreBtn {
+    opacity: 1;
+    bottom: -1rem;
 }
-
