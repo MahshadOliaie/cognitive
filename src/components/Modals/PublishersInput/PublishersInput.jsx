@@ -1,13 +1,19 @@
 import { useEffect, useState } from "react"
 import useFetch from "../../../hooks/useFetch"
+import Select from 'react-select'
+
+
 
 
 function PublishersInput({ modalData, setPublisherValue }) {
-    const [data, setData] = useState([])
-    const publishers = useFetch('/publishers.json')
+
+    const publishers = useFetch('https://cogcenter.ir/library/api/v1/publishers?page=0')
+    const [options , setOptions] = useState([])
 
     useEffect(() => {
-        setData(publishers)
+        (publishers.content)?.map(publisher => {
+            setOptions((prev) => [...prev , {value: publisher.id , label:publisher.name}])
+        })
 
         return () => {
 
@@ -16,24 +22,16 @@ function PublishersInput({ modalData, setPublisherValue }) {
     }, [publishers])
 
 
-    function handleChange() {
-        setPublisherValue(event.target.value)
+    function handleChange(selectedOption) {
+        setPublisherValue(selectedOption.value)
+        console.log(selectedOption)
     }
 
     return (
         <>
             <div className="flex flex-col flex-1">
                 <label htmlFor="publisher" className="opacity-70 text-sm mb-1">ناشر</label>
-                <select className="p-2 rounded-md shadow-inner focus-visible:border-2 border-dark outline-none" name="publisher" id="publisher" onChange={handleChange}>
-                    {(modalData.id) ?
-                        <option value={modalData.original.publisher.id}>{modalData.original.publisher.name}</option>
-                        :
-                        <option value="default">انتخاب کنید</option>
-                    }
-                    {data.map(publisher => {
-                        return <option value={publisher.id} key={publisher.id}>{publisher.name}</option>
-                    })}
-                </select>
+                <Select options={options} onChange={handleChange} placeholder="انتخاب کنید" />
             </div>
         </>
     )

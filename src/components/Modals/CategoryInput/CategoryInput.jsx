@@ -1,39 +1,36 @@
 import { useEffect, useState } from "react"
 import useFetch from "../../../hooks/useFetch"
+import Select from 'react-select'
 
 
 function CategoryInput({ modalData, setCategoryValue }) {
-    const [data, setData] = useState([])
-    const categories = useFetch('/category.json')
+    const categories = useFetch('https://cogcenter.ir/library/api/v1/categories')
+    const [options , setOptions] = useState([])
 
 
     useEffect(() => {
-        setData(categories)
+        categories.map(category => {
+            setOptions((prev) => [...prev , {value: category.id , label:category.title}])
+        })
 
+        console.log(options)
         return () => {
 
         }
 
     }, [categories])
 
-    function handleChange() {
-        setCategoryValue(event.target.value)
+    function handleChange(selectedOption) {
+        setCategoryValue(selectedOption.value)
+        console.log(selectedOption)
     }
+
 
     return (
         <>
             <div className="flex flex-col flex-1">
                 <label htmlFor="category" className="opacity-70 text-sm mb-1">ژانر</label>
-                <select className="p-2 rounded-md shadow-inner focus-visible:border-2 border-dark outline-none" name="category" id="category" defaultValue={(modalData.id) && modalData.original.category.title} onChange={handleChange}>
-                    {(modalData.id) ?
-                        <option value={modalData.original.category.id}>{modalData.original.category.title}</option>
-                        :
-                        <option value="default">انتخاب کنید</option>
-                    }
-                    {data.map(category => {
-                        return <option value={category.id} key={category.id}>{category.title}</option>
-                    })}
-                </select>
+                <Select options={options} onChange={handleChange} placeholder="انتخاب کنید" />
             </div>
         </>
     )

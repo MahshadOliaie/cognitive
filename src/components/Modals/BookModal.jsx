@@ -15,16 +15,16 @@ function BookModal({ setIsModalOpen, modalData, setEditModal }) {
     const [lastId, setLastId] = useState(0)
     const [isPublic, setIsPublic] = useState((modalData.id) ? modalData.original.public : false)
     const [isPublish, setIsPublish] = useState((modalData.id) ? modalData.original.publish : false)
-    const [categoryValue, setCategoryValue] = useState((modalData.id) ? modalData.original.category.id : "")
+    const [categoryValue, setCategoryValue] = useState((modalData.id) ? modalData.original.category.title : "")
     const [publisherValue, setPublisherValue] = useState((modalData.id) ? modalData.original.publisher.id : "")
     const [authorValue, setAuthorValue] = useState((modalData.id) ? modalData.original.authors[0].id : "")
     const { register, handleSubmit, formState: { errors }, setValue } = useForm()
 
-    const data = useFetch('/books.json')
+    const data = useFetch('https://cogcenter.ir/library/api/v1/manager/0/books?page=0&size=1')
 
     useEffect(() => {
 
-        let id = data.length
+        let id = data.totalElements
 
         setLastId(id)
 
@@ -52,6 +52,7 @@ function BookModal({ setIsModalOpen, modalData, setEditModal }) {
     }
 
     async function postData(data) {
+        console.log(data)
         fetch('url', {
             method: 'POST',
             headers: {

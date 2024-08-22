@@ -1,14 +1,19 @@
 import { useEffect, useState } from "react"
 import useFetch from "../../../hooks/useFetch"
+import Select from 'react-select'
+
 
 
 function AuthorsInput({ modalData, setAuthorValue }) {
-    const [data, setData] = useState([])
-    const authors = useFetch('/authors.json')
+
+    const authors = useFetch('https://cogcenter.ir/library/api/v1/authors?page=0')
+    const [options, setOptions] = useState([])
 
 
     useEffect(() => {
-        setData(authors)
+        (authors.content)?.map(author => {
+            setOptions((prev) => [...prev, { value: author.id, label: `${author.firstName + " " + author.lastName}` }])
+        })
 
         return () => {
 
@@ -17,25 +22,16 @@ function AuthorsInput({ modalData, setAuthorValue }) {
     }, [authors])
 
 
-    function handleChange(){
-        setAuthorValue(event.target.value)
+    function handleChange(selectedOption) {
+        setAuthorValue(selectedOption.value)
+        console.log(selectedOption)
     }
 
     return (
         <>
             <div className="flex flex-col">
                 <label htmlFor="authors" className="opacity-70 text-sm mb-1">نویسندگان</label>
-                <select className="p-2 rounded-md shadow-inner focus-visible:border-2 border-dark outline-none" name="authors" id="authors" onChange={handleChange}>
-                    {(modalData.id) ?
-                        <option value={modalData.original.authors[0].id}>{modalData.original.authors[0].firstName + " " + modalData.original.authors[0].lastName}</option>
-
-                        :
-                        <option value="default">انتخاب کنید</option>
-                    }
-                    {data.map(author => {
-                        return <option value={author.id} key={author.id}>{author.firstName + " " + author.lastName}</option>
-                    })}
-                </select>
+                <Select options={options} onChange={handleChange} placeholder="انتخاب کنید" isMulti />
             </div>
 
         </>
