@@ -191,6 +191,10 @@ function AddBookPage() {
         return book.category
     })
 
+    let publishers = data?.map(book => {
+        return book.publisher
+    })
+
     return (
         <>
             {(isModalOpen) && <BookModal setIsModalOpen={setIsModalOpen} modalData={editModal} setEditModal={setEditModal} />}
@@ -198,6 +202,7 @@ function AddBookPage() {
                 <div className="flex items-center gap-4 flex-wrap max-w-5xl">
                     <Filter title={"نام کتاب"} totalData={data} filterTitle={"name"} filteredList={filteredList} setFilteredList={setFilteredList} multiple={true} />
                     <Filter title={"نام نویسنده"} totalData={authorsFullName} filterTitle={"fullName"} filteredList={filteredList} setFilteredList={setFilteredList} multiple={true} />
+                    <Filter title={"ناشر"} totalData={publishers} filterTitle={"name"} filteredList={filteredList} setFilteredList={setFilteredList} multiple={true} />
                     <Filter title={"ژانر"} totalData={genres} filterTitle={"title"} filteredList={filteredList} setFilteredList={setFilteredList} multiple={true} />
                     <Filter title={"سال انتشار"} totalData={data} filterTitle={"publicationYear"} filteredList={filteredList} setFilteredList={setFilteredList} multiple={true} />
                     <Filter title={"وضعیت انتشار"} totalData={data} filterTitle={"publish"} filteredList={filteredList} setFilteredList={setFilteredList} multiple={true} />
