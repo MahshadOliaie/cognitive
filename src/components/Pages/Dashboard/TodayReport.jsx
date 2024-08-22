@@ -8,7 +8,6 @@ function TodayReport(){
 
     useEffect(() => {
         setData(dailyReport)
-        console.log(data)
     }, [dailyReport])
 
 

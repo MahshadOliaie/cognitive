@@ -7,7 +7,6 @@ function Pagination({ pages, currentPage, setCurrentPage }) {
 
 
     let arr = []
-    console.log(pages)
 
     for (let i = 1; i <= pages; i++) {
         arr.push(i)

@@ -52,7 +52,6 @@ function BookModal({ setIsModalOpen, modalData, setEditModal }) {
     }
 
     async function postData(data) {
-        console.log(data)
         fetch('url', {
             method: 'POST',
             headers: {

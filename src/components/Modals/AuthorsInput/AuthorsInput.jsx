@@ -24,7 +24,6 @@ function AuthorsInput({ modalData, setAuthorValue }) {
 
     function handleChange(selectedOption) {
         setAuthorValue(selectedOption.value)
-        console.log(selectedOption)
     }
 
     return (

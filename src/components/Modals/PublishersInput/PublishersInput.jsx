@@ -24,7 +24,6 @@ function PublishersInput({ modalData, setPublisherValue }) {
 
     function handleChange(selectedOption) {
         setPublisherValue(selectedOption.value)
-        console.log(selectedOption)
     }
 
     return (

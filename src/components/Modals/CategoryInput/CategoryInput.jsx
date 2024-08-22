@@ -22,7 +22,6 @@ function CategoryInput({ modalData, setCategoryValue }) {
 
     function handleChange(selectedOption) {
         setCategoryValue(selectedOption.value)
-        console.log(selectedOption)
     }
 
 
