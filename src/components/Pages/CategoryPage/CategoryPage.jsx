@@ -100,8 +100,8 @@ function CategoryPage() {
             {(isModalOpen) && <CategoryModal setIsModalOpen={setIsModalOpen} modalData={editModal} setEditModal={setEditModal} />}
             <div className="flex items-center justify-between px-4">
                 <div className="flex items-center gap-4">
-                    <Filter title={"عنوان کتگوری"} totalData={data} filterTitle={"title"} filteredList={filteredList} setFilteredList={setFilteredList} />
-                    <Filter title={"وضعیت"} totalData={data} filterTitle={"enable"} filteredList={filteredList} setFilteredList={setFilteredList} />
+                    <Filter title={"عنوان کتگوری"} totalData={data} filterTitle={"title"} filteredList={filteredList} setFilteredList={setFilteredList} multiple={true}/>
+                    <Filter title={"وضعیت"} totalData={data} filterTitle={"enable"} filteredList={filteredList} setFilteredList={setFilteredList} multiple={true} />
                 </div>
                 <AddBtn onClick={openModal} />
             </div>

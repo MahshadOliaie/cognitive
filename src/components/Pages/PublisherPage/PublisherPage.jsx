@@ -115,8 +115,8 @@ function PublisherPage() {
             {(isModalOpen) && <PublisherModal setIsModalOpen={setIsModalOpen} modalData={editModal} setEditModal={setEditModal} />}
             <div className="flex items-center justify-between px-4">
                 <div className="flex items-center gap-4">
-                    <Filter title={"نام ناشر"} totalData={data} filterTitle={"name"} filteredList={filteredList} setFilteredList={setFilteredList} />
-                    <Filter title={"وضعیت"} totalData={data} filterTitle={"enable"} filteredList={filteredList} setFilteredList={setFilteredList} />
+                    <Filter title={"نام ناشر"} totalData={data} filterTitle={"name"} filteredList={filteredList} setFilteredList={setFilteredList} multiple={true} />
+                    <Filter title={"وضعیت"} totalData={data} filterTitle={"enable"} filteredList={filteredList} setFilteredList={setFilteredList} multiple={true} />
                 </div>
                 <AddBtn onClick={openModal} />
             </div>

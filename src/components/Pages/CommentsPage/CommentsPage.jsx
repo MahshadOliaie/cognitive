@@ -62,8 +62,8 @@ function CommentsPage() {
 
             <div className="flex justify-between px-4">
                 <div className="flex items-center gap-4 flex-wrap max-w-5xl">
-                    <Filter title={"شماره پست"} totalData={postId} filterTitle={"id"} filteredList={filteredList} setFilteredList={setFilteredList} />
-                    <Filter title={"وضعیت انتشار"} totalData={data} filterTitle={"publish"} filteredList={filteredList} setFilteredList={setFilteredList} />
+                    <Filter title={"شماره پست"} totalData={postId} filterTitle={"id"} filteredList={filteredList} setFilteredList={setFilteredList} multiple={true} />
+                    <Filter title={"وضعیت انتشار"} totalData={data} filterTitle={"publish"} filteredList={filteredList} setFilteredList={setFilteredList} multiple={true} />
 
                 </div>
 

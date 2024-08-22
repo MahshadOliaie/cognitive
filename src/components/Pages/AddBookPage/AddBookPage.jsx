@@ -196,12 +196,12 @@ function AddBookPage() {
             {(isModalOpen) && <BookModal setIsModalOpen={setIsModalOpen} modalData={editModal} setEditModal={setEditModal} />}
             <div className="flex justify-between px-4">
                 <div className="flex items-center gap-4 flex-wrap max-w-5xl">
-                    <Filter title={"نام کتاب"} totalData={data} filterTitle={"name"} filteredList={filteredList} setFilteredList={setFilteredList} />
-                    <Filter title={"نام نویسنده"} totalData={authorsFullName} filterTitle={"fullName"} filteredList={filteredList} setFilteredList={setFilteredList} />
-                    <Filter title={"ژانر"} totalData={genres} filterTitle={"title"} filteredList={filteredList} setFilteredList={setFilteredList} />
-                    <Filter title={"سال انتشار"} totalData={data} filterTitle={"publicationYear"} filteredList={filteredList} setFilteredList={setFilteredList} />
-                    <Filter title={"وضعیت انتشار"} totalData={data} filterTitle={"publish"} filteredList={filteredList} setFilteredList={setFilteredList} />
-                    <Filter title={"سطح دسترسی"} totalData={data} filterTitle={"public"} filteredList={filteredList} setFilteredList={setFilteredList} />
+                    <Filter title={"نام کتاب"} totalData={data} filterTitle={"name"} filteredList={filteredList} setFilteredList={setFilteredList} multiple={true} />
+                    <Filter title={"نام نویسنده"} totalData={authorsFullName} filterTitle={"fullName"} filteredList={filteredList} setFilteredList={setFilteredList} multiple={true} />
+                    <Filter title={"ژانر"} totalData={genres} filterTitle={"title"} filteredList={filteredList} setFilteredList={setFilteredList} multiple={true} />
+                    <Filter title={"سال انتشار"} totalData={data} filterTitle={"publicationYear"} filteredList={filteredList} setFilteredList={setFilteredList} multiple={true} />
+                    <Filter title={"وضعیت انتشار"} totalData={data} filterTitle={"publish"} filteredList={filteredList} setFilteredList={setFilteredList} multiple={true} />
+                    <Filter title={"سطح دسترسی"} totalData={data} filterTitle={"public"} filteredList={filteredList} setFilteredList={setFilteredList} multiple={true} />
 
                 </div>
                 <AddBtn onClick={openModal} />
