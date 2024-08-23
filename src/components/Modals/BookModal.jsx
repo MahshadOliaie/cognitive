@@ -148,7 +148,7 @@ function BookModal({ setIsModalOpen, modalData, setEditModal }) {
 
                     <div className="flex flex-col">
                         <label htmlFor="desc" className="opacity-70 text-sm mb-1">توضیحات</label>
-                        <input className="p-4 rounded-md shadow-inner focus-visible:border-2 border-dark outline-none" type="text" name="desc" id="desc" defaultValue={(modalData.id) && modalData.original.description}
+                        <textarea className="p-4 rounded-md shadow-inner focus-visible:border-2 border-dark outline-none" type="text" name="desc" id="desc" defaultValue={(modalData.id) && modalData.original.description}
                             {...register("description")} />
                     </div>
 
