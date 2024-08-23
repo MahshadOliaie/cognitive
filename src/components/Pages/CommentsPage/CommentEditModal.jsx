@@ -40,13 +40,7 @@ function CommentEditModal({ setIsModalOpen, modalData, setEditModal }) {
                             </div>
                         </div>
 
-                        <div className="flex flex-col">
-                            <label htmlFor="reply" className="opacity-70 text-sm mb-1">جواب</label>
-                            <textarea className="p-4 rounded-md shadow-inner focus-visible:border-2 border-dark outline-none" type="text" name="reply" id="reply" defaultValue={modalData.replies[0]} {...register("reply")} />
-                            {errors.reply && <p style={{ color: "red", fontSize: "12px" }}>{errors.reply.message}</p>}
-                        </div>
-
-
+                
                         <div className="flex items-center gap-2">
                             <label htmlFor="publish" className="opacity-70 text-sm">انتشار</label>
                             <CheckBox isActive={isPublish} onClick={handlePublish} />

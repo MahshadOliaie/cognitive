@@ -4,12 +4,14 @@ import CommentsCard from "../../CommentsCard/CommentsCard"
 import CommentEditModal from "./CommentEditModal"
 import Filter from "../../Filter/Filter"
 import Pagination from "../../Pagination/Pagination"
+import CommentsReplyModal from "./CommentsReplyModal"
 
 
 
 function CommentsPage() {
     const [data, setData] = useState([])
     const [isModalOpen, setIsModalOpen] = useState(false)
+    const [isReplyOpen, setIsReplyOpen] = useState(false)
     const [editModal, setEditModal] = useState({})
     const [pages, setPages] = useState(0)
     const [currentPage, setCurrentPage] = useState(0)
@@ -61,12 +63,18 @@ function CommentsPage() {
         setEditModal(comment)
     }
 
+    function openReply(comment){
+        setIsReplyOpen(true)
+        setEditModal(comment)
+    }
+
 
     let postId = data?.map(item => item.modelType)
 
     return (
         <>
             {(isModalOpen) && <CommentEditModal setIsModalOpen={setIsModalOpen} modalData={editModal} setEditModal={setEditModal} />}
+            {(isReplyOpen) && <CommentsReplyModal setIsReplyOpen={setIsReplyOpen} modalData={editModal} setEditModal={setEditModal} />}
 
             <div className="flex justify-between px-4">
                 <div className="flex items-center gap-4 flex-wrap max-w-5xl">
@@ -79,7 +87,7 @@ function CommentsPage() {
             <div className="flex flex-col gap-3 pt-11">
 
                 {data?.map(comment => {
-                    return <CommentsCard key={comment.id} comment={comment} onClick={() => openModal(comment)} />
+                    return <CommentsCard key={comment.id} comment={comment} onClick={() => openModal(comment)} reply={() => openReply(comment)} />
                 })}
 
             </div>

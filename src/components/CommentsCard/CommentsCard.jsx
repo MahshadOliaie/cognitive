@@ -1,16 +1,17 @@
 
+import ReplyBtn from "../Buttons/ReplyBtn";
 import SettingBtn from "../Buttons/SettingBtn";
 import PublishTag from "./PublishTag";
 
 
-function CommentsCard({ comment, onClick}) {
+function CommentsCard({ comment, onClick , reply }) {
 
     const { id, userName, text, userImage, modelType, reaction, publishAt, updatedAt, publish } = comment
 
     var hue = Math.floor(Math.random() * 460);
     var pastel = 'hsl(' + hue + ', 65%, 65%)';
 
-    
+
     return (
         <div className="bg-sand shadow-md flex items-center justify-between gap-8 border-r-4 rounded-xl w-full p-8 py-5 relative" style={{ borderColor: pastel }}>
             <div className="flex flex-2 gap-10 items-center">
@@ -44,7 +45,8 @@ function CommentsCard({ comment, onClick}) {
             </div>
 
             <div className="flex flex-col gap-3">
-                <SettingBtn bgColor={pastel} onClick={onClick}  />
+                <SettingBtn bgColor={pastel} onClick={onClick} />
+                <ReplyBtn bgColor={pastel} onClick={reply} />
             </div>
 
             {(!publish) && <PublishTag />}

@@ -1,12 +1,14 @@
 
 
 
-function FileInput({setImage , image}) {
+function FileInput({setImage , image , setFile}) {
 
 
 
     function handleChange() {
         setImage(event.target.files[0].name)
+        setFile(event.target.files[0])
+        console.log(event.target.files[0])
         console.log(event.target.files[0].name)
     }
 
