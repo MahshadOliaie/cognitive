@@ -12,7 +12,7 @@ import FileInput from "./FileInput/FileInput"
 function AuthorModal({ setIsModalOpen, modalData, setEditModal }) {
     const [lastId, setLastId] = useState([])
     const data = useFetch('https://cogcenter.ir/library/api/v1/manager/0/books?page=0&size=1')
-    const [image, setImage] = useState("")
+    const [image, setImage] = useState((modalData.id) ? modalData.original.coverImage : "")
     const [enable, setEnable] = useState((modalData.id) ? modalData.original.enable : false)
     const { register, handleSubmit, formState: { errors }, setValue } = useForm()
 
@@ -68,7 +68,7 @@ function AuthorModal({ setIsModalOpen, modalData, setEditModal }) {
                     <ModalHeader title={(modalData.id) ? "ویرایش نویسنده" : 'افزودن نویسنده'} id={(modalData.id) ? modalData.original.id : lastId + 1} />
 
                     <form className="flex flex-col gap-6 py-5 pb-7" style={{ minWidth: "450px" }}>
-                    <FileInput modalData={modalData} setImage={setImage} image={image} {...register("coverImage")} />
+                    <FileInput setImage={setImage} image={image} {...register("coverImage")} />
                     <div className="flex flex-col flex-1">
                             <label htmlFor="name" className="opacity-70 text-sm mb-1">نام</label>
                             <input type="text" name="name" id="name" defaultValue={(modalData.id) && modalData.original.firstName} className="p-2 rounded-md shadow-inner focus-visible:border-2 border-dark outline-none"

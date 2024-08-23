@@ -10,8 +10,9 @@ import FileInput from "./FileInput/FileInput"
 
 
 function CategoryModal({ setIsModalOpen, modalData, setEditModal }) {
+    console.log(modalData)
     const [lastId, setLastId] = useState(0)
-    const [image, setImage] = useState("")
+    const [image, setImage] = useState((modalData.id) ? modalData.original.coverImage : "")
     const [enable, setEnable] = useState((modalData.id) ? modalData.original.enable : false)
     const { register, handleSubmit, formState: { errors }, setValue } = useForm()
 
@@ -29,7 +30,7 @@ function CategoryModal({ setIsModalOpen, modalData, setEditModal }) {
         }
 
     }, [data])
-
+console.log(image)
     function handleClose() {
         setIsModalOpen(false)
         setEditModal({})
@@ -37,11 +38,10 @@ function CategoryModal({ setIsModalOpen, modalData, setEditModal }) {
 
     register("id")
     register("scopeId")
-
-
     setValue("enable", enable)
     setValue("scopeId", 0)
     setValue("id", (modalData.id) ? (modalData.original.id) : lastId + 1)
+    setValue("coverImage", image)
 
 
 
@@ -67,7 +67,6 @@ function CategoryModal({ setIsModalOpen, modalData, setEditModal }) {
         await setIsModalOpen(false)
     }
 
-    setValue("coverImage", image)
 
     return (
         <>
@@ -77,7 +76,7 @@ function CategoryModal({ setIsModalOpen, modalData, setEditModal }) {
 
 
                     <form className="flex flex-col gap-6 py-5 pb-7" style={{ minWidth: "450px" }}>
-                        <FileInput modalData={modalData} setImage={setImage} image={image} {...register("coverImage")} />
+                        <FileInput setImage={setImage} image={image} {...register("coverImage")} />
 
                         <div className="flex flex-col flex-1">
                             <label htmlFor="name" className="opacity-70 text-sm mb-1">عنوان کتگوری</label>

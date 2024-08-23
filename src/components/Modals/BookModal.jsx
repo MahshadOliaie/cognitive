@@ -19,7 +19,7 @@ function BookModal({ setIsModalOpen, modalData, setEditModal }) {
     const [publisherValue, setPublisherValue] = useState((modalData.id) ? modalData.original.publisher.id : "")
     const [authorValue, setAuthorValue] = useState((modalData.id) ? modalData.original.authors[0].id : "")
     const { register, handleSubmit, formState: { errors }, setValue } = useForm()
-    const [image, setImage] = useState("")
+    const [image, setImage] = useState((modalData.id) ? modalData.original.coverImage : "")
 
 
     const data = useFetch('https://cogcenter.ir/library/api/v1/manager/0/books?page=0&size=1')
@@ -79,6 +79,8 @@ function BookModal({ setIsModalOpen, modalData, setEditModal }) {
     setValue("id", (modalData.id) ? (modalData.original.id) : lastId + 1)
     register("id")
     setValue("coverImage", image)
+    register("scopeId")
+    setValue("scopeId", 0)
 
 
     return (
@@ -89,7 +91,7 @@ function BookModal({ setIsModalOpen, modalData, setEditModal }) {
 
                 <form className="flex flex-col gap-6" style={{ minWidth: "450px" }}>
                     <div className="flex gap-5 items-end">
-                    <FileInput modalData={modalData} setImage={setImage} image={image} {...register("coverImage")} />
+                        <FileInput setImage={setImage} image={image} {...register("coverImage")} />
                         <div className="flex flex-col flex-1">
                             <label htmlFor="name" className="opacity-70 text-sm mb-1">نام کتاب</label>
                             <input className="p-2 rounded-md shadow-inner focus-visible:border-2 border-dark outline-none" type="text" name="name" id="name" defaultValue={(modalData.id) && modalData.original.name}

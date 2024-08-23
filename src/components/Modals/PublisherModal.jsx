@@ -11,7 +11,7 @@ import FileInput from "./FileInput/FileInput"
 
 function PublisherModal({ setIsModalOpen, modalData, setEditModal }) {
     const [lastId, setLastId] = useState(0)
-    const [image, setImage] = useState("")
+    const [image, setImage] = useState((modalData.id) ? modalData.original.coverImage : "")
     const data = useFetch('https://cogcenter.ir/library/api/v1/publishers?page=0&size=1')
     const [enable, setEnable] = useState((modalData.id) ? modalData.original.enable : false)
     const { register, handleSubmit, formState: { errors }, setValue } = useForm()
@@ -65,7 +65,7 @@ function PublisherModal({ setIsModalOpen, modalData, setEditModal }) {
                     <ModalHeader title={(modalData.id) ? "ویرایش ناشر" : 'افزودن ناشر'} id={(modalData.id) ? modalData.original.id : lastId + 1} />
 
                     <form className="flex flex-col gap-6 py-5 pb-7" style={{ minWidth: "450px" }}>
-                        <FileInput modalData={modalData} setImage={setImage} image={image} {...register("coverImage")} />
+                        <FileInput setImage={setImage} image={image} {...register("coverImage")} />
 
                         <div className="flex flex-col flex-1">
                             <label htmlFor="name" className="opacity-70 text-sm mb-1">نام ناشر</label>
