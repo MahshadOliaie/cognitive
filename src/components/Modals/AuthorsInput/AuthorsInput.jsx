@@ -23,7 +23,10 @@ function AuthorsInput({ modalData, setAuthorValue }) {
 
 
     function handleChange(selectedOption) {
-        setAuthorValue(selectedOption.value)
+        let arr = selectedOption.map(item => {
+            item.value
+        })
+        setAuthorValue(arr)
     }
 
     return (

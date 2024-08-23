@@ -62,7 +62,7 @@ function Filter({ title, totalData, filterTitle, filteredList, setFilteredList, 
     return (
         <>
             <div className="flex flex-col">
-                <Select options={options} onChange={handleChange} placeholder={title} isMulti={multiple} />
+                <Select options={options} onChange={handleChange} placeholder={title}  isClearable />
             </div>
         </>
     )
