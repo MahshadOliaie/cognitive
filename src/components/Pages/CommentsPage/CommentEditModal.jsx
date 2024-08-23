@@ -48,7 +48,7 @@ function CommentEditModal({ setIsModalOpen, modalData, setEditModal }) {
 
 
                         <div className="flex items-center gap-2">
-                            <label htmlFor="publish" className="opacity-70 text-sm"> منتشر کردن</label>
+                            <label htmlFor="publish" className="opacity-70 text-sm">انتشار</label>
                             <CheckBox isActive={isPublish} onClick={handlePublish} />
 
                         </div>
