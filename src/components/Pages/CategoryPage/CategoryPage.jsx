@@ -129,7 +129,7 @@ function CategoryPage() {
             {(isModalOpen) && <CategoryModal setIsModalOpen={setIsModalOpen} modalData={editModal} setEditModal={setEditModal} />}
             <div className="flex items-center justify-between px-4">
                 <form className="flex items-center gap-4">
-                    <select name="enable" id="enable" className="p-2 rounded-md focus-visible:outline-dark" style={{ border: "1px solid lightgray" }} {...register("enable")}>
+                    <select name="enable" id="enable" className="p-2 py-1.5 rounded-md focus-visible:outline-dark" style={{ border: "1px solid lightgray" }} {...register("enable")}>
                         <option value="">وضعیت</option>
                         <option value="true">فعال</option>
                         <option value="false">غیرفعال</option>

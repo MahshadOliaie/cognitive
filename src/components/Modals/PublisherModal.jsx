@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import useFetch from "../../hooks/useFetch"
 import CancelBtn from "./Btns/CancelBtn"
 import ModalHeader from "./ModalHeader/ModalHeader"
@@ -13,6 +13,25 @@ function PublisherModal({ setIsModalOpen, modalData, setEditModal }) {
     const [image, setImage] = useState((modalData.id) ? modalData.original.coverImage : "")
     const [enable, setEnable] = useState((modalData.id) ? modalData.original.enable : false)
     const { register, handleSubmit, formState: { errors }, setValue } = useForm()
+    const ref = useRef()
+    const containerRef = useRef()
+
+
+
+    useEffect(() => {
+
+        function clickHandler() {
+            if (!ref.current.contains(event.target) && event.target == containerRef.current) {
+                handleClose()
+            }
+        }
+
+        document.addEventListener("click", clickHandler)
+
+        return () => {
+            document.removeEventListener("click", clickHandler)
+        }
+    }, [])
 
 
 
@@ -64,8 +83,8 @@ function PublisherModal({ setIsModalOpen, modalData, setEditModal }) {
     }
     return (
         <>
-            <div className="flex items-center justify-center top-0 right-0 fixed w-screen h-screen z-50" style={{ backgroundColor: "rgba(0 ,0 ,0 , 0.1)", backdropFilter: "blur(3px)" }}>
-                <div className="shadow-md rounded-lg p-10 pt-0 bg-linen" >
+            <div className="flex items-center justify-center top-0 right-0 fixed w-screen h-screen z-50" style={{ backgroundColor: "rgba(0 ,0 ,0 , 0.1)", backdropFilter: "blur(3px)" }} ref={containerRef}>
+                <div className="shadow-md rounded-lg p-10 pt-0 bg-linen" ref={ref}>
                     <ModalHeader title={(modalData.id) ? "ویرایش ناشر" : 'افزودن ناشر'} id={(modalData.id) ? modalData.original.id : ""} />
 
                     <form className="flex flex-col gap-6 py-5 pb-7" style={{ minWidth: "450px" }}>

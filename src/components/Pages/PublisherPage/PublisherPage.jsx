@@ -18,7 +18,7 @@ function PublisherPage() {
     const [editModal, setEditModal] = useState({})
     const [currentPage, setCurrentPage] = useState(0)
     const [pages, setPages] = useState(0)
-    const { register, handleSubmit} = useForm()
+    const { register, handleSubmit } = useForm()
     const [properties, setProperties] = useState(`?page=${currentPage}&size=10`)
     const [filteredList, setFilteredList] = useState({
         "name": "",
@@ -132,9 +132,12 @@ function PublisherPage() {
         <>
             {(isModalOpen) && <PublisherModal setIsModalOpen={setIsModalOpen} modalData={editModal} setEditModal={setEditModal} />}
             <div className="flex items-center justify-between px-4">
-                <form className="flex items-center gap-4">
-                    <input type="text" placeholder="نام ناشر" className="p-2 px-5 rounded-md focus-visible:outline-dark" style={{border: "1px solid lightgray"}} {...register("name")} />
-                    <select name="enable" id="enable" className="p-2 rounded-md focus-visible:outline-dark" style={{border: "1px solid lightgray"}} {...register("enable")}>
+                <form className="flex items-end gap-4">
+                    <div className="flex flex-col">
+                        <label htmlFor="name" className="opacity-70 text-sm mb-1">ناشر</label>
+                        <input type="text" id="name" className="p-1.5 px-5 rounded-md focus-visible:outline-dark" style={{ border: "1px solid lightgray" }} {...register("name")} />
+                    </div>
+                    <select name="enable" id="enable" className="p-2 py-1.5 rounded-md focus-visible:outline-dark" style={{ border: "1px solid lightgray" }} {...register("enable")}>
                         <option value="">وضعیت</option>
                         <option value="true">فعال</option>
                         <option value="false">غیرفعال</option>

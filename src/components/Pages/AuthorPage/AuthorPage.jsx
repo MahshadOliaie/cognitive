@@ -7,7 +7,6 @@ import AddBtn from "../../Buttons/AddBtn"
 import TableHeaderItem from "../../TableHeaderItem/TableHeaderItem"
 import Pagination from "../../Pagination/Pagination"
 import AuthorModal from "../../Modals/AuthorModal"
-import Filter from "../../Filter/Filter"
 import { useForm } from "react-hook-form"
 import SubmitSearch from "../../Buttons/SubmitSearch"
 
@@ -146,10 +145,16 @@ function AuthorPage() {
         <>
             {(isModalOpen) && <AuthorModal setIsModalOpen={setIsModalOpen} modalData={editModal} setEditModal={setEditModal} />}
             <div className="flex items-center justify-between px-4">
-                <form className="flex items-center gap-4">
-                    <input type="text" placeholder="نام نویسنده" className="p-2 px-5 rounded-md focus-visible:outline-dark" style={{ border: "1px solid lightgray" }} {...register("firstName")} />
-                    <input type="text" placeholder="نام خانوادگی" className="p-2 px-5 rounded-md focus-visible:outline-dark" style={{ border: "1px solid lightgray" }} {...register("lastName")} />
-                    <select name="enable" id="enable" className="p-2 rounded-md focus-visible:outline-dark" style={{ border: "1px solid lightgray" }} {...register("enable")}>
+                <form className="flex items-end gap-4">
+                    <div className="flex flex-col">
+                        <label htmlFor="firstName" className="opacity-70 text-sm mb-1">نام نویسنده</label>
+                        <input type="text" id="firstName" className="p-1.5 px-5 rounded-md focus-visible:outline-dark" style={{ border: "1px solid lightgray" }} {...register("firstName")} />
+                    </div>
+                    <div className="flex flex-col">
+                        <label htmlFor="lastName" className="opacity-70 text-sm mb-1">نام خانوادگی</label>
+                        <input type="text" id="lastName" className="p-1.5 px-5 rounded-md focus-visible:outline-dark" style={{ border: "1px solid lightgray" }} {...register("lastName")} />
+                    </div>
+                    <select name="enable" id="enable" className="p-2 py-1.5 rounded-md focus-visible:outline-dark" style={{ border: "1px solid lightgray" }} {...register("enable")}>
                         <option value="">وضعیت</option>
                         <option value="true">فعال</option>
                         <option value="false">غیرفعال</option>

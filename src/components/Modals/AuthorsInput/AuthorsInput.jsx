@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import useFetch from "../../../hooks/useFetch"
 import Select from 'react-select'
-
+let arr = []
 
 
 function AuthorsInput({ modalData, setAuthorValue }) {
@@ -23,9 +23,11 @@ function AuthorsInput({ modalData, setAuthorValue }) {
 
 
     function handleChange(selectedOption) {
-        let arr = selectedOption.map(item => {
-            item.value
+        arr = []
+        selectedOption.map(item => {
+            arr.push(item.value)
         })
+
         setAuthorValue(arr)
     }
 

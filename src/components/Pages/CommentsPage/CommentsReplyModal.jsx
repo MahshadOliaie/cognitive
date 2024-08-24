@@ -2,10 +2,30 @@ import { useForm } from "react-hook-form"
 import ModalHeader from "../../Modals/ModalHeader/ModalHeader"
 import EditDoneBtn from "../../Modals/Btns/EditDoneBtn"
 import CancelBtn from "../../Modals/Btns/CancelBtn"
+import { useEffect, useRef } from "react"
 
 
 function CommentsReplyModal({ setIsReplyOpen, modalData, setEditModal }) {
     const { register, handleSubmit, formState: { errors } } = useForm()
+    const ref = useRef()
+    const containerRef = useRef()
+
+
+
+    useEffect(() => {
+
+        function clickHandler() {
+            if (!ref.current.contains(event.target) && event.target == containerRef.current) {
+                setIsReplyOpen(false)
+            }
+        }
+
+        document.addEventListener("click", clickHandler)
+
+        return () => {
+            document.removeEventListener("click", clickHandler)
+        }
+    }, [])
 
 
     function handleClose() {
@@ -35,8 +55,8 @@ function CommentsReplyModal({ setIsReplyOpen, modalData, setEditModal }) {
 
     return (
         <>
-            <div className="flex items-center justify-center top-0 right-0 fixed w-screen h-screen z-50" style={{ backgroundColor: "rgba(0 ,0 ,0 , 0.1)", backdropFilter: "blur(3px)" }}>
-                <div className="shadow-md rounded-lg p-10 pt-0 bg-linen" >
+            <div className="flex items-center justify-center top-0 right-0 fixed w-screen h-screen z-50" style={{ backgroundColor: "rgba(0 ,0 ,0 , 0.1)", backdropFilter: "blur(3px)" }} ref={containerRef}>
+                <div className="shadow-md rounded-lg p-10 pt-0 bg-linen" ref={ref}>
                     <form className="flex flex-col gap-6" style={{ minWidth: "450px" }}>
                         <ModalHeader title={"پاسخ به کامنت"} id={modalData.id} />
                         <div className="flex flex-col">

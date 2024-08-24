@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import useFetch from "../../../hooks/useFetch"
 import Select from 'react-select'
+let arr = []
 
 
 function TranslatorsInput({ modalData, setTranslatorValue }) {
@@ -21,8 +22,9 @@ function TranslatorsInput({ modalData, setTranslatorValue }) {
 
 
     function handleChange(selectedOption) {
-        let arr = selectedOption.map(item => {
-            item.value
+        arr = []
+        selectedOption.map(item => {
+            arr.push(item.value)
         })
         setTranslatorValue(arr)
     }
@@ -30,7 +32,7 @@ function TranslatorsInput({ modalData, setTranslatorValue }) {
     return (
         <>
             <div className="flex flex-col">
-                <label htmlFor="translators" className="opacity-70 text-sm mb-1">مترجم‌ها</label>
+                <label htmlFor="translators" className="opacity-70 text-sm mb-1">مترجمان</label>
                 <Select options={options} onChange={handleChange} placeholder="انتخاب کنید" isMulti defaultInputValue={(modalData.id) ? modalData.original.translators.map(translator => translator.firstName + " " + translator.lastName) : ""} />
             </div>
 

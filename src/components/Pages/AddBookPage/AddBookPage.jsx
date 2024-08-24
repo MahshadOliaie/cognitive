@@ -11,6 +11,9 @@ import BookModal from "../../Modals/BookModal"
 import SubmitSearch from "../../Buttons/SubmitSearch"
 import { useForm } from "react-hook-form"
 import DeleteFilter from "../../Buttons/DeleteFilter"
+import CategoryInput from "../../Modals/CategoryInput/CategoryInput"
+import PublishersInput from "../../Modals/PublishersInput/PublishersInput"
+import AuthorsInput from "../../Modals/AuthorsInput/AuthorsInput"
 
 function AddBookPage() {
     const [data, setData] = useState([])
@@ -18,7 +21,10 @@ function AddBookPage() {
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [editModal, setEditModal] = useState({})
     const [pages, setPages] = useState(0)
-    const { register, handleSubmit } = useForm()
+    const [categories, setCategories] = useState([])
+    const [publisher, setPublisher] = useState([])
+    const [authors, setAuthors] = useState([])
+    const { register, handleSubmit, setValue } = useForm()
     const [currentPage, setCurrentPage] = useState(0)
     const [properties, setProperties] = useState(`?page=${currentPage}&size=10`)
     const [filteredList, setFilteredList] = useState({
@@ -82,11 +88,11 @@ function AddBookPage() {
             size: 40,
             cell: (props) => <p>{props.getValue()}</p>
         },
-        {
-            accessorFn: (row) => `${row.coverImage}?key=${row.fileKey}`,
-            header: "عکس",
-            cell: (props) => <img src={`https://cogcenter.ir/file-manager/api/v1/files/download/${props.getValue()}`} alt="" className="w-11 m-auto hover:scale-150 duration-500 cursor-pointer" />
-        },
+        // {
+        //     accessorFn: (row) => `${row.coverImage}?key=${row.fileKey}`,
+        //     header: "عکس",
+        //     cell: (props) => <img src={`https://cogcenter.ir/file-manager/api/v1/files/download/${props.getValue()}`} alt="" className="w-11 m-auto hover:scale-150 duration-500 cursor-pointer" />
+        // },
         {
             accessorKey: "name",
             header: "نام کتاب",
@@ -200,6 +206,7 @@ function AddBookPage() {
     })
 
     function submit(data) {
+        console.log(data)
         setCurrentPage(0)
         setIsFilter(true)
         setFilteredList(data)
@@ -218,24 +225,36 @@ function AddBookPage() {
         setIsFilter(false)
     }
 
+    setValue("categoryIds", categories)
+    setValue("publisherIds", publisher)
+    setValue("authorIds", authors)
 
     return (
         <>
             {(isModalOpen) && <BookModal setIsModalOpen={setIsModalOpen} modalData={editModal} setEditModal={setEditModal} />}
             <div className="flex justify-between px-4">
-                <form className="flex items-center gap-4 flex-wrap max-w-5xl">
-                    <input type="text" placeholder="نام کتاب" className="p-2 px-5 rounded-md focus-visible:outline-dark" style={{ border: "1px solid lightgray" }} {...register("name")} />
-                    <input type="text" placeholder="نام نویسنده" className="p-2 px-5 rounded-md focus-visible:outline-dark" style={{ border: "1px solid lightgray" }} {...register("authorIds")} />
-                    <input type="text" placeholder="ناشر" className="p-2 px-5 rounded-md focus-visible:outline-dark" style={{ border: "1px solid lightgray" }} {...register("publisherIds")} />
-                    <input type="text" placeholder="ژانر" className="p-2 px-5 rounded-md focus-visible:outline-dark" style={{ border: "1px solid lightgray" }} {...register("categoryIds")} />
+                <form className="flex items-end gap-4 flex-wrap max-w-5xl">
+                    <div className="flex flex-col">
+                        <label htmlFor="name" className="opacity-70 text-sm mb-1">نام کتاب</label>
+                        <input type="text" id="name" className="p-2 py-1.5 px-5 rounded-md focus-visible:outline-dark" style={{ border: "1px solid lightgray" }} {...register("name")} />
+                    </div>
+                    <div>
+                        <AuthorsInput modalData={{}} setAuthorValue={setAuthors} {...register("authorIds")} />
+                    </div>
+                    <div>
+                        <PublishersInput modalData={{}} setPublisherValue={setPublisher} {...register("publisherIds")} />
+                    </div>
+                    <div>
+                        <CategoryInput modalData={{}} setCategoryValue={setCategories} {...register("categoryIds")} multi={true} />
+                    </div>
 
-                    <select name="publish" id="enable" className="p-2 rounded-md focus-visible:outline-dark" style={{ border: "1px solid lightgray" }} {...register("publish")}>
+                    <select name="publish" id="publish" className="p-2 py-1.5 rounded-md focus-visible:outline-dark" style={{ border: "1px solid lightgray" }} {...register("publish")}>
                         <option value="">وضعیت انتشار</option>
                         <option value="true">منتشر شده</option>
                         <option value="false">لغو انتشار</option>
                     </select>
 
-                    <select name="publish" id="enable" className="p-2 rounded-md focus-visible:outline-dark" style={{ border: "1px solid lightgray" }} {...register("public")}>
+                    <select name="publish" id="enable" className="p-2 py-1.5 rounded-md focus-visible:outline-dark" style={{ border: "1px solid lightgray" }} {...register("public")}>
                         <option value="">سطح دسترسی</option>
                         <option value="true">عمومی</option>
                         <option value="false">خصوصی</option>

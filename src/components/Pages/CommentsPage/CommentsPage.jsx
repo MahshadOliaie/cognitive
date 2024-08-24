@@ -23,6 +23,7 @@ function CommentsPage() {
         "id": "",
         "page": currentPage
     })
+    
 
     const comments = useFetch(`https://cogcenter.ir/feedback/api/v1/manager/0/comments${properties}`)
 
@@ -82,9 +83,12 @@ function CommentsPage() {
             {(isReplyOpen) && <CommentsReplyModal setIsReplyOpen={setIsReplyOpen} modalData={editModal} setEditModal={setEditModal} />}
 
             <div className="flex justify-between px-4">
-                <form className="flex items-center gap-4">
-                    <input type="text" placeholder="شماره پست" className="p-2 px-5 rounded-md focus-visible:outline-dark" style={{ border: "1px solid lightgray" }} {...register("id")} />
-                    <select name="publish" id="enable" className="p-2 rounded-md focus-visible:outline-dark" style={{ border: "1px solid lightgray" }} {...register("publish")}>
+                <form className="flex items-end gap-4">
+                    <div className="flex flex-col">
+                        <label htmlFor="postId" className="opacity-70 text-sm mb-1">شماره پست</label>
+                        <input type="text" id="postId" className="p-1.5 px-5 rounded-md focus-visible:outline-dark" style={{ border: "1px solid lightgray" }} {...register("id")} />
+                    </div>
+                    <select name="publish" id="enable" className="p-2 py-1.5 rounded-md focus-visible:outline-dark" style={{ border: "1px solid lightgray" }} {...register("publish")}>
                         <option value="">وضعیت انتشار</option>
                         <option value="true">منتشر شده</option>
                         <option value="false">لغو انتشار</option>
