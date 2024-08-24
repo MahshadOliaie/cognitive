@@ -14,7 +14,7 @@ function FileInput({setImage , image , setFile}) {
 
     return (
         <>
-            <div className="flex flex-col flex-1 border items-center justify-center bg-sand py-3 rounded-md shadow-inner max-w-52" style={{ borderColor: "lightgray" }}>
+            <div className="flex flex-col flex-1 border items-center justify-center bg-sand py-3.5 rounded-md shadow-inner max-w-52.5" style={{ borderColor: "lightgray" }}>
                 {(image) ?
                     <label htmlFor="image" >{image}</label>
                     :

@@ -23,6 +23,7 @@ function BookModal({ setIsModalOpen, modalData, setEditModal }) {
     const [authorValue, setAuthorValue] = useState((modalData.id) ? modalData.original.authors[0].id : "")
     const { register, handleSubmit, formState: { errors }, setValue } = useForm()
     const [image, setImage] = useState((modalData.id) ? modalData.original.coverImage : "")
+    const [bookFile, setBookFile] = useState((modalData.id) ? modalData.original.file : "")
     const ref = useRef()
     const containerRef = useRef()
 
@@ -108,22 +109,37 @@ function BookModal({ setIsModalOpen, modalData, setEditModal }) {
         setValue("id", (modalData.original.id))
     }
 
+    function getFile() {
+        setBookFile(event.target.value)
+        console.log(event.target.value)
+    }
+
 
     return (
         <div className="flex items-center justify-center top-0 right-0 fixed w-screen h-screen z-50" style={{ backgroundColor: "rgba(0 ,0 ,0 , 0.1)", backdropFilter: "blur(3px)" }} ref={containerRef}>
             <div className="shadow-md rounded-lg p-10 pt-0 bg-linen" ref={ref}>
                 <ModalHeader title={(modalData.id) ? "ویرایش کتاب" : 'افزودن کتاب'} id={(modalData.id) ? (modalData.original.id) : ""} />
 
-                <form className="flex flex-col gap-6" style={{ minWidth: "450px" }}>
+                <form className="flex flex-col gap-5" style={{ minWidth: "450px" }}>
                     <div className="flex gap-5 items-end">
                         <FileInput setImage={setImage} image={image} setFile={setFile} {...register("coverImage")} />
-                        <div className="flex flex-col flex-1">
-                            <label htmlFor="name" className="opacity-70 text-sm mb-1">نام کتاب</label>
-                            <input className="p-2 border rounded-md shadow-inner" style={{ borderColor: "lightgray" }} type="text" name="name" id="name" defaultValue={(modalData.id) && modalData.original.name}
-                                {...register("name", {
-                                    required: "فیلد را پر کنید"
-                                })} />
-                            {errors.bookName && <p style={{ color: "red", fontSize: "12px" }}>{errors.bookName.message}</p>}
+                        <div className="flex flex-col gap-2 flex-1">
+                            <div className="flex flex-col w-full">
+                                <label htmlFor="name" className="opacity-70 text-sm mb-1">نام کتاب</label>
+                                <input className="p-2 border rounded-md shadow-inner" style={{ borderColor: "lightgray" }} type="text" name="name" id="name" defaultValue={(modalData.id) && modalData.original.name}
+                                    {...register("name", {
+                                        required: "فیلد را پر کنید"
+                                    })} />
+                                {errors.bookName && <p style={{ color: "red", fontSize: "12px" }}>{errors.bookName.message}</p>}
+                            </div>
+                            <div className="flex flex-col flex-1 border items-center justify-center bg-sand rounded-md shadow-inner" style={{ borderColor: "lightgray" }}>
+                                {(bookFile) ?
+                                    <label htmlFor="pdf" >{bookFile}</label>
+                                    :
+                                    <label htmlFor="pdf" className="cursor-pointer opacity-70 text-sm p-2">آپلود کتاب</label>
+                                }
+                                <input type="file" name="pdf" id="pdf" accept="application/pdf" style={{ display: "none" }} {...register("file")}  onChange={getFile}/>
+                            </div>
                         </div>
                     </div>
 
