@@ -8,6 +8,8 @@ import TableHeaderItem from "../../TableHeaderItem/TableHeaderItem"
 import Pagination from "../../Pagination/Pagination"
 import AuthorModal from "../../Modals/AuthorModal"
 import Filter from "../../Filter/Filter"
+import { useForm } from "react-hook-form"
+import SubmitSearch from "../../Buttons/SubmitSearch"
 
 
 
@@ -17,14 +19,15 @@ function AuthorPage() {
     const [filtering, setFiltering] = useState("")
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [editModal, setEditModal] = useState({})
-    const [pages , setPages] = useState(0)
+    const [pages, setPages] = useState(0)
     const [currentPage, setCurrentPage] = useState(0)
+    const { register, handleSubmit } = useForm()
     const [properties, setProperties] = useState(`?page=${currentPage}&size=10`)
     const [filteredList, setFilteredList] = useState({
         "firstName": "",
         "lastName": "",
         "enable": "",
-        "page":currentPage
+        "page": currentPage
     })
 
 
@@ -56,7 +59,7 @@ function AuthorPage() {
 
         })
             .then(res => res.json())
-            .then(result => {setData(result.content); setPages(result.totalPages)})
+            .then(result => { setData(result.content); setPages(result.totalPages) })
 
     }, [properties])
 
@@ -65,7 +68,7 @@ function AuthorPage() {
     useEffect(() => {
         console.log(filteredList)
         setProperties(`?firstName=${filteredList.firstName}&lastName=${filteredList.lastName}&enable=${filteredList.enable}&page=${currentPage}&size=10`)
-    }, [filteredList , currentPage])
+    }, [filteredList, currentPage])
 
 
 
@@ -132,17 +135,27 @@ function AuthorPage() {
         setIsModalOpen(true)
     }
 
+    function submit(data) {
+        setCurrentPage(0)
+        setFilteredList(data)
+    }
+
 
 
     return (
         <>
             {(isModalOpen) && <AuthorModal setIsModalOpen={setIsModalOpen} modalData={editModal} setEditModal={setEditModal} />}
             <div className="flex items-center justify-between px-4">
-                <div className="flex items-center gap-4">
-                    <Filter title={"نام نویسنده"} totalData={data} filterTitle={"firstName"} filteredList={filteredList} setFilteredList={setFilteredList} multiple={true} setCurrentPage={setCurrentPage} />
-                    <Filter title={"نام خانوادگی"} totalData={data} filterTitle={"lastName"} filteredList={filteredList} setFilteredList={setFilteredList} multiple={true} setCurrentPage={setCurrentPage} />
-                    <Filter title={"وضعیت"} totalData={data} filterTitle={"enable"} filteredList={filteredList} setFilteredList={setFilteredList} multiple={true} setCurrentPage={setCurrentPage} />
-                </div>
+                <form className="flex items-center gap-4">
+                    <input type="text" placeholder="نام نویسنده" className="p-2 px-5 rounded-md focus-visible:outline-dark" style={{ border: "1px solid lightgray" }} {...register("firstName")} />
+                    <input type="text" placeholder="نام خانوادگی" className="p-2 px-5 rounded-md focus-visible:outline-dark" style={{ border: "1px solid lightgray" }} {...register("lastName")} />
+                    <select name="enable" id="enable" className="p-2 rounded-md focus-visible:outline-dark" style={{ border: "1px solid lightgray" }} {...register("enable")}>
+                        <option value="">وضعیت</option>
+                        <option value="true">فعال</option>
+                        <option value="false">غیرفعال</option>
+                    </select>
+                    <SubmitSearch onClick={handleSubmit(submit)} />
+                </form>
                 <AddBtn onClick={openModal} />
             </div>
             <table className="w-full relative border-separate" style={{ borderSpacing: "0 10px" }}>

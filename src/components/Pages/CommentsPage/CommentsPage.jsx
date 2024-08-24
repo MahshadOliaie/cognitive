@@ -2,9 +2,10 @@ import { useEffect, useState } from "react"
 import useFetch from "../../../hooks/useFetch"
 import CommentsCard from "../../CommentsCard/CommentsCard"
 import CommentEditModal from "./CommentEditModal"
-import Filter from "../../Filter/Filter"
 import Pagination from "../../Pagination/Pagination"
 import CommentsReplyModal from "./CommentsReplyModal"
+import SubmitSearch from "../../Buttons/SubmitSearch"
+import { useForm } from "react-hook-form"
 
 
 
@@ -13,6 +14,7 @@ function CommentsPage() {
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [isReplyOpen, setIsReplyOpen] = useState(false)
     const [editModal, setEditModal] = useState({})
+    const { register, handleSubmit } = useForm()
     const [pages, setPages] = useState(0)
     const [currentPage, setCurrentPage] = useState(0)
     const [properties, setProperties] = useState(`?page=${currentPage}&size=10`)
@@ -63,13 +65,16 @@ function CommentsPage() {
         setEditModal(comment)
     }
 
-    function openReply(comment){
+    function openReply(comment) {
         setIsReplyOpen(true)
         setEditModal(comment)
     }
 
+    function submit(data) {
+        setCurrentPage(0)
+        setFilteredList(data)
+    }
 
-    let postId = data?.map(item => item.modelType)
 
     return (
         <>
@@ -77,12 +82,15 @@ function CommentsPage() {
             {(isReplyOpen) && <CommentsReplyModal setIsReplyOpen={setIsReplyOpen} modalData={editModal} setEditModal={setEditModal} />}
 
             <div className="flex justify-between px-4">
-                <div className="flex items-center gap-4 flex-wrap max-w-5xl">
-                    <Filter title={"شماره پست"} totalData={postId} filterTitle={"id"} filteredList={filteredList} setFilteredList={setFilteredList} multiple={true} />
-                    <Filter title={"وضعیت انتشار"} totalData={data} filterTitle={"publish"} filteredList={filteredList} setFilteredList={setFilteredList} multiple={true} />
-
-                </div>
-
+                <form className="flex items-center gap-4">
+                    <input type="text" placeholder="شماره پست" className="p-2 px-5 rounded-md focus-visible:outline-dark" style={{ border: "1px solid lightgray" }} {...register("id")} />
+                    <select name="publish" id="enable" className="p-2 rounded-md focus-visible:outline-dark" style={{ border: "1px solid lightgray" }} {...register("publish")}>
+                        <option value="">وضعیت انتشار</option>
+                        <option value="true">منتشر شده</option>
+                        <option value="false">لغو انتشار</option>
+                    </select>
+                    <SubmitSearch onClick={handleSubmit(submit)} />
+                </form>
             </div>
             <div className="flex flex-col gap-3 pt-11">
 

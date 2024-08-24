@@ -6,14 +6,16 @@ import { flexRender, getCoreRowModel, getFilteredRowModel, getPaginationRowModel
 import TableHeaderItem from "../../TableHeaderItem/TableHeaderItem"
 import TableRow from "../../TableRow/TableRow"
 import TableHeader from "../../TableHeader/TableHeader"
-import Filter from "../../Filter/Filter"
 import CategoryPagination from "./CategoryPagination"
+import SubmitSearch from "../../Buttons/SubmitSearch"
+import { useForm } from "react-hook-form"
 
 
 function CategoryPage() {
     const [data, setData] = useState([])
     const [filtering, setFiltering] = useState("")
     const [isModalOpen, setIsModalOpen] = useState(false)
+    const { register, handleSubmit } = useForm()
     const [editModal, setEditModal] = useState({})
     const [properties, setProperties] = useState('')
     const [filteredList, setFilteredList] = useState({
@@ -118,13 +120,22 @@ function CategoryPage() {
         setIsModalOpen(true)
     }
 
+    function submit(data) {
+        setFilteredList(data)
+    }
+
     return (
         <>
             {(isModalOpen) && <CategoryModal setIsModalOpen={setIsModalOpen} modalData={editModal} setEditModal={setEditModal} />}
             <div className="flex items-center justify-between px-4">
-                <div className="flex items-center gap-4">
-                    <Filter title={"وضعیت"} totalData={data} filterTitle={"enable"} filteredList={filteredList} setFilteredList={setFilteredList} multiple={true}  />
-                </div>
+                <form className="flex items-center gap-4">
+                    <select name="enable" id="enable" className="p-2 rounded-md focus-visible:outline-dark" style={{ border: "1px solid lightgray" }} {...register("enable")}>
+                        <option value="">وضعیت</option>
+                        <option value="true">فعال</option>
+                        <option value="false">غیرفعال</option>
+                    </select>
+                    <SubmitSearch onClick={handleSubmit(submit)} />
+                </form>
                 <AddBtn onClick={openModal} />
             </div>
             <table className="w-full relative border-separate" style={{ borderSpacing: "0 10px" }}>

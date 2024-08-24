@@ -8,14 +8,17 @@ import TableHeaderItem from "../../TableHeaderItem/TableHeaderItem"
 import Pagination from "../../Pagination/Pagination"
 import useFetch from "../../../hooks/useFetch"
 import BookModal from "../../Modals/BookModal"
-import Filter from "../../Filter/Filter"
+import SubmitSearch from "../../Buttons/SubmitSearch"
+import { useForm } from "react-hook-form"
+import DeleteFilter from "../../Buttons/DeleteFilter"
 
 function AddBookPage() {
     const [data, setData] = useState([])
-    const [filtering, setFiltering] = useState("")
+    const [isFilter, setIsFilter] = useState(false)
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [editModal, setEditModal] = useState({})
     const [pages, setPages] = useState(0)
+    const { register, handleSubmit } = useForm()
     const [currentPage, setCurrentPage] = useState(0)
     const [properties, setProperties] = useState(`?page=${currentPage}&size=10`)
     const [filteredList, setFilteredList] = useState({
@@ -25,7 +28,6 @@ function AddBookPage() {
         "categoryIds": "",
         "publisherIds": "",
         "authorIds": "",
-        "page": currentPage
     })
 
     const books = useFetch(`https://cogcenter.ir/library/api/v1/manager/0/books${properties}`)
@@ -191,44 +193,56 @@ function AddBookPage() {
     const table = useReactTable({
         data,
         columns,
-        state: {
-            globalFilter: filtering,
-        },
         getFilteredRowModel: getFilteredRowModel(),
         getCoreRowModel: getCoreRowModel(),
-        onGlobalFilterChange: setFiltering,
         getPaginationRowModel: getPaginationRowModel(),
 
     })
 
-    let authorsFullName = []
-    data?.map(book => {
-        book.authors.map(author => {
-            authorsFullName.push({ "fullName": author.firstName + " " + author.lastName, "id": author.id })
+    function submit(data) {
+        setCurrentPage(0)
+        setIsFilter(true)
+        setFilteredList(data)
+    }
+
+
+    function deleteFilter() {
+        setFilteredList({
+            "name": "",
+            "public": "",
+            "publish": "",
+            "categoryIds": "",
+            "publisherIds": "",
+            "authorIds": "",
         })
-    })
+        setIsFilter(false)
+    }
 
-    let genres = data?.map(book => {
-        return book.category
-    })
-
-    let publishers = data?.map(book => {
-        return book.publisher
-    })
 
     return (
         <>
             {(isModalOpen) && <BookModal setIsModalOpen={setIsModalOpen} modalData={editModal} setEditModal={setEditModal} />}
             <div className="flex justify-between px-4">
-                <div className="flex items-center gap-4 flex-wrap max-w-5xl">
-                    <Filter title={"نام کتاب"} totalData={data} filterTitle={"name"} filteredList={filteredList} setFilteredList={setFilteredList} multiple={true} setCurrentPage={setCurrentPage} />
-                    <Filter title={"نام نویسنده"} totalData={authorsFullName} filterTitle={"fullName"} filteredList={filteredList} setFilteredList={setFilteredList} multiple={true} getId={"authorIds"} setCurrentPage={setCurrentPage} />
-                    <Filter title={"ناشر"} totalData={publishers} filterTitle={"name"} filteredList={filteredList} setFilteredList={setFilteredList} multiple={true} getId={"publisherIds"} setCurrentPage={setCurrentPage} />
-                    <Filter title={"ژانر"} totalData={genres} filterTitle={"title"} filteredList={filteredList} setFilteredList={setFilteredList} multiple={true} getId={"categoryIds"} setCurrentPage={setCurrentPage} />
-                    <Filter title={"وضعیت انتشار"} totalData={data} filterTitle={"publish"} filteredList={filteredList} setFilteredList={setFilteredList} multiple={true} setCurrentPage={setCurrentPage} />
-                    <Filter title={"سطح دسترسی"} totalData={data} filterTitle={"public"} filteredList={filteredList} setFilteredList={setFilteredList} multiple={true} setCurrentPage={setCurrentPage} />
+                <form className="flex items-center gap-4 flex-wrap max-w-5xl">
+                    <input type="text" placeholder="نام کتاب" className="p-2 px-5 rounded-md focus-visible:outline-dark" style={{ border: "1px solid lightgray" }} {...register("name")} />
+                    <input type="text" placeholder="نام نویسنده" className="p-2 px-5 rounded-md focus-visible:outline-dark" style={{ border: "1px solid lightgray" }} {...register("authorIds")} />
+                    <input type="text" placeholder="ناشر" className="p-2 px-5 rounded-md focus-visible:outline-dark" style={{ border: "1px solid lightgray" }} {...register("publisherIds")} />
+                    <input type="text" placeholder="ژانر" className="p-2 px-5 rounded-md focus-visible:outline-dark" style={{ border: "1px solid lightgray" }} {...register("categoryIds")} />
 
-                </div>
+                    <select name="publish" id="enable" className="p-2 rounded-md focus-visible:outline-dark" style={{ border: "1px solid lightgray" }} {...register("publish")}>
+                        <option value="">وضعیت انتشار</option>
+                        <option value="true">منتشر شده</option>
+                        <option value="false">لغو انتشار</option>
+                    </select>
+
+                    <select name="publish" id="enable" className="p-2 rounded-md focus-visible:outline-dark" style={{ border: "1px solid lightgray" }} {...register("public")}>
+                        <option value="">سطح دسترسی</option>
+                        <option value="true">عمومی</option>
+                        <option value="false">خصوصی</option>
+                    </select>
+                    <SubmitSearch onClick={handleSubmit(submit)} />
+                    {(isFilter) && <DeleteFilter onClick={deleteFilter} />}
+                </form>
                 <AddBtn onClick={openModal} />
             </div>
             <table className="w-full relative border-separate" style={{ borderSpacing: "0 10px" }}>
