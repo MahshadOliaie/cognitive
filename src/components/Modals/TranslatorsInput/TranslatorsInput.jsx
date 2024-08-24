@@ -3,9 +3,7 @@ import useFetch from "../../../hooks/useFetch"
 import Select from 'react-select'
 
 
-
-function AuthorsInput({ modalData, setAuthorValue }) {
-
+function TranslatorsInput({ modalData, setTranslatorValue }) {
     const authors = useFetch('https://cogcenter.ir/library/api/v1/authors?page=0')
     const [options, setOptions] = useState([])
 
@@ -26,18 +24,18 @@ function AuthorsInput({ modalData, setAuthorValue }) {
         let arr = selectedOption.map(item => {
             item.value
         })
-        setAuthorValue(arr)
+        setTranslatorValue(arr)
     }
 
     return (
         <>
             <div className="flex flex-col">
-                <label htmlFor="authors" className="opacity-70 text-sm mb-1">نویسندگان</label>
-                <Select options={options} onChange={handleChange} placeholder="انتخاب کنید" isMulti defaultInputValue={(modalData.id) ? modalData.original.authors.map(author => author.firstName + " " + author.lastName) : ""} />
+                <label htmlFor="translators" className="opacity-70 text-sm mb-1">مترجم‌ها</label>
+                <Select options={options} onChange={handleChange} placeholder="انتخاب کنید" isMulti defaultInputValue={(modalData.id) ? modalData.original.translators.map(translator => translator.firstName + " " + translator.lastName) : ""} />
             </div>
 
         </>
     )
 }
 
-export default AuthorsInput
+export default TranslatorsInput

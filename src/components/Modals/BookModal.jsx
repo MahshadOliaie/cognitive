@@ -10,6 +10,7 @@ import AddDoneBtn from "./Btns/AddDoneBtn"
 import EditDoneBtn from "./Btns/EditDoneBtn"
 import { useForm } from "react-hook-form"
 import { useState } from "react"
+import TranslatorsInput from "./TranslatorsInput/TranslatorsInput"
 
 function BookModal({ setIsModalOpen, modalData, setEditModal }) {
 
@@ -18,6 +19,7 @@ function BookModal({ setIsModalOpen, modalData, setEditModal }) {
     const [isPublish, setIsPublish] = useState((modalData.id) ? modalData.original.publish : false)
     const [categoryValue, setCategoryValue] = useState((modalData.id) ? modalData.original.category.id : "")
     const [publisherValue, setPublisherValue] = useState((modalData.id) ? modalData.original.publisher.id : "")
+    const [translatorValue, setTranslatorValue] = useState((modalData.id) ? modalData.original.authors[0].id : "")
     const [authorValue, setAuthorValue] = useState((modalData.id) ? modalData.original.authors[0].id : "")
     const { register, handleSubmit, formState: { errors }, setValue } = useForm()
     const [image, setImage] = useState((modalData.id) ? modalData.original.coverImage : "")
@@ -82,6 +84,7 @@ function BookModal({ setIsModalOpen, modalData, setEditModal }) {
     setValue("scopeId", 0)
     register("file")
     setValue("file", file)
+    setValue("translatorIds", translatorValue)
 
     if (modalData.id) {
         register("id")
@@ -100,7 +103,7 @@ function BookModal({ setIsModalOpen, modalData, setEditModal }) {
                         <FileInput setImage={setImage} image={image} setFile={setFile} {...register("coverImage")} />
                         <div className="flex flex-col flex-1">
                             <label htmlFor="name" className="opacity-70 text-sm mb-1">نام کتاب</label>
-                            <input className="p-2 rounded-md shadow-inner focus-visible:border-2 border-dark outline-none" type="text" name="name" id="name" defaultValue={(modalData.id) && modalData.original.name}
+                            <input className="p-2 border rounded-md shadow-inner" style={{ borderColor: "lightgray" }} type="text" name="name" id="name" defaultValue={(modalData.id) && modalData.original.name}
                                 {...register("name", {
                                     required: "فیلد را پر کنید"
                                 })} />
@@ -111,7 +114,7 @@ function BookModal({ setIsModalOpen, modalData, setEditModal }) {
                     <div className="flex justify-between gap-5">
                         <div className="flex flex-col flex-1">
                             <label htmlFor="pages" className="opacity-70 text-sm mb-1">تعداد صفحات</label>
-                            <input className="p-2 rounded-md shadow-inner focus-visible:border-2 border-dark outline-none" type="number" name="pages" id="pages" defaultValue={(modalData.id) && modalData.original.pageNumber}
+                            <input className="p-2 border rounded-md shadow-inner" style={{ borderColor: "lightgray" }} type="number" name="pages" id="pages" defaultValue={(modalData.id) && modalData.original.pageNumber}
                                 {...register("pageNumber", {
                                     required: "فیلد را پر کنید"
                                 })} />
@@ -147,7 +150,7 @@ function BookModal({ setIsModalOpen, modalData, setEditModal }) {
 
                         <div className="flex flex-col flex-1">
                             <label htmlFor="year" className="opacity-70 text-sm mb-1">سال انتشار</label>
-                            <input className="p-2 rounded-md shadow-inner focus-visible:border-2 border-dark outline-none" type="number" name="year" id="year" defaultValue={(modalData.id) && modalData.original.publicationYear}
+                            <input className="p-2 border rounded-md shadow-inner" style={{ borderColor: "lightgray" }} type="number" name="year" id="year" defaultValue={(modalData.id) && modalData.original.publicationYear}
                                 {...register("publicationYear", {
                                     required: "فیلد را پر کنید"
                                 })} />
@@ -157,15 +160,13 @@ function BookModal({ setIsModalOpen, modalData, setEditModal }) {
 
                     </div>
                     <div className="flex flex-col flex-1">
-                        <label htmlFor="translator" className="opacity-70 text-sm mb-1">نام مترجم</label>
-                        <input className="p-2 rounded-md shadow-inner focus-visible:border-2 border-dark outline-none" name="translator" id="translator" defaultValue={(modalData.id) && modalData.original.translators}
-                            {...register("translatorIds")} />
+                        <TranslatorsInput modalData={modalData} setTranslatorValue={setTranslatorValue} {...register("translatorIds")}  />
                     </div>
 
 
                     <div className="flex flex-col">
                         <label htmlFor="desc" className="opacity-70 text-sm mb-1">توضیحات</label>
-                        <textarea className="p-4 rounded-md shadow-inner focus-visible:border-2 border-dark outline-none" type="text" name="desc" id="desc" defaultValue={(modalData.id) && modalData.original.description}
+                        <textarea className="p-4 border rounded-md shadow-inner" style={{ borderColor: "lightgray" }} type="text" name="desc" id="desc" defaultValue={(modalData.id) && modalData.original.description}
                             {...register("description")} />
                     </div>
 

@@ -30,7 +30,7 @@ function PublishersInput({ modalData, setPublisherValue }) {
         <>
             <div className="flex flex-col flex-1">
                 <label htmlFor="publisher" className="opacity-70 text-sm mb-1">ناشر</label>
-                <Select options={options} onChange={handleChange} placeholder="انتخاب کنید" />
+                <Select options={options} onChange={handleChange} placeholder="انتخاب کنید" defaultInputValue={(modalData.id)? modalData.original.publisher.name : ""} />
             </div>
         </>
     )
