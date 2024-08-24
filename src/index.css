@@ -13,10 +13,25 @@ body {
 
 }
 
+.rs-calendar {
+    direction: ltr !important;
+}
+
+.rs-picker-date > .rs-input-group.rs-input-group-inside .rs-input {
+    padding: 10px 15px 10px 5px !important;
+}
+
+.rs-calendar-header-has-month:not(.rs-calendar-header-has-time) .rs-calendar-header-month-toolbar {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    flex-direction: row-reverse !important;
+}
+
 html,
 :host {
     ::-webkit-scrollbar {
-       display: none;
+        display: none;
     }
 
     /* Optional: show position indicator in red */

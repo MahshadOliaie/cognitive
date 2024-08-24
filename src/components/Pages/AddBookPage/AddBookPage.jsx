@@ -14,6 +14,11 @@ import DeleteFilter from "../../Buttons/DeleteFilter"
 import CategoryInput from "../../Modals/CategoryInput/CategoryInput"
 import PublishersInput from "../../Modals/PublishersInput/PublishersInput"
 import AuthorsInput from "../../Modals/AuthorsInput/AuthorsInput"
+import 'react-datetime-picker/dist/DateTimePicker.css';
+import 'react-calendar/dist/Calendar.css';
+import 'react-clock/dist/Clock.css';
+import DatePicker from 'rsuite/DatePicker';
+import 'rsuite/DatePicker/styles/index.css';
 
 function AddBookPage() {
     const [data, setData] = useState([])
@@ -34,6 +39,8 @@ function AddBookPage() {
         "categoryIds": "",
         "publisherIds": "",
         "authorIds": "",
+        "from": "",
+        "to": "",
     })
 
     const books = useFetch(`https://cogcenter.ir/library/api/v1/manager/0/books${properties}`)
@@ -71,7 +78,7 @@ function AddBookPage() {
 
     useEffect(() => {
         console.log(filteredList)
-        setProperties(`?categoryIds=${filteredList.categoryIds}&publish=${filteredList.publish}&name=${filteredList.name}&authorIds=${filteredList.authorIds}&publisherIds=${filteredList.publisherIds}&isPublic=${filteredList.public}&page=${currentPage}&size=10`)
+        setProperties(`?categoryIds=${filteredList.categoryIds}&publish=${filteredList.publish}&name=${filteredList.name}&authorIds=${filteredList.authorIds}&publisherIds=${filteredList.publisherIds}&isPublic=${filteredList.public}&from=${filteredList.from}&to=${filteredList.to}&page=${currentPage}&size=10`)
     }, [filteredList, currentPage])
 
 
@@ -221,6 +228,8 @@ function AddBookPage() {
             "categoryIds": "",
             "publisherIds": "",
             "authorIds": "",
+            "from": "",
+            "to": "",
         })
         setIsFilter(false)
     }
@@ -228,6 +237,24 @@ function AddBookPage() {
     setValue("categoryIds", categories)
     setValue("publisherIds", publisher)
     setValue("authorIds", authors)
+    register("from")
+    register("to")
+
+    function formatDateToISO(date) {
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+
+        return `${year}-${month}-${day}`;
+    }
+
+    function getFrom(date) {
+        setValue("from", formatDateToISO(date))
+    }
+
+    function getTo(date) {
+        setValue("to", formatDateToISO(date))
+    }
 
     return (
         <>
@@ -247,7 +274,6 @@ function AddBookPage() {
                     <div>
                         <CategoryInput modalData={{}} setCategoryValue={setCategories} {...register("categoryIds")} multi={true} />
                     </div>
-
                     <select name="publish" id="publish" className="p-2 py-1.5 rounded-md focus-visible:outline-dark" style={{ border: "1px solid lightgray" }} {...register("publish")}>
                         <option value="">وضعیت انتشار</option>
                         <option value="true">منتشر شده</option>
@@ -259,11 +285,22 @@ function AddBookPage() {
                         <option value="true">عمومی</option>
                         <option value="false">خصوصی</option>
                     </select>
+                    <div className="flex flex-col">
+                        <label htmlFor="" className="opacity-70 text-sm mb-1">از تاریخ:</label>
+                        <DatePicker placeholder="انتخاب کنید" editable={false} onChange={getTo} />
+                    </div>
+                    <div className="flex flex-col">
+                        <label htmlFor="" className="opacity-70 text-sm mb-1">تا تاریخ:</label>
+                        <DatePicker placeholder="انتخاب کنید" editable={false} onChange={getFrom} />
+                    </div>
+
+
                     <SubmitSearch onClick={handleSubmit(submit)} />
                     {(isFilter) && <DeleteFilter onClick={deleteFilter} />}
                 </form>
                 <AddBtn onClick={openModal} />
             </div>
+
             <table className="w-full relative border-separate" style={{ borderSpacing: "0 10px" }}>
 
                 <TableHeader>
