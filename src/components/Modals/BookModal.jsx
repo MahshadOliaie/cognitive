@@ -9,6 +9,7 @@ import FileInput from "./FileInput/FileInput"
 import AddDoneBtn from "./Btns/AddDoneBtn"
 import EditDoneBtn from "./Btns/EditDoneBtn"
 import { useForm } from "react-hook-form"
+import { useState } from "react"
 
 function BookModal({ setIsModalOpen, modalData, setEditModal }) {
 
