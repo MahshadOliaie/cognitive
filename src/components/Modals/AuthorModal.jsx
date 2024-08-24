@@ -93,7 +93,7 @@ function AuthorModal({ setIsModalOpen, modalData, setEditModal }) {
                         <FileInput setImage={setImage} image={image} {...register("coverImage")} />
                         <div className="flex flex-col flex-1">
                             <label htmlFor="name" className="opacity-70 text-sm mb-1">نام</label>
-                            <input type="text" name="name" id="name" defaultValue={(modalData.id) && modalData.original.firstName} className="p-2 rounded-md shadow-inner focus-visible:border-2 border-dark outline-none"
+                            <input type="text" name="name" id="name" defaultValue={(modalData.id) && modalData.original.firstName} className="p-2 border rounded-md shadow-inner" style={{ borderColor: "lightgray" }}
                                 {...register("firstName", {
                                     required: " فیلد را پر کنید"
                                 })} />
@@ -101,7 +101,7 @@ function AuthorModal({ setIsModalOpen, modalData, setEditModal }) {
                         </div>
                         <div className="flex flex-col flex-1">
                             <label htmlFor="lastName" className="opacity-70 text-sm mb-1">نام خانوادگی</label>
-                            <input type="text" name="lastName" id="lastName" defaultValue={(modalData.id) && modalData.original.lastName} className="p-2 rounded-md shadow-inner focus-visible:border-2 border-dark outline-none" {...register("lastName", {
+                            <input type="text" name="lastName" id="lastName" defaultValue={(modalData.id) && modalData.original.lastName} className="p-2 border rounded-md shadow-inner" style={{ borderColor: "lightgray" }} {...register("lastName", {
                                 required: "فیلد را پر کنید"
                             })} />
                             {errors.lastName && <p style={{ color: "red", fontSize: "12px" }}>{errors.lastName.message}</p>}
@@ -109,7 +109,7 @@ function AuthorModal({ setIsModalOpen, modalData, setEditModal }) {
 
                         <div className="flex flex-col">
                             <label htmlFor="desc" className="opacity-70 text-sm mb-1">توضیحات</label>
-                            <textarea type="text" name="desc" id="desc" defaultValue={(modalData.id) && modalData.original.description} className="p-4 rounded-md shadow-inner focus-visible:border-2 border-dark outline-none"  {...register("description")} />
+                            <textarea type="text" name="desc" id="desc" defaultValue={(modalData.id) && modalData.original.description} className="p-4 border rounded-md shadow-inner" style={{ borderColor: "lightgray" }}  {...register("description")} />
                         </div>
 
                         <div className="flex items-center justify-between px-4">

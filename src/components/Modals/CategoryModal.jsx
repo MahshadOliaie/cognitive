@@ -101,7 +101,7 @@ function CategoryModal({ setIsModalOpen, modalData, setEditModal }) {
 
                         <div className="flex flex-col flex-1">
                             <label htmlFor="name" className="opacity-70 text-sm mb-1">عنوان کتگوری</label>
-                            <input className="p-2 rounded-md shadow-inner focus-visible:border-2 border-dark outline-none" type="text" name="name" id="name" defaultValue={(modalData.id) && modalData.original.title} {...register("title", {
+                            <input className="p-2 border rounded-md shadow-inner" style={{ borderColor: "lightgray" }} type="text" name="name" id="name" defaultValue={(modalData.id) && modalData.original.title} {...register("title", {
                                 required: "فیلد را پر کنید"
                             })} />
                             {errors.title && <p style={{ color: "red", fontSize: "12px" }}>{errors.title.message}</p>}
