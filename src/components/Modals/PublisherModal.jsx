@@ -88,7 +88,7 @@ function PublisherModal({ setIsModalOpen, modalData, setEditModal }) {
                     <ModalHeader title={(modalData.id) ? "ویرایش ناشر" : 'افزودن ناشر'} id={(modalData.id) ? modalData.original.id : ""} />
 
                     <form className="flex flex-col gap-6 py-5 pb-7" style={{ minWidth: "450px" }}>
-                        <FileInput setImage={setImage} image={image} fileKey={(modalData.id) && modalData.original.fileKey}  {...register("coverImage")} />
+                        <FileInput setImage={setImage} image={image} modalData={modalData} {...register("coverImage")} />
 
                         <div className="flex flex-col flex-1">
                             <label htmlFor="name" className="opacity-70 text-sm mb-1">نام ناشر</label>

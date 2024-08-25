@@ -27,7 +27,7 @@ function AuthorsInput({ modalData, setAuthorValue }) {
         selectedOption.map(item => {
             arr.push(item.value)
         })
-
+console.log(arr)
         setAuthorValue(arr)
     }
 
