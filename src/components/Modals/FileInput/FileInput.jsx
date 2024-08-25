@@ -1,7 +1,7 @@
 
 
 
-function FileInput({setImage , image , setFile}) {
+function FileInput({setImage , image , setFile , fileKey}) {
 
 
 
@@ -16,7 +16,7 @@ function FileInput({setImage , image , setFile}) {
         <>
             <div className="flex flex-col flex-1 border items-center justify-center bg-sand py-3.5 rounded-md shadow-inner max-w-52.5" style={{ borderColor: "lightgray" }}>
                 {(image) ?
-                    <label htmlFor="image" >{image}</label>
+                    <label htmlFor="image" ><img src={`http://cogcenter.ir/api/fs/v1/files/download/${image}?key=${fileKey}`} alt="" className="max-w-48" /></label>
                     :
                     <label htmlFor="image" className="cursor-pointer opacity-70 text-sm p-5">انتخاب عکس</label>
                 }
