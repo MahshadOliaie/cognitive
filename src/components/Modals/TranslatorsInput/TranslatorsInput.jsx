@@ -33,11 +33,11 @@ function TranslatorsInput({ modalData, setTranslatorValue }) {
         <>
             <div className="flex flex-col">
                 <label htmlFor="translators" className="opacity-70 text-sm mb-1">مترجمان</label>
-                <Select options={options} onChange={handleChange} placeholder="انتخاب کنید" isMulti defaultInputValue={(modalData.id) ? modalData.original.translators.map(translator => translator.firstName + " " + translator.lastName) : ""} />
+                <Select options={options} onChange={handleChange} placeholder="انتخاب کنید" isMulti defaultValue={modalData.original?.translators.map(translator => { return { label: `${translator.firstName + " " + translator.lastName}`, value: translator.id } })} />
             </div>
 
         </>
     )
 }
-
+// defaultInputValue={(modalData.id) ? modalData.original.translators.map(translator => translator.firstName + " " + translator.lastName) : ""}
 export default TranslatorsInput

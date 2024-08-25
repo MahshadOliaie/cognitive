@@ -27,7 +27,6 @@ function AuthorsInput({ modalData, setAuthorValue }) {
         selectedOption.map(item => {
             arr.push(item.value)
         })
-console.log(arr)
         setAuthorValue(arr)
     }
 
@@ -35,7 +34,7 @@ console.log(arr)
         <>
             <div className="flex flex-col">
                 <label htmlFor="authors" className="opacity-70 text-sm mb-1">نویسندگان</label>
-                <Select options={options} onChange={handleChange} placeholder="انتخاب کنید" isMulti defaultInputValue={(modalData.id) ? modalData.original.authors.map(author => author.firstName + " " + author.lastName) : ""} />
+                <Select options={options} onChange={handleChange} placeholder="انتخاب کنید" isMulti defaultValue={modalData.original?.authors.map(author => { return { label: `${author.firstName + " " + author.lastName}`, value: author.id } })} />
             </div>
 
         </>
