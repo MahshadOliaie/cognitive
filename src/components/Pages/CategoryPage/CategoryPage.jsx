@@ -72,7 +72,7 @@ function CategoryPage() {
         {
             accessorFn: (row) => `${row.coverImage}?key=${row.fileKey}`,
             header: "عکس",
-            cell: (props) => <img src={`http://cogcenter.ir/api/fs/v1/files/download/${props.getValue()}`} alt="" className="w-11 m-auto hover:scale-150 duration-500 cursor-pointer" />
+            cell: (props) => <img src={`http://cogcenter.ir/api/fs/v1/files/download/${props.getValue()}`} alt="" className="w-11 m-auto cursor-pointer" />
         },
         {
             accessorKey: "title",

@@ -15,13 +15,12 @@ import TranslatorsInput from "./TranslatorsInput/TranslatorsInput"
 function BookModal({ setIsModalOpen, modalData, setEditModal }) {
 
     const [isPublic, setIsPublic] = useState((modalData.id) ? modalData.original.public : false)
-    const [file, setFile] = useState((modalData.id) ? modalData.original.fileKey : "")
     const [isPublish, setIsPublish] = useState((modalData.id) ? modalData.original.publish : false)
     const [categoryValue, setCategoryValue] = useState((modalData.id) ? modalData.original.category.id : "")
     const [publisherValue, setPublisherValue] = useState((modalData.id) ? modalData.original.publisher.id : "")
     const [translatorValue, setTranslatorValue] = useState((modalData.id) ? modalData.original.authors[0].id : "")
     const [authorValue, setAuthorValue] = useState((modalData.id) ? modalData.original.authors[0].id : "")
-    const { register, handleSubmit, formState: { errors }, setValue } = useForm()
+    const {register, handleSubmit, formState: { errors }, setValue } = useForm()
     const [image, setImage] = useState((modalData.id) ? modalData.original.coverImage : "")
     const [bookFile, setBookFile] = useState((modalData.id) ? modalData.original.file : "")
     const ref = useRef()
@@ -101,7 +100,7 @@ function BookModal({ setIsModalOpen, modalData, setEditModal }) {
     register("scopeId")
     setValue("scopeId", 0)
     register("file")
-    setValue("file", file)
+    setValue("file", bookFile)
     setValue("translatorIds", translatorValue)
 
     if (modalData.id) {
@@ -110,8 +109,8 @@ function BookModal({ setIsModalOpen, modalData, setEditModal }) {
     }
 
     function getFile() {
-        setBookFile(event.target.value)
-        console.log(event.target.value)
+        setBookFile(event.target.files[0].name)
+        console.log(event.target.files[0])
     }
 
 
@@ -122,7 +121,7 @@ function BookModal({ setIsModalOpen, modalData, setEditModal }) {
 
                 <form className="flex flex-col gap-5" style={{ minWidth: "450px" }}>
                     <div className="flex gap-5 items-end">
-                        <FileInput setImage={setImage} image={image} setFile={setFile} fileKey={(modalData.id) && modalData.original.fileKey} {...register("coverImage")} />
+                        <FileInput setImage={setImage} image={image} modalData={modalData} {...register("coverImage")} />
                         <div className="flex flex-col gap-2 flex-1">
                             <div className="flex flex-col w-full">
                                 <label htmlFor="name" className="opacity-70 text-sm mb-1">نام کتاب</label>
@@ -134,7 +133,10 @@ function BookModal({ setIsModalOpen, modalData, setEditModal }) {
                             </div>
                             <div className="flex flex-col flex-1 border items-center justify-center bg-sand rounded-md shadow-inner" style={{ borderColor: "lightgray" }}>
                                 {(bookFile) ?
-                                    <label htmlFor="pdf" >{bookFile}</label>
+                                     (modalData.original.file) ?
+                                     <label htmlFor="pdf" ><img src={`http://cogcenter.ir/api/fs/v1/files/download/${bookFile}?key=${modalData.original.fileKey}`} alt="" className="max-w-48" /></label>
+                                     :
+                                     <label htmlFor="pdf" >{bookFile.name}</label>
                                     :
                                     <label htmlFor="pdf" className="cursor-pointer opacity-70 text-sm p-2">آپلود کتاب</label>
                                 }
