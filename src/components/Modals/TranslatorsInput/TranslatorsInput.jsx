@@ -39,5 +39,4 @@ function TranslatorsInput({ modalData, setTranslatorValue }) {
         </>
     )
 }
-// defaultInputValue={(modalData.id) ? modalData.original.translators.map(translator => translator.firstName + " " + translator.lastName) : ""}
 export default TranslatorsInput

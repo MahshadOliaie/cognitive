@@ -6,7 +6,7 @@ import PublishTag from "./PublishTag";
 
 function CommentsCard({ comment, onClick , reply }) {
 
-    const { id, userName, text, userImage, modelType, reaction, publishAt, updatedAt, publish } = comment
+    const {userName, text, userImage, modelType, reaction, publishAt, updatedAt, publish } = comment
 
     var hue = Math.floor(Math.random() * 460);
     var pastel = 'hsl(' + hue + ', 65%, 65%)';
