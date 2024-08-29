@@ -73,7 +73,8 @@ function CategoryPage() {
         {
             accessorFn: (row) => `${row.coverImage}?key=${row.fileKey}`,
             header: "عکس",
-            cell: (props) => <img src={`http://cogcenter.ir/api/fs/v1/files/download/${props.getValue()}`} alt="" className="w-11 m-auto cursor-pointer" />
+            size: 80,
+            cell: (props) => <img src={`http://cogcenter.ir/api/fs/v1/files/download/${props.getValue()}`} alt="" className="m-auto cursor-pointer" style={{maxHeight: "32px"}} />
         },
         {
             accessorKey: "title",
@@ -99,7 +100,7 @@ function CategoryPage() {
             accessorKey: "enable",
             header: "وضعیت",
             cell: (props) => <p>{(props.getValue()) ? "فعال" : "غیرفعال"}</p>
-        },
+        }
     ]
 
 
@@ -139,7 +140,7 @@ function CategoryPage() {
                 </form>
                 <AddBtn onClick={openModal} />
             </div>
-            <table className="w-full relative border-separate" style={{ borderSpacing: "0 10px" }}>
+            <table className="w-full relative border-collapse mt-10">
                 <TableHeader>
                     {table.getHeaderGroups()[0].headers.map(header => {
                         return <TableHeaderItem header={header} key={header.id} />
@@ -151,7 +152,7 @@ function CategoryPage() {
                         <TableRow key={row.id} modalData={row} setEditModal={setEditModal} openModal={openModal}>
                             {
                                 row.getVisibleCells().map(cell =>
-                                    <td className="py-6" key={cell.id} width={cell.column.getSize()}>
+                                    <td key={cell.id} width={cell.column.getSize()}>
                                         {
                                             flexRender(
                                                 cell.column.columnDef.cell,

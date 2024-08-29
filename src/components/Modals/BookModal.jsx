@@ -21,7 +21,7 @@ function BookModal({ setIsModalOpen, modalData, setEditModal }) {
     const [publisherValue, setPublisherValue] = useState((modalData.id) ? modalData.original.publisher.id : "")
     const [translatorValue, setTranslatorValue] = useState((modalData.id) ? modalData.original.translators.map(translator => translator.id) : [])
     const [authorValue, setAuthorValue] = useState((modalData.id) ? modalData.original.authors.map(author => author.id) : [])
-    const {register, handleSubmit, formState: { errors }, setValue } = useForm()
+    const { register, handleSubmit, formState: { errors }, setValue } = useForm()
     const [image, setImage] = useState((modalData.id) ? modalData.original.coverImage : "")
     const [bookFile, setBookFile] = useState((modalData.id) ? modalData.original.file : "")
     const ref = useRef()
@@ -57,7 +57,25 @@ function BookModal({ setIsModalOpen, modalData, setEditModal }) {
     }
 
     async function putData(data) {
+        const { authorIds, categoryId, coverImage, description, file, id, name, pageNumber, publicationYear, publish, publisherId, scopeId, translatorIds
+        } = data
         console.log(data)
+        const formData = new FormData()
+        formData.append("authorIds", authorIds)
+        formData.append("categoryId", categoryId)
+        formData.append("coverImage", coverImage)
+        formData.append("description", description)
+        formData.append("file", file)
+        formData.append("id", id)
+        formData.append("name", name)
+        formData.append("pageNumber", pageNumber)
+        formData.append("publicationYear", publicationYear)
+        formData.append("publish", publish)
+        formData.append("public", data.public)
+        formData.append("publisherId", publisherId)
+        formData.append("scopeId", scopeId)
+        formData.append("translatorIds", translatorIds)
+
         fetch(`https://cogcenter.ir/library/api/v1/manager/0/books/${data.id}`, {
             method: 'PUT',
             headers: {
@@ -69,13 +87,30 @@ function BookModal({ setIsModalOpen, modalData, setEditModal }) {
                 "expiresIn": 1724266116069,
                 "refreshToken": "3eb183b8-340f-4452-af97-55015dd105b8",
             },
-            body: JSON.stringify(data)
+            body: formData
         });
         await setIsModalOpen(false)
     }
 
     async function postData(data) {
+        const { authorIds, categoryId, coverImage, description, file, id, name, pageNumber, publicationYear, publish, publisherId, scopeId, translatorIds
+        } = data
         console.log(data)
+        const formData = new FormData()
+        formData.append("authorIds", authorIds)
+        formData.append("categoryId", categoryId)
+        formData.append("coverImage", coverImage)
+        formData.append("description", description)
+        formData.append("file", file)
+        formData.append("name", name)
+        formData.append("pageNumber", pageNumber)
+        formData.append("publicationYear", publicationYear)
+        formData.append("publish", publish)
+        formData.append("public", data.public)
+        formData.append("publisherId", publisherId)
+        formData.append("scopeId", scopeId)
+        formData.append("translatorIds", translatorIds)
+
         fetch('https://cogcenter.ir/library/api/v1/manager/0/books', {
             method: 'POST',
             headers: {
@@ -87,7 +122,7 @@ function BookModal({ setIsModalOpen, modalData, setEditModal }) {
                 "expiresIn": 1724266116069,
                 "refreshToken": "3eb183b8-340f-4452-af97-55015dd105b8",
             },
-            body: JSON.stringify(data)
+            body: formData
         });
         await setIsModalOpen(false)
     }
@@ -109,10 +144,29 @@ function BookModal({ setIsModalOpen, modalData, setEditModal }) {
         setValue("id", (modalData.original.id))
     }
 
-    function getFile() {
-        setBookFile(event.target.files[0].name)
-        console.log(event.target.files[0])
+    async function getFile() {
+        const formData = new FormData();
+        formData.append("modelTypeId", 6);
+        formData.append("scopeId", 0);
+        formData.append("file", event.target.files[0]);
+
+        await fetch("https://cogcenter.ir/api/fs/v1/files", {
+            method: "POST",
+            headers: {
+                'accept': '*/*',
+                'Authorization': TOKEN,
+                'scope': [
+                    "SUPER_ADMIN"
+                ],
+                "expiresIn": 1724266116069,
+                "refreshToken": "3eb183b8-340f-4452-af97-55015dd105b8",
+            },
+            body: formData
+        })
+            .then(res => res.json())
+            .then(data => setBookFile(data.fileName))
     }
+
 
 
     return (
@@ -134,14 +188,14 @@ function BookModal({ setIsModalOpen, modalData, setEditModal }) {
                             </div>
                             <div className="flex flex-col flex-1 border items-center justify-center bg-sand rounded-md shadow-inner" style={{ borderColor: "lightgray" }}>
                                 {(bookFile) ?
-                                     (modalData.original.file) ?
-                                     <label htmlFor="pdf" ><img src={`http://cogcenter.ir/api/fs/v1/files/download/${bookFile}?key=${modalData.original.fileKey}`} alt="" className="max-w-48" /></label>
-                                     :
-                                     <label htmlFor="pdf" >{bookFile.name}</label>
+                                    (modalData.original.file) ?
+                                        <label htmlFor="pdf" ><img src={`http://cogcenter.ir/api/fs/v1/files/download/${bookFile}?key=${modalData.original.fileKey}`} alt="" className="max-w-48" /></label>
+                                        :
+                                        <label htmlFor="pdf" >{bookFile.name}</label>
                                     :
                                     <label htmlFor="pdf" className="cursor-pointer opacity-70 text-sm p-2">آپلود کتاب</label>
                                 }
-                                <input type="file" name="pdf" id="pdf" accept="application/pdf" style={{ display: "none" }} {...register("file")}  onChange={getFile}/>
+                                <input type="file" name="pdf" id="pdf" accept="application/pdf" style={{ display: "none" }} {...register("file")} onChange={getFile} />
                             </div>
                         </div>
                     </div>

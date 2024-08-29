@@ -102,7 +102,7 @@ function CommentEditModal({ setIsModalOpen, modalData, setEditModal, currentPage
                         {(!isPublish) &&
                             <div className="flex flex-col my-5 ">
                                 <label htmlFor="desc" className="opacity-70 text-sm mb-1">دلیل لغو انتشار</label>
-                                <input className="p-4 border rounded-md shadow-inner" style={{ borderColor: "lightgray" }} type="text" name="desc" id="desc" defaultValue={modalData.unPublishReason} {...register("reason", {
+                                <input className="p-4 border rounded-md shadow-inner" style={{ borderColor: "lightgray" }} type="text" name="desc" id="desc" defaultValue={(!isPublish) && modalData.unPublishReason} {...register("reason", {
                                     required: "فیلد را پر کنید"
                                 })} />
                                 {errors.reason && <p style={{ color: "red", fontSize: "12px" }}>{errors.reason.message}</p>}
