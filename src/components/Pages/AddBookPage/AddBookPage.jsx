@@ -264,9 +264,9 @@ function AddBookPage() {
             {(isModalOpen) && <BookModal setIsModalOpen={setIsModalOpen} modalData={editModal} setEditModal={setEditModal} />}
             <div className="flex justify-between px-4">
                 <form className="flex items-end gap-4 flex-wrap max-w-5xl">
-                    <div className="flex flex-col">
-                        <label htmlFor="name" className="opacity-70 text-sm mb-1">نام کتاب</label>
-                        <input type="text" id="name" className="p-2 py-1.5 px-5 rounded-md focus-visible:outline-dark" style={{ border: "1px solid lightgray" }} {...register("name")} />
+                    <div className="form-group">
+                        <input type="text" id="name" className="searchInput" placeholder="نام کتاب" {...register("name")} />
+                        <label htmlFor="name" className="searchLabel">نام کتاب</label>
                     </div>
                     <div>
                         <AuthorsInput modalData={{}} setAuthorValue={setAuthors} {...register("authorIds")} />

@@ -96,3 +96,43 @@ table tbody tr:hover {
 th {
     background-color: #a1ced695;
 }
+
+
+
+.form-group {
+    --pad: .4rem;
+    position: relative;
+}
+
+.searchInput {
+    padding: var(--pad);
+    box-sizing: border-box;
+    border-radius: 5px;
+    border: 1px solid lightgray;
+    outline: none;
+    width: 100%;
+}
+
+.searchLabel {
+    position: absolute;
+    right: var(--pad);
+    top: var(--pad);
+    background: transparent;
+    padding-inline: .4em;
+    transition: transform 200ms;
+    pointer-events: none;
+    transform-origin: right;
+    font-size: 15px;
+    opacity: .5;
+}
+
+.searchInput::placeholder {
+    opacity: 0;
+}
+
+.searchInput:focus+.searchLabel,
+.searchInput:not(:placeholder-shown)+.searchLabel {
+    transform: translateY(calc(-50% - var(--pad))) scale(.9);
+    opacity: 1;
+    background: linear-gradient(#F3F3F3 50%, white 50%);
+}

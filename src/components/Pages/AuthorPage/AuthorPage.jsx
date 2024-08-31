@@ -147,13 +147,13 @@ function AuthorPage() {
             {(isModalOpen) && <AuthorModal setIsModalOpen={setIsModalOpen} modalData={editModal} setEditModal={setEditModal} />}
             <div className="flex items-center justify-between px-4">
                 <form className="flex items-end gap-4">
-                    <div className="flex flex-col">
-                        <label htmlFor="firstName" className="opacity-70 text-sm mb-1">نام نویسنده</label>
-                        <input type="text" id="firstName" className="p-1.5 px-5 rounded-md focus-visible:outline-dark" style={{ border: "1px solid lightgray" }} {...register("firstName")} />
+                    <div className="form-group">
+                        <input type="text" id="firstName" className="searchInput" placeholder="نام نویسنده" {...register("firstName")} />
+                        <label htmlFor="firstName" className="searchLabel">نام نویسنده</label>
                     </div>
-                    <div className="flex flex-col">
-                        <label htmlFor="lastName" className="opacity-70 text-sm mb-1">نام خانوادگی</label>
-                        <input type="text" id="lastName" className="p-1.5 px-5 rounded-md focus-visible:outline-dark" style={{ border: "1px solid lightgray" }} {...register("lastName")} />
+                    <div className="form-group">
+                        <input type="text" id="lastName" className="searchInput" placeholder="نام خانوادگی" {...register("lastName")} />
+                        <label htmlFor="lastName" className="searchLabel">نام خانوادگی</label>
                     </div>
                     <select name="enable" id="enable" className="p-2 py-1.5 rounded-md focus-visible:outline-dark" style={{ border: "1px solid lightgray" }} {...register("enable")}>
                         <option value="">وضعیت</option>

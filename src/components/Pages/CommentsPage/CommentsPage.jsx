@@ -177,9 +177,9 @@ function CommentsPage() {
 
             <div className="flex justify-between px-4">
                 <form className="flex items-end gap-4">
-                    <div className="flex flex-col">
-                        <label htmlFor="postId" className="opacity-70 text-sm mb-1">شماره پست</label>
-                        <input type="text" id="postId" className="p-1.5 px-5 rounded-md focus-visible:outline-dark" style={{ border: "1px solid lightgray" }} {...register("id")} />
+                    <div className="form-group">
+                        <input type="text" id="postId" className="searchInput" placeholder="شماره پست" {...register("id")} />
+                        <label htmlFor="postId" className="searchLabel">شماره پست</label>
                     </div>
                     <select name="publish" id="enable" className="p-2 py-1.5 rounded-md focus-visible:outline-dark" style={{ border: "1px solid lightgray" }} {...register("publish")}>
                         <option value="">وضعیت انتشار</option>

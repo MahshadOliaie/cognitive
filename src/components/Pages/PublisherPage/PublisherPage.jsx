@@ -74,7 +74,7 @@ function PublisherPage() {
         {
             accessorFn: (row) => `${row.coverImage}?key=${row.fileKey}`,
             header: "عکس",
-            cell: (props) => <img src={`http://cogcenter.ir/api/fs/v1/files/download/${props.getValue()}`} alt="" className="m-auto cursor-pointer" style={{maxHeight: "32px"}} />
+            cell: (props) => <img src={`http://cogcenter.ir/api/fs/v1/files/download/${props.getValue()}`} alt="" className="m-auto cursor-pointer" style={{ maxHeight: "32px" }} />
         },
         {
             accessorKey: "name",
@@ -134,9 +134,9 @@ function PublisherPage() {
             {(isModalOpen) && <PublisherModal setIsModalOpen={setIsModalOpen} modalData={editModal} setEditModal={setEditModal} />}
             <div className="flex items-center justify-between px-4">
                 <form className="flex items-end gap-4">
-                    <div className="flex flex-col">
-                        <label htmlFor="name" className="opacity-70 text-sm mb-1">ناشر</label>
-                        <input type="text" id="name" className="p-1.5 px-5 rounded-md focus-visible:outline-dark" style={{ border: "1px solid lightgray" }} {...register("name")} />
+                    <div className="form-group">
+                        <input type="text" id="name" placeholder="ناشر" className="searchInput" {...register("name")} />
+                        <label htmlFor="name" className="searchLabel">ناشر</label>
                     </div>
                     <select name="enable" id="enable" className="p-2 py-1.5 rounded-md focus-visible:outline-dark" style={{ border: "1px solid lightgray" }} {...register("enable")}>
                         <option value="">وضعیت</option>
