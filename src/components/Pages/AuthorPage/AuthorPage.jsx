@@ -10,6 +10,7 @@ import AuthorModal from "../../Modals/AuthorModal"
 import { useForm } from "react-hook-form"
 import SubmitSearch from "../../Buttons/SubmitSearch"
 import TOKEN from "../../../../public/token"
+import EditBtn from "../../Buttons/EditBtn"
 
 
 
@@ -82,7 +83,7 @@ function AuthorPage() {
         {
             accessorFn: (row) => `${row.coverImage}?key=${row.fileKey}`,
             header: "عکس",
-            cell: (props) => <img src={`http://cogcenter.ir/api/fs/v1/files/download/${props.getValue()}`} alt="" className="m-auto cursor-pointer" style={{maxHeight: "32px"}} />
+            cell: (props) => <img src={`http://cogcenter.ir/api/fs/v1/files/download/${props.getValue()}`} alt="" className="m-auto cursor-pointer" style={{ maxHeight: "32px" }} />
         },
         {
             accessorKey: "firstName",
@@ -113,6 +114,14 @@ function AuthorPage() {
             accessorKey: "enable",
             header: "وضعیت",
             cell: (props) => <p>{(props.getValue()) ? "فعال" : "غیرفعال"}</p>
+        },
+        {
+            accessorKey: "",
+            header: "ویرایش",
+            size: 60,
+            cell: (props) => {
+                return <EditBtn setEditModal={setEditModal} modalData={props.row} openModal={openModal} />
+            }
         },
 
     ]

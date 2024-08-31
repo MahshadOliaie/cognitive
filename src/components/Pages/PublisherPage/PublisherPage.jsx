@@ -10,6 +10,7 @@ import PublisherModal from "../../Modals/PublisherModal"
 import SubmitSearch from "../../Buttons/SubmitSearch"
 import { useForm } from "react-hook-form"
 import TOKEN from "../../../../public/token"
+import EditBtn from "../../Buttons/EditBtn"
 
 
 function PublisherPage() {
@@ -100,6 +101,14 @@ function PublisherPage() {
             accessorKey: "enable",
             header: "وضعیت",
             cell: (props) => <p>{(props.getValue()) ? "فعال" : "غیرفعال"}</p>
+        },
+        {
+            accessorKey: "",
+            header: "ویرایش",
+            size: 60,
+            cell: (props) => {
+                return <EditBtn setEditModal={setEditModal} modalData={props.row} openModal={openModal} />
+            }
         },
 
     ]

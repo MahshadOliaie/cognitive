@@ -10,6 +10,7 @@ import CategoryPagination from "./CategoryPagination"
 import SubmitSearch from "../../Buttons/SubmitSearch"
 import { useForm } from "react-hook-form"
 import TOKEN from "../../../../public/token"
+import EditBtn from "../../Buttons/EditBtn"
 
 
 function CategoryPage() {
@@ -74,7 +75,7 @@ function CategoryPage() {
             accessorFn: (row) => `${row.coverImage}?key=${row.fileKey}`,
             header: "عکس",
             size: 80,
-            cell: (props) => <img src={`http://cogcenter.ir/api/fs/v1/files/download/${props.getValue()}`} alt="" className="m-auto cursor-pointer" style={{maxHeight: "32px"}} />
+            cell: (props) => <img src={`http://cogcenter.ir/api/fs/v1/files/download/${props.getValue()}`} alt="" className="m-auto cursor-pointer" style={{ maxHeight: "32px" }} />
         },
         {
             accessorKey: "title",
@@ -100,7 +101,15 @@ function CategoryPage() {
             accessorKey: "enable",
             header: "وضعیت",
             cell: (props) => <p>{(props.getValue()) ? "فعال" : "غیرفعال"}</p>
-        }
+        },
+        {
+            accessorKey: "",
+            header: "ویرایش",
+            size: 60,
+            cell: (props) => {
+                return <EditBtn setEditModal={setEditModal} modalData={props.row} openModal={openModal} />
+            }
+        },
     ]
 
 
