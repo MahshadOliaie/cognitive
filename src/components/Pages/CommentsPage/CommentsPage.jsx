@@ -11,6 +11,7 @@ import TableHeaderItem from "../../TableHeaderItem/TableHeaderItem"
 import TableHeader from "../../TableHeader/TableHeader"
 import SettingBtn from "../../Buttons/SettingBtn"
 import ReplyBtn from "../../Buttons/ReplyBtn"
+import SelectBtn from "../../Buttons/SelectBtn"
 
 
 
@@ -29,8 +30,6 @@ function CommentsPage() {
         "page": currentPage
     })
 
-    var hue = Math.floor(Math.random() * 460);
-    var pastel = 'hsl(' + hue + ', 65%, 65%)';
 
     const comments = useFetch(`https://cogcenter.ir/feedback/api/v1/manager/0/comments${properties}`)
 
@@ -202,6 +201,7 @@ function CommentsPage() {
                     <SubmitSearch onClick={handleSubmit(submit)} />
                 </form>
             </div>
+
             <table className="w-full relative border-collapse mt-10">
                 <TableHeader>
                     {table.getHeaderGroups()[0].headers.map(header => {

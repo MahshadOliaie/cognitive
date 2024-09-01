@@ -11,6 +11,8 @@ import { useForm } from "react-hook-form"
 import SubmitSearch from "../../Buttons/SubmitSearch"
 import TOKEN from "../../../../public/token"
 import EditBtn from "../../Buttons/EditBtn"
+import SelectBtn from "../../Buttons/SelectBtn"
+import SelectedCounter from "../../SelectedCounter/SelectedCounter"
 
 
 
@@ -23,6 +25,7 @@ function AuthorPage() {
     const [pages, setPages] = useState(0)
     const [currentPage, setCurrentPage] = useState(0)
     const { register, handleSubmit } = useForm()
+    const [selectedItems, setSelectedItems] = useState([])
     const [properties, setProperties] = useState(`?page=${currentPage}&size=10`)
     const [filteredList, setFilteredList] = useState({
         "firstName": "",
@@ -73,6 +76,12 @@ function AuthorPage() {
 
 
     const columns = [
+        {
+            accessorKey: "id",
+            header: "",
+            size: 10,
+            cell: (props) => <SelectBtn setSelectedItems={setSelectedItems} selectedItems={selectedItems} bookData={props.row.original} />
+        },
         {
             accessorKey: "id",
             header: "ID",
@@ -172,6 +181,12 @@ function AuthorPage() {
                 </form>
                 <AddBtn onClick={openModal} />
             </div>
+
+            {(selectedItems.length > 0) &&
+                <SelectedCounter selectedItems={selectedItems} />
+            }
+
+
             <table className="w-full relative border-collapse mt-10">
 
                 <TableHeader>
@@ -182,7 +197,7 @@ function AuthorPage() {
 
                 <tbody>
                     {table.getRowModel().rows.map(row =>
-                        <TableRow key={row.id} modalData={row} setEditModal={setEditModal} openModal={openModal}>
+                        <TableRow key={row.id} selected={(selectedItems.includes(row.original))}>
                             {
                                 row.getVisibleCells().map(cell =>
                                     <td key={cell.id} width={cell.column.getSize()}>

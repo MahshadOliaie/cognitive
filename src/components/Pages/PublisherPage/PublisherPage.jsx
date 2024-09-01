@@ -11,6 +11,8 @@ import SubmitSearch from "../../Buttons/SubmitSearch"
 import { useForm } from "react-hook-form"
 import TOKEN from "../../../../public/token"
 import EditBtn from "../../Buttons/EditBtn"
+import SelectBtn from "../../Buttons/SelectBtn"
+import SelectedCounter from "../../SelectedCounter/SelectedCounter"
 
 
 function PublisherPage() {
@@ -20,6 +22,7 @@ function PublisherPage() {
     const [editModal, setEditModal] = useState({})
     const [currentPage, setCurrentPage] = useState(0)
     const [pages, setPages] = useState(0)
+    const [selectedItems, setSelectedItems] = useState([])
     const { register, handleSubmit } = useForm()
     const [properties, setProperties] = useState(`?page=${currentPage}&size=10`)
     const [filteredList, setFilteredList] = useState({
@@ -65,6 +68,12 @@ function PublisherPage() {
 
 
     const columns = [
+        {
+            accessorKey: "id",
+            header: "",
+            size: 10,
+            cell: (props) => <SelectBtn setSelectedItems={setSelectedItems} selectedItems={selectedItems} bookData={props.row.original} />
+        },
         {
             accessorKey: "id",
             header: "ID",
@@ -155,6 +164,11 @@ function PublisherPage() {
                 </form>
                 <AddBtn onClick={openModal} />
             </div>
+
+            {(selectedItems.length > 0) &&
+                <SelectedCounter selectedItems={selectedItems} />
+            }
+
             <table className="w-full relative border-collapse mt-10">
                 <TableHeader>
                     {table.getHeaderGroups()[0].headers.map(header => {
@@ -164,7 +178,7 @@ function PublisherPage() {
 
                 <tbody>
                     {table.getRowModel().rows.map(row =>
-                        <TableRow key={row.id} modalData={row} setEditModal={setEditModal} openModal={openModal}>
+                        <TableRow key={row.id} selected={(selectedItems.includes(row.original))}>
                             {
                                 row.getVisibleCells().map(cell =>
                                     <td key={cell.id} width={cell.column.getSize()}>

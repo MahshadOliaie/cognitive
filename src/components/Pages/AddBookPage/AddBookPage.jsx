@@ -21,6 +21,8 @@ import DatePicker from 'rsuite/DatePicker';
 import 'rsuite/DatePicker/styles/index.css';
 import TOKEN from "../../../../public/token"
 import EditBtn from "../../Buttons/EditBtn"
+import SelectBtn from "../../Buttons/SelectBtn"
+import SelectedCounter from "../../SelectedCounter/SelectedCounter"
 
 function AddBookPage() {
     const [data, setData] = useState([])
@@ -36,6 +38,7 @@ function AddBookPage() {
     const [fromDateFloat, setFromDateFloat] = useState(false)
     const [toDateFloat, setToDateFloat] = useState(false)
     const [properties, setProperties] = useState(`?page=${currentPage}&size=10`)
+    const [selectedItems, setSelectedItems] = useState([])
     const [filteredList, setFilteredList] = useState({
         "name": "",
         "public": "",
@@ -92,6 +95,12 @@ function AddBookPage() {
 
 
     const columns = [
+        {
+            accessorKey: "id",
+            header: "",
+            size: 10,
+            cell: (props) => <SelectBtn setSelectedItems={setSelectedItems} selectedItems={selectedItems} bookData={props.row.original} />
+        },
         {
             accessorKey: "id",
             header: "ID",
@@ -348,6 +357,12 @@ function AddBookPage() {
                 <AddBtn onClick={openModal} />
             </div>
 
+
+            {(selectedItems.length > 0) &&
+                <SelectedCounter selectedItems={selectedItems} isBook={true} />
+            }
+
+
             <table className="w-full relative border-collapse mt-10">
 
                 <TableHeader>
@@ -357,7 +372,7 @@ function AddBookPage() {
                 </TableHeader>
 
                 <tbody style={{ fontSize: "14px" }}>
-                    {table.getRowModel().rows.map(row => <TableRow key={row.id} modalData={row} setEditModal={setEditModal} openModal={openModal} >
+                    {table.getRowModel().rows.map(row => <TableRow key={row.id} selected={(selectedItems.includes(row.original))}>
                         {row.getVisibleCells().map((cell, index) =>
                             <td key={index} width={cell.column.getSize()}>
                                 {

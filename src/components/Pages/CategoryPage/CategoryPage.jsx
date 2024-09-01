@@ -11,6 +11,8 @@ import SubmitSearch from "../../Buttons/SubmitSearch"
 import { useForm } from "react-hook-form"
 import TOKEN from "../../../../public/token"
 import EditBtn from "../../Buttons/EditBtn"
+import SelectBtn from "../../Buttons/SelectBtn"
+import SelectedCounter from "../../SelectedCounter/SelectedCounter"
 
 
 function CategoryPage() {
@@ -20,6 +22,7 @@ function CategoryPage() {
     const { register, handleSubmit } = useForm()
     const [editModal, setEditModal] = useState({})
     const [properties, setProperties] = useState('')
+    const [selectedItems, setSelectedItems] = useState([])
     const [filteredList, setFilteredList] = useState({
         "enable": ""
     })
@@ -64,6 +67,12 @@ function CategoryPage() {
 
 
     const columns = [
+        {
+            accessorKey: "id",
+            header: "",
+            size: 10,
+            cell: (props) => <SelectBtn setSelectedItems={setSelectedItems} selectedItems={selectedItems} bookData={props.row.original} />
+        },
         {
             accessorKey: "id",
             header: "ID",
@@ -148,6 +157,11 @@ function CategoryPage() {
                 </form>
                 <AddBtn onClick={openModal} />
             </div>
+
+            {(selectedItems.length > 0) &&
+                <SelectedCounter selectedItems={selectedItems} />
+            }
+
             <table className="w-full relative border-collapse mt-10">
                 <TableHeader>
                     {table.getHeaderGroups()[0].headers.map(header => {
@@ -155,9 +169,11 @@ function CategoryPage() {
                     })}
                 </TableHeader>
 
+
+
                 <tbody>
                     {table.getRowModel().rows.map(row =>
-                        <TableRow key={row.id} modalData={row} setEditModal={setEditModal} openModal={openModal}>
+                        <TableRow key={row.id} selected={(selectedItems.includes(row.original))}>
                             {
                                 row.getVisibleCells().map(cell =>
                                     <td key={cell.id} width={cell.column.getSize()}>
