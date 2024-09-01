@@ -33,6 +33,8 @@ function AddBookPage() {
     const [authors, setAuthors] = useState([])
     const { register, handleSubmit, setValue } = useForm()
     const [currentPage, setCurrentPage] = useState(0)
+    const [fromDateFloat, setFromDateFloat] = useState(false)
+    const [toDateFloat, setToDateFloat] = useState(false)
     const [properties, setProperties] = useState(`?page=${currentPage}&size=10`)
     const [filteredList, setFilteredList] = useState({
         "name": "",
@@ -79,7 +81,6 @@ function AddBookPage() {
 
 
     useEffect(() => {
-        console.log(filteredList)
         setProperties(`?categoryIds=${filteredList.categoryIds}&publish=${filteredList.publish}&name=${filteredList.name}&authorIds=${filteredList.authorIds}&publisherIds=${filteredList.publisherIds}&isPublic=${filteredList.public}&from=${filteredList.from}&to=${filteredList.to}&page=${currentPage}&size=10`)
     }, [filteredList, currentPage])
 
@@ -187,7 +188,6 @@ function AddBookPage() {
             accessorKey: "feedbackStats",
             header: "بازخورد‌ها",
             cell: (props) => <div className="flex gap-4 justify-center">
-                {console.log(props)}
                 <p className="flex flex-col items-center gap-2 text-xs">
                     <svg xmlns="http://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 11 13" fill="none">
                         <path d="M5.49762 0C5.29146 0.000212427 5.09381 0.0822035 4.94803 0.227981C4.80225 0.373759 4.72026 0.571415 4.72005 0.777575V6.56245L3.68368 5.52608C3.32378 5.17621 2.86117 5.26528 2.59275 5.5341C2.32393 5.80293 2.23446 6.26393 2.58673 6.62744L4.94554 8.98665C5.08597 9.13149 5.27855 9.21254 5.48719 9.21455H5.49401C5.70265 9.21455 5.90407 9.1323 6.0473 8.98866L8.41052 6.62544C8.75999 6.26353 8.67092 5.80252 8.4025 5.5337C8.13408 5.26488 7.67307 5.17661 7.30916 5.52809L6.2748 6.56245V0.777174C6.27448 0.571152 6.1925 0.37366 6.04682 0.227981C5.90114 0.0823011 5.70365 0.000318345 5.49762 0Z" fill="black" />
@@ -239,7 +239,6 @@ function AddBookPage() {
     })
 
     function submit(data) {
-        console.log(data)
         setCurrentPage(0)
         setIsFilter(true)
         setFilteredList(data)
@@ -267,20 +266,36 @@ function AddBookPage() {
     register("to")
 
     function formatDateToISO(date) {
-        const year = date.getFullYear();
-        const month = String(date.getMonth() + 1).padStart(2, '0');
-        const day = String(date.getDate()).padStart(2, '0');
+        if (date) {
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
 
-        return `${year}-${month}-${day}`;
+            return `${year}-${month}-${day}`;
+        }
     }
 
     function getFrom(date) {
         setValue("from", formatDateToISO(date))
+        console.log(date)
+        if (date) {
+            setFromDateFloat(true)
+        }
+        else
+            setFromDateFloat(false)
     }
 
     function getTo(date) {
         setValue("to", formatDateToISO(date))
+        console.log(date)
+        if (date) {
+            setToDateFloat(true)
+        }
+        else
+            setToDateFloat(false)
     }
+
+
 
     return (
         <>
@@ -300,24 +315,30 @@ function AddBookPage() {
                     <div>
                         <CategoryInput modalData={{}} setCategoryValue={setCategories} {...register("categoryIds")} multi={true} />
                     </div>
+
                     <select name="publish" id="publish" className="p-2 py-1.5 rounded-md focus-visible:outline-dark" style={{ border: "1px solid lightgray" }} {...register("publish")}>
                         <option value="">وضعیت انتشار</option>
                         <option value="true">منتشر شده</option>
                         <option value="false">لغو انتشار</option>
                     </select>
 
-                    <select name="publish" id="enable" className="p-2 py-1.5 rounded-md focus-visible:outline-dark" style={{ border: "1px solid lightgray" }} {...register("public")}>
+                    <select name="enable" id="enable" className="p-2 py-1.5 rounded-md focus-visible:outline-dark" style={{ border: "1px solid lightgray" }} {...register("public")}>
                         <option value="">سطح دسترسی</option>
                         <option value="true">عمومی</option>
                         <option value="false">خصوصی</option>
                     </select>
+
                     <div className="flex flex-col">
-                        <label htmlFor="" className="opacity-70 text-sm mb-1">از تاریخ:</label>
-                        <DatePicker placeholder="انتخاب کنید" editable={false} onChange={getTo} />
+                        {(toDateFloat) &&
+                            <label htmlFor="" className="opacity-70 text-sm mb-1">از تاریخ:</label>
+                        }
+                        <DatePicker placeholder="از تاریخ" editable={false} onChange={getTo} />
                     </div>
                     <div className="flex flex-col">
-                        <label htmlFor="" className="opacity-70 text-sm mb-1">تا تاریخ:</label>
-                        <DatePicker placeholder="انتخاب کنید" editable={false} onChange={getFrom} />
+                        {(fromDateFloat) &&
+                            <label htmlFor="" className="opacity-70 text-sm mb-1">تا تاریخ:</label>
+                        }
+                        <DatePicker placeholder="تا تاریخ" editable={false} onChange={getFrom} />
                     </div>
 
 

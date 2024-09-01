@@ -58,7 +58,6 @@ function CategoryPage() {
 
 
     useEffect(() => {
-        console.log(filteredList)
         setProperties(`?isEnable=${filteredList.enable}`)
     }, [filteredList])
 

@@ -35,7 +35,6 @@ function CommentsReplyModal({ setIsReplyOpen, modalData, setEditModal }) {
     }
 
     async function submit(data) {
-        console.log(data)
         fetch(`https://cogcenter.ir/feedback/api/v1/comments/${modalData.id}/reply`, {
             method: 'POST',
             headers: {

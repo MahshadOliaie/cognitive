@@ -59,7 +59,6 @@ function PublisherPage() {
 
 
     useEffect(() => {
-        console.log(filteredList)
         setProperties(`?name=${filteredList.name}&enable=${filteredList.enable}&page=${currentPage}&size=10`)
     }, [filteredList, currentPage])
 

@@ -6,6 +6,7 @@ let arr = []
 
 function CategoryInput({ modalData, setCategoryValue, multi }) {
     const categories = useFetch('https://cogcenter.ir/library/api/v1/categories')
+    const [isFloat, setIsFloat] = useState(false)
     const [options, setOptions] = useState([])
 
     useEffect(() => {
@@ -13,7 +14,6 @@ function CategoryInput({ modalData, setCategoryValue, multi }) {
             setOptions((prev) => [...prev, { value: category.id, label: category.title }])
         })
 
-        console.log(options)
         return () => {
 
         }
@@ -26,13 +26,17 @@ function CategoryInput({ modalData, setCategoryValue, multi }) {
             selectedOption.map(item => {
                 arr.push(item.value)
             })
-            console.log(arr)
             setCategoryValue(arr)
         }
         else {
-            console.log(selectedOption)
             setCategoryValue(selectedOption.value)
         }
+
+        if (selectedOption.length > 0) {
+            setIsFloat(true)
+        }
+        else
+            setIsFloat(false)
 
     }
 
@@ -40,8 +44,10 @@ function CategoryInput({ modalData, setCategoryValue, multi }) {
     return (
         <>
             <div className="flex flex-col flex-1">
-                <label htmlFor="category" className="opacity-70 text-sm mb-1">دسته بندی</label>
-                <Select options={options} onChange={handleChange} placeholder="انتخاب کنید" isMulti={multi} defaultInputValue={(modalData.id) ? modalData.original.category.title : ""} />
+                {(isFloat) &&
+                    <label htmlFor="category" className="opacity-70 text-sm mb-1">دسته بندی</label>
+                }
+                <Select options={options} onChange={handleChange} placeholder="دسته بندی" isMulti={multi} defaultInputValue={(modalData.id) ? modalData.original.category.title : ""} />
             </div>
         </>
     )

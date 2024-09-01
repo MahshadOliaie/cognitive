@@ -30,7 +30,6 @@ function FileInput({ setImage, image, modalData }) {
             .then(res => res.json())
             .then(data => setImage(data.fileName))
 
-        console.log(image)
     }
 
 

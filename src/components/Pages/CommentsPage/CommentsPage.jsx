@@ -63,7 +63,6 @@ function CommentsPage() {
 
 
     useEffect(() => {
-        console.log(filteredList)
         setProperties(`?modelTypeId=${filteredList.id}&page=${currentPage}&size=10`)
     }, [filteredList, currentPage])
 

@@ -23,7 +23,6 @@ function Dashboard() {
 
     useEffect(() => {
         setData(dailyReport)
-        console.log(data)
     }, [dailyReport])
 
     return (

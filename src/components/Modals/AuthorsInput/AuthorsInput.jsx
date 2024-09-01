@@ -7,6 +7,7 @@ let arr = []
 function AuthorsInput({ modalData, setAuthorValue }) {
 
     const authors = useFetch('https://cogcenter.ir/library/api/v1/authors?page=0')
+    const [isFloat, setIsFloat] = useState(false)
     const [options, setOptions] = useState([])
 
 
@@ -28,13 +29,20 @@ function AuthorsInput({ modalData, setAuthorValue }) {
             arr.push(item.value)
         })
         setAuthorValue(arr)
+        if (selectedOption.length > 0) {
+            setIsFloat(true)
+        }
+        else
+            setIsFloat(false)
     }
 
     return (
         <>
             <div className="flex flex-col">
-                <label htmlFor="authors" className="opacity-70 text-sm mb-1">نویسندگان</label>
-                <Select options={options} onChange={handleChange} placeholder="انتخاب کنید" isMulti defaultValue={modalData.original?.authors.map(author => { return { label: `${author.firstName + " " + author.lastName}`, value: author.id } })} />
+                {(isFloat) &&
+                    <label htmlFor="authors" className="opacity-70 text-sm mb-1">نویسندگان</label>
+                }
+                <Select options={options} onChange={handleChange} placeholder="نویسندگان" isMulti defaultValue={modalData.original?.authors.map(author => { return { label: `${author.firstName + " " + author.lastName}`, value: author.id } })} />
             </div>
 
         </>

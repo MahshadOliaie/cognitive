@@ -67,7 +67,6 @@ function AuthorPage() {
 
 
     useEffect(() => {
-        console.log(filteredList)
         setProperties(`?firstName=${filteredList.firstName}&lastName=${filteredList.lastName}&enable=${filteredList.enable}&page=${currentPage}&size=10`)
     }, [filteredList, currentPage])
 

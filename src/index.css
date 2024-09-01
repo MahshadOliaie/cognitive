@@ -132,7 +132,6 @@ th {
 
 .searchInput:focus+.searchLabel,
 .searchInput:not(:placeholder-shown)+.searchLabel {
-    transform: translateY(calc(-50% - var(--pad))) scale(.9);
-    opacity: 1;
-    background: linear-gradient(#F3F3F3 50%, white 50%);
+    transform: translateY(calc(-100% - var(--pad))) scale(.9) translateX(.7rem);
+    opacity: 0.7;
 }

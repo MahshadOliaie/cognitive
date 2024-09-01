@@ -44,7 +44,6 @@ function CommentEditModal({ setIsModalOpen, modalData, setEditModal, currentPage
     }
 
     async function submit(data) {
-        console.log(data)
         if (data.reason) {
             fetch(`https://cogcenter.ir/feedback/api/v1/manager/${currentPage}/un-publish/${modalData.id}`, {
                 method: 'POST',

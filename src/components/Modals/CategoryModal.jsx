@@ -80,7 +80,6 @@ function CategoryModal({ setIsModalOpen, modalData, setEditModal }) {
     }
 
     async function postData(data) {
-        console.log(data)
         fetch('https://cogcenter.ir/library/api/v1/manager/0/categories', {
             method: 'POST',
             headers: {

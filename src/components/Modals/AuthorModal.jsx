@@ -59,7 +59,6 @@ function AuthorModal({ setIsModalOpen, modalData, setEditModal }) {
 
 
     async function postData(data) {
-        console.log(data)
         fetch('https://cogcenter.ir/library/api/v1/manager/0/authors', {
             method: 'POST',
             headers: {

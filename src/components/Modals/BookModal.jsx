@@ -59,7 +59,6 @@ function BookModal({ setIsModalOpen, modalData, setEditModal }) {
     async function putData(data) {
         const { authorIds, categoryId, coverImage, description, file, id, name, pageNumber, publicationYear, publish, publisherId, scopeId, translatorIds
         } = data
-        console.log(data)
         const formData = new FormData()
         formData.append("authorIds", authorIds)
         formData.append("categoryId", categoryId)
@@ -95,7 +94,6 @@ function BookModal({ setIsModalOpen, modalData, setEditModal }) {
     async function postData(data) {
         const { authorIds, categoryId, coverImage, description, file, id, name, pageNumber, publicationYear, publish, publisherId, scopeId, translatorIds
         } = data
-        console.log(data)
         const formData = new FormData()
         formData.append("authorIds", authorIds)
         formData.append("categoryId", categoryId)
@@ -178,12 +176,16 @@ function BookModal({ setIsModalOpen, modalData, setEditModal }) {
                     <div className="flex gap-5 items-end">
                         <FileInput setImage={setImage} image={image} modalData={modalData} {...register("coverImage")} />
                         <div className="flex flex-col gap-2 flex-1">
-                            <div className="flex flex-col w-full">
-                                <label htmlFor="name" className="opacity-70 text-sm mb-1">نام کتاب</label>
-                                <input className="p-2 border rounded-md shadow-inner" style={{ borderColor: "lightgray" }} type="text" name="name" id="name" defaultValue={(modalData.id) && modalData.original.name}
+                        {/* <div className="form-group">
+                        <input type="text" id="name" className="searchInput" placeholder="نام کتاب" {...register("name")} />
+                        <label htmlFor="name" className="searchLabel">نام کتاب</label>
+                    </div> */}
+                            <div className="form-group w-full">
+                                <input className="searchInput" type="text" name="name" id="name" placeholder="نام کتاب" defaultValue={(modalData.id) && modalData.original.name}
                                     {...register("name", {
                                         required: "فیلد را پر کنید"
                                     })} />
+                                    <label htmlFor="name"  className="searchLabel">نام کتاب</label>
                                 {errors.bookName && <p style={{ color: "red", fontSize: "12px" }}>{errors.bookName.message}</p>}
                             </div>
                             <div className="flex flex-col flex-1 border items-center justify-center bg-sand rounded-md shadow-inner" style={{ borderColor: "lightgray" }}>

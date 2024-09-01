@@ -21,7 +21,6 @@ function LineChartYear() {
 
     useEffect(() => {
         setData(yearReport)
-        console.log(data)
     }, [yearReport])
 
 
