@@ -60,7 +60,7 @@ function CommentsReplyModal({ setIsReplyOpen, modalData, setEditModal }) {
                         <ModalHeader title={"پاسخ به کامنت"} id={modalData.id} />
                         <div className="flex flex-col">
                             <label htmlFor="reply" className="opacity-70 text-sm mb-1">جواب</label>
-                            <textarea className="p-4 border rounded-md shadow-inner" style={{ borderColor: "lightgray" }} type="text" name="reply" id="reply" defaultValue={modalData.replies[0]?.text} {...register("text", {
+                            <textarea className="p-4 border rounded-md shadow-inner" style={{ borderColor: "lightgray" }} type="text" name="reply" id="reply" {...register("text", {
                                 required: "فیلد را پر کنید"
                             })} />
                             {errors.text && <p style={{ color: "red", fontSize: "12px" }}>{errors.text.message}</p>}

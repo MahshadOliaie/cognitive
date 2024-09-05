@@ -13,6 +13,9 @@ import SettingBtn from "../../Buttons/SettingBtn"
 import ReplyBtn from "../../Buttons/ReplyBtn"
 import SelectBtn from "../../Buttons/SelectBtn"
 import { DatePicker } from "rsuite"
+import CommentTextTd from "./CommentTextTd"
+import CommentsReplyTd from "./CommentsReplyTd"
+import { sign } from "chart.js/helpers"
 
 
 
@@ -99,13 +102,19 @@ function CommentsPage() {
         {
             accessorKey: "text",
             header: "متن کامنت",
-            cell: (props) => <p>{props.getValue()}</p>
+            cell: (props) => <CommentTextTd props={props} />
         },
         {
             accessorKey: "modelType.id",
             header: "شماره کتاب",
             size: 80,
             cell: (props) => <p>{props.getValue()}</p>
+        },
+        {
+            accessorKey: "text",
+            header: "جواب‌ها",
+            size: 80,
+            cell: (props) => (props.row.original.replies[0]) && <CommentsReplyTd props={props} />
         },
         {
             accessorKey: "createdAt",
@@ -255,16 +264,16 @@ function CommentsPage() {
 
             <table className="w-full relative border-collapse mt-10">
                 <TableHeader>
-                    {table.getHeaderGroups()[0].headers.map((header , index) => {
+                    {table.getHeaderGroups()[0].headers.map((header, index) => {
                         return <TableHeaderItem header={header} key={index} />
                     })}
                 </TableHeader>
 
                 <tbody>
-                    {table.getRowModel().rows.map((row , index) =>
+                    {table.getRowModel().rows.map((row, index) =>
                         <tr className="bg-sand text-center" key={index}>
                             {
-                                row.getVisibleCells().map((cell , index) =>
+                                row.getVisibleCells().map((cell, index) =>
                                     <td key={index} width={cell.column.getSize()}>
                                         {
                                             flexRender(
