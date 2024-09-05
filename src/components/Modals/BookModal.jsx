@@ -12,6 +12,7 @@ import { useForm } from "react-hook-form"
 import { useEffect, useRef, useState } from "react"
 import TranslatorsInput from "./TranslatorsInput/TranslatorsInput"
 import TOKEN from "../../../public/token"
+import { json } from "react-router-dom"
 
 function BookModal({ setIsModalOpen, modalData, setEditModal }) {
 
@@ -92,6 +93,7 @@ function BookModal({ setIsModalOpen, modalData, setEditModal }) {
     }
 
     async function postData(data) {
+        console.log(data)
         const { authorIds, categoryId, coverImage, description, file, id, name, pageNumber, publicationYear, publish, publisherId, scopeId, translatorIds
         } = data
         const formData = new FormData()
@@ -99,7 +101,8 @@ function BookModal({ setIsModalOpen, modalData, setEditModal }) {
         formData.append("categoryId", categoryId)
         formData.append("coverImage", coverImage)
         formData.append("description", description)
-        formData.append("file", file)
+        if (file)
+            formData.append("file", file)
         formData.append("name", name)
         formData.append("pageNumber", pageNumber)
         formData.append("publicationYear", publicationYear)
@@ -120,7 +123,7 @@ function BookModal({ setIsModalOpen, modalData, setEditModal }) {
                 "expiresIn": 1724266116069,
                 "refreshToken": "3eb183b8-340f-4452-af97-55015dd105b8",
             },
-            body: formData
+            body: JSON.stringify(data)
         });
         await setIsModalOpen(false)
     }
@@ -211,7 +214,7 @@ function BookModal({ setIsModalOpen, modalData, setEditModal }) {
 
                         <div className="flex flex-col flex-1">
                             <CategoryInput modalData={modalData} setCategoryValue={setCategoryValue} floatAlways={true} {...register("categoryId", {
-                                required: "انتخاب کنید" 
+                                required: "انتخاب کنید"
                             })} />
                             {errors.categoryId && <p style={{ color: "red", fontSize: "12px" }}>{errors.categoryId.message}</p>}
                         </div>

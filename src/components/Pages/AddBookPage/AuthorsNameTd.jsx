@@ -6,7 +6,7 @@ function AuthorsNameTd({ props }) {
     return (
         <>
             <div className="relative">
-                <div className="overflow-x-scroll flex items-center justify-start flex-nowrap max-w-14 m-auto" onMouseEnter={() => setShowFullName(true)} onMouseLeave={() => setShowFullName(false)}><p className="text-nowrap">{props.getValue()[0].firstName + " " + props.getValue()[0].lastName}</p>
+                <div className="overflow-x-scroll flex items-center justify-start flex-nowrap max-w-16 m-auto" onMouseEnter={() => setShowFullName(true)} onMouseLeave={() => setShowFullName(false)}><p className="text-nowrap">{props.getValue()[0].firstName + " " + props.getValue()[0].lastName}</p>
                 </div>
                 {(showFullName) && <div className="absolute top-full bg-white rounded-md shadow-sm p-3 z-30" style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
                     {props.getValue().map(author => {
