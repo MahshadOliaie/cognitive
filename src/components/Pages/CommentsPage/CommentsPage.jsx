@@ -12,6 +12,7 @@ import TableHeader from "../../TableHeader/TableHeader"
 import SettingBtn from "../../Buttons/SettingBtn"
 import ReplyBtn from "../../Buttons/ReplyBtn"
 import SelectBtn from "../../Buttons/SelectBtn"
+import { DatePicker } from "rsuite"
 
 
 
@@ -20,13 +21,17 @@ function CommentsPage() {
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [isReplyOpen, setIsReplyOpen] = useState(false)
     const [editModal, setEditModal] = useState({})
-    const { register, handleSubmit } = useForm()
+    const { register, handleSubmit, setValue } = useForm()
     const [pages, setPages] = useState(0)
     const [currentPage, setCurrentPage] = useState(0)
+    const [fromDateFloat, setFromDateFloat] = useState(false)
+    const [toDateFloat, setToDateFloat] = useState(false)
     const [properties, setProperties] = useState(`?page=${currentPage}&size=10`)
     const [filteredList, setFilteredList] = useState({
         "publish": "",
         "id": "",
+        "from": "",
+        "to": "",
         "page": currentPage
     })
 
@@ -62,7 +67,8 @@ function CommentsPage() {
 
 
     useEffect(() => {
-        setProperties(`?modelTypeId=${filteredList.id}&page=${currentPage}&size=10`)
+        console.log(filteredList)
+        setProperties(`?modelTypeId=${filteredList.id}&publish=${filteredList.publish}&from=${filteredList.from}&to=${filteredList.to}&page=${currentPage}&size=10`)
     }, [filteredList, currentPage])
 
 
@@ -129,7 +135,7 @@ function CommentsPage() {
         {
             accessorKey: "unPublishReason",
             header: "علت",
-            cell: (props) => (props.getValue()) && <p>{props.getValue()}</p>
+            cell: (props) => (props.getValue() && !props.row.original.publish) && <p>{props.getValue()}</p>
         },
         {
             accessorKey: "feedbackStats.reaction",
@@ -181,6 +187,39 @@ function CommentsPage() {
         setFilteredList(data)
     }
 
+    register("from")
+    register("to")
+
+    function formatDateToISO(date) {
+        if (date) {
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+
+            return `${year}-${month}-${day}`;
+        }
+    }
+
+    function getFrom(date) {
+        setValue("to", formatDateToISO(date))
+        if (date) {
+            setFromDateFloat(true)
+        }
+        else
+            setFromDateFloat(false)
+    }
+
+    function getTo(date) {
+        setValue("from", formatDateToISO(date))
+        if (date) {
+            setToDateFloat(true)
+        }
+        else
+            setToDateFloat(false)
+    }
+
+
+
 
     return (
         <>
@@ -193,11 +232,24 @@ function CommentsPage() {
                         <input type="text" id="postId" className="searchInput" placeholder="شماره پست" {...register("id")} />
                         <label htmlFor="postId" className="searchLabel">شماره پست</label>
                     </div>
-                    <select name="publish" id="enable" className="p-2 py-1.5 rounded-md focus-visible:outline-dark" style={{ border: "1px solid lightgray" }} {...register("publish")}>
+                    <select name="publish" id="publish" className="p-2 py-1.5 rounded-md focus-visible:outline-dark" style={{ border: "1px solid lightgray" }} {...register("publish")}>
                         <option value="">وضعیت انتشار</option>
                         <option value="true">منتشر شده</option>
                         <option value="false">لغو انتشار</option>
                     </select>
+
+                    <div className="flex flex-col">
+                        {(toDateFloat) &&
+                            <label htmlFor="" className="opacity-70 text-sm mb-1">از تاریخ:</label>
+                        }
+                        <DatePicker placeholder="از تاریخ" editable={false} onChange={getTo} />
+                    </div>
+                    <div className="flex flex-col">
+                        {(fromDateFloat) &&
+                            <label htmlFor="" className="opacity-70 text-sm mb-1">تا تاریخ:</label>
+                        }
+                        <DatePicker placeholder="تا تاریخ" editable={false} onChange={getFrom} />
+                    </div>
                     <SubmitSearch onClick={handleSubmit(submit)} />
                 </form>
             </div>

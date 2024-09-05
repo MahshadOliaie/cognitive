@@ -33,6 +33,31 @@ function PublisherPage() {
 
     const publishers = useFetch(`https://cogcenter.ir/library/api/v1/publishers${properties}`)
 
+
+    async function putData(data, enableState) {
+        const { id, name, coverImage } = data
+        const formData = new FormData()
+        formData.append("coverImage", coverImage)
+        formData.append("id", id)
+        formData.append("name", name)
+        formData.append("enable", enableState)
+
+        fetch(`https://cogcenter.ir/library/api/v1/manager/0/publishers/${data.id}`, {
+            method: 'PUT',
+            headers: {
+                'accept': '*/*',
+                'Authorization': TOKEN,
+                'scope': [
+                    "SUPER_ADMIN"
+                ],
+                "expiresIn": 1724266116069,
+                "refreshToken": "3eb183b8-340f-4452-af97-55015dd105b8",
+            },
+            body: formData
+        });
+        await setSelectedItems([])
+    }
+
     useEffect(() => {
         setData(publishers.content)
         setPages(publishers.totalPages)
@@ -166,7 +191,7 @@ function PublisherPage() {
             </div>
 
             {(selectedItems.length > 0) &&
-                <SelectedCounter selectedItems={selectedItems} />
+                <SelectedCounter selectedItems={selectedItems} putData={putData} />
             }
 
             <table className="w-full relative border-collapse mt-10">

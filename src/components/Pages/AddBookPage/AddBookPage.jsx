@@ -10,7 +10,6 @@ import useFetch from "../../../hooks/useFetch"
 import BookModal from "../../Modals/BookModal"
 import SubmitSearch from "../../Buttons/SubmitSearch"
 import { useForm } from "react-hook-form"
-import DeleteFilter from "../../Buttons/DeleteFilter"
 import CategoryInput from "../../Modals/CategoryInput/CategoryInput"
 import PublishersInput from "../../Modals/PublishersInput/PublishersInput"
 import AuthorsInput from "../../Modals/AuthorsInput/AuthorsInput"
@@ -41,7 +40,7 @@ function AddBookPage() {
     const [selectedItems, setSelectedItems] = useState([])
     const [filteredList, setFilteredList] = useState({
         "name": "",
-        "public": "",
+        "isPublic": "",
         "publish": "",
         "categoryIds": "",
         "publisherIds": "",
@@ -50,7 +49,56 @@ function AddBookPage() {
         "to": "",
     })
 
+
+
     const books = useFetch(`https://cogcenter.ir/library/api/v1/manager/0/books${properties}`)
+
+
+    async function putData(data, publishState) {
+        const { authors, category, coverImage, description, file, id, name, pageNumber, publicationYear, publisher, scopeId, translators
+        } = data
+
+        let authorIds = []
+        let translatorIds = []
+
+        authors.map(author => {
+            authorIds.push(author.id)
+        })
+        translators.map(translator => {
+            translatorIds.push(translator.id)
+        })
+
+        const formData = new FormData()
+        formData.append("authorIds", authorIds)
+        formData.append("categoryId", category.id)
+        formData.append("coverImage", coverImage)
+        formData.append("description", description)
+        formData.append("file", file)
+        formData.append("id", id)
+        formData.append("name", name)
+        formData.append("pageNumber", pageNumber)
+        formData.append("publicationYear", publicationYear)
+        formData.append("publish", publishState)
+        formData.append("isPublic", data.isPublic)
+        formData.append("publisherId", publisher.id)
+        formData.append("scopeId", 0)
+        formData.append("translatorIds", translatorIds)
+
+        fetch(`https://cogcenter.ir/library/api/v1/manager/0/books/${data.id}`, {
+            method: 'PUT',
+            headers: {
+                'accept': '*/*',
+                'Authorization': TOKEN,
+                'scope': [
+                    "SUPER_ADMIN"
+                ],
+                "expiresIn": 1724266116069,
+                "refreshToken": "3eb183b8-340f-4452-af97-55015dd105b8",
+            },
+            body: formData
+        });
+        await setSelectedItems([])
+    }
 
     useEffect(() => {
         setData(books.content)
@@ -84,7 +132,7 @@ function AddBookPage() {
 
 
     useEffect(() => {
-        setProperties(`?categoryIds=${filteredList.categoryIds}&publish=${filteredList.publish}&name=${filteredList.name}&authorIds=${filteredList.authorIds}&publisherIds=${filteredList.publisherIds}&isPublic=${filteredList.public}&from=${filteredList.from}&to=${filteredList.to}&page=${currentPage}&size=10`)
+        setProperties(`?categoryIds=${filteredList.categoryIds || []}&publish=${filteredList.publish || ""}&name=${filteredList.name || ""}&authorIds=${filteredList.authorIds || []}&publisherIds=${filteredList.publisherIds || []}&isPublic=${filteredList.isPublic || ""}&from=${filteredList.from || ""}&to=${filteredList.to || ""}&page=${currentPage}&size=10`)
     }, [filteredList, currentPage])
 
 
@@ -254,20 +302,6 @@ function AddBookPage() {
     }
 
 
-    function deleteFilter() {
-        setFilteredList({
-            "name": "",
-            "public": "",
-            "publish": "",
-            "categoryIds": "",
-            "publisherIds": "",
-            "authorIds": "",
-            "from": "",
-            "to": "",
-        })
-        setIsFilter(false)
-    }
-
     setValue("categoryIds", categories)
     setValue("publisherIds", publisher)
     setValue("authorIds", authors)
@@ -285,7 +319,7 @@ function AddBookPage() {
     }
 
     function getFrom(date) {
-        setValue("from", formatDateToISO(date))
+        setValue("to", formatDateToISO(date))
         console.log(date)
         if (date) {
             setFromDateFloat(true)
@@ -295,7 +329,7 @@ function AddBookPage() {
     }
 
     function getTo(date) {
-        setValue("to", formatDateToISO(date))
+        setValue("from", formatDateToISO(date))
         console.log(date)
         if (date) {
             setToDateFloat(true)
@@ -331,7 +365,7 @@ function AddBookPage() {
                         <option value="false">لغو انتشار</option>
                     </select>
 
-                    <select name="enable" id="enable" className="p-2 py-1.5 rounded-md focus-visible:outline-dark" style={{ border: "1px solid lightgray" }} {...register("public")}>
+                    <select name="enable" id="enable" className="p-2 py-1.5 rounded-md focus-visible:outline-dark" style={{ border: "1px solid lightgray" }} {...register("isPublic")}>
                         <option value="">سطح دسترسی</option>
                         <option value="true">عمومی</option>
                         <option value="false">خصوصی</option>
@@ -352,14 +386,13 @@ function AddBookPage() {
 
 
                     <SubmitSearch onClick={handleSubmit(submit)} />
-                    {(isFilter) && <DeleteFilter onClick={deleteFilter} />}
                 </form>
                 <AddBtn onClick={openModal} />
             </div>
 
 
             {(selectedItems.length > 0) &&
-                <SelectedCounter selectedItems={selectedItems} isBook={true} />
+                <SelectedCounter selectedItems={selectedItems} isBook={true} putData={putData} />
             }
 
 

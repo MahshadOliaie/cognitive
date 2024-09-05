@@ -24,12 +24,37 @@ function CategoryPage() {
     const [properties, setProperties] = useState('')
     const [selectedItems, setSelectedItems] = useState([])
     const [filteredList, setFilteredList] = useState({
-        "enable": ""
+        "enable": "",
     })
 
 
     const categoryData = useFetch('https://cogcenter.ir/library/api/v1/categories')
 
+
+    async function putData(data, enableState) {
+        const { coverImage, scopeId, id, title } = data
+        const formData = new FormData()
+        formData.append("coverImage", coverImage)
+        formData.append("enable", enableState)
+        formData.append("scopeId", scopeId)
+        formData.append("id", id)
+        formData.append("title", title)
+
+        fetch(`https://cogcenter.ir/library/api/v1/manager/0/categories/${data.id}`, {
+            method: 'PUT',
+            headers: {
+                'accept': '*/*',
+                'Authorization': TOKEN,
+                'scope': [
+                    "SUPER_ADMIN"
+                ],
+                "expiresIn": 1724266116069,
+                "refreshToken": "3eb183b8-340f-4452-af97-55015dd105b8",
+            },
+            body: formData
+        });
+        await setSelectedItems([])
+    }
 
     useEffect(() => {
 
@@ -61,7 +86,7 @@ function CategoryPage() {
 
 
     useEffect(() => {
-        setProperties(`?isEnable=${filteredList.enable}`)
+        setProperties(`?enable=${filteredList.enable}`)
     }, [filteredList])
 
 
@@ -159,7 +184,7 @@ function CategoryPage() {
             </div>
 
             {(selectedItems.length > 0) &&
-                <SelectedCounter selectedItems={selectedItems} />
+                <SelectedCounter selectedItems={selectedItems} putData={putData} />
             }
 
             <table className="w-full relative border-collapse mt-10">

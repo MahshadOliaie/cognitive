@@ -49,7 +49,14 @@ function PublisherModal({ setIsModalOpen, modalData, setEditModal }) {
     }
 
 
-   async function putData(data) {
+    async function putData(data) {
+        const { id, name, coverImage, enable } = data
+        const formData = new FormData()
+        formData.append("coverImage", coverImage)
+        formData.append("id", id)
+        formData.append("name", name)
+        formData.append("enable", enable)
+
         fetch(`https://cogcenter.ir/library/api/v1/manager/0/publishers/${data.id}`, {
             method: 'PUT',
             headers: {
@@ -61,7 +68,7 @@ function PublisherModal({ setIsModalOpen, modalData, setEditModal }) {
                 "expiresIn": 1724266116069,
                 "refreshToken": "3eb183b8-340f-4452-af97-55015dd105b8",
             },
-            body: JSON.stringify(data)
+            body: formData
         });
         await setIsModalOpen(false)
     }
