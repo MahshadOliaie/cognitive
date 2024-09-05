@@ -11,7 +11,6 @@ function CommentsReplyModal({ setIsReplyOpen, modalData, setEditModal }) {
     const ref = useRef()
     const containerRef = useRef()
 
-console.log(modalData)
 
     useEffect(() => {
 

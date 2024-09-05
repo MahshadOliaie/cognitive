@@ -67,7 +67,6 @@ function CommentsPage() {
 
 
     useEffect(() => {
-        console.log(filteredList)
         setProperties(`?modelTypeId=${filteredList.id}&publish=${filteredList.publish}&from=${filteredList.from}&to=${filteredList.to}&page=${currentPage}&size=10`)
     }, [filteredList, currentPage])
 
@@ -256,17 +255,17 @@ function CommentsPage() {
 
             <table className="w-full relative border-collapse mt-10">
                 <TableHeader>
-                    {table.getHeaderGroups()[0].headers.map(header => {
-                        return <TableHeaderItem header={header} key={header.id} />
+                    {table.getHeaderGroups()[0].headers.map((header , index) => {
+                        return <TableHeaderItem header={header} key={index} />
                     })}
                 </TableHeader>
 
                 <tbody>
-                    {table.getRowModel().rows.map(row =>
-                        <tr className="bg-sand text-center">
+                    {table.getRowModel().rows.map((row , index) =>
+                        <tr className="bg-sand text-center" key={index}>
                             {
-                                row.getVisibleCells().map(cell =>
-                                    <td key={cell.id} width={cell.column.getSize()}>
+                                row.getVisibleCells().map((cell , index) =>
+                                    <td key={index} width={cell.column.getSize()}>
                                         {
                                             flexRender(
                                                 cell.column.columnDef.cell,

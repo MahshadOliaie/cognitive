@@ -3,12 +3,7 @@ import checkSvg from '/check.svg'
 
 function SelectBtn({ setSelectedItems, selectedItems, bookData }) {
 
-    useEffect(() => {
-        console.log(selectedItems)
-    }, [selectedItems])
-
     function handleSelect() {
-        console.log(bookData)
         if (selectedItems.includes(bookData)) {
             setSelectedItems(selectedItems.filter(item => item.id != bookData.id))
         }

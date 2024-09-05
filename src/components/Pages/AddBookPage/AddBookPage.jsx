@@ -320,7 +320,6 @@ function AddBookPage() {
 
     function getFrom(date) {
         setValue("to", formatDateToISO(date))
-        console.log(date)
         if (date) {
             setFromDateFloat(true)
         }
@@ -330,7 +329,6 @@ function AddBookPage() {
 
     function getTo(date) {
         setValue("from", formatDateToISO(date))
-        console.log(date)
         if (date) {
             setToDateFloat(true)
         }
@@ -399,13 +397,13 @@ function AddBookPage() {
             <table className="w-full relative border-collapse mt-10">
 
                 <TableHeader>
-                    {table.getHeaderGroups()[0].headers.map(header => {
-                        return <TableHeaderItem header={header} key={header.id} />
+                    {table.getHeaderGroups()[0].headers.map((header, index) => {
+                        return <TableHeaderItem header={header} key={index} />
                     })}
                 </TableHeader>
 
                 <tbody style={{ fontSize: "14px" }}>
-                    {table.getRowModel().rows.map(row => <TableRow key={row.id} selected={(selectedItems.includes(row.original))}>
+                    {table.getRowModel().rows.map((row , index) => <TableRow key={index} selected={(selectedItems.includes(row.original))}>
                         {row.getVisibleCells().map((cell, index) =>
                             <td key={index} width={cell.column.getSize()}>
                                 {

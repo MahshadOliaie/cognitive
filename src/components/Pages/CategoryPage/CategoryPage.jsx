@@ -189,19 +189,19 @@ function CategoryPage() {
 
             <table className="w-full relative border-collapse mt-10">
                 <TableHeader>
-                    {table.getHeaderGroups()[0].headers.map(header => {
-                        return <TableHeaderItem header={header} key={header.id} />
+                    {table.getHeaderGroups()[0].headers.map((header, index) => {
+                        return <TableHeaderItem header={header} key={index} />
                     })}
                 </TableHeader>
 
 
 
                 <tbody>
-                    {table.getRowModel().rows.map(row =>
-                        <TableRow key={row.id} selected={(selectedItems.includes(row.original))}>
+                    {table.getRowModel().rows.map((row, index) =>
+                        <TableRow key={index} selected={(selectedItems.includes(row.original))}>
                             {
-                                row.getVisibleCells().map(cell =>
-                                    <td key={cell.id} width={cell.column.getSize()}>
+                                row.getVisibleCells().map((cell, index) =>
+                                    <td key={index} width={cell.column.getSize()}>
                                         {
                                             flexRender(
                                                 cell.column.columnDef.cell,
