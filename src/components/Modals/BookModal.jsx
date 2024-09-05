@@ -172,20 +172,16 @@ function BookModal({ setIsModalOpen, modalData, setEditModal }) {
             <div className="shadow-md rounded-lg p-10 pt-0 bg-linen" ref={ref}>
                 <ModalHeader title={(modalData.id) ? "ویرایش کتاب" : 'افزودن کتاب'} id={(modalData.id) ? (modalData.original.id) : ""} />
 
-                <form className="flex flex-col gap-5" style={{ minWidth: "450px" }}>
+                <form className="flex flex-col gap-3" style={{ minWidth: "650px" }}>
                     <div className="flex gap-5 items-end">
                         <FileInput setImage={setImage} image={image} modalData={modalData} {...register("coverImage")} />
                         <div className="flex flex-col gap-2 flex-1">
-                            {/* <div className="form-group">
-                        <input type="text" id="name" className="searchInput" placeholder="نام کتاب" {...register("name")} />
-                        <label htmlFor="name" className="searchLabel">نام کتاب</label>
-                    </div> */}
-                            <div className="form-group w-full">
-                                <input className="searchInput" type="text" name="name" id="name" placeholder="نام کتاب" defaultValue={(modalData.id) && modalData.original.name}
+                            <div className="flex flex-col flex-1">
+                                <label htmlFor="name" className="opacity-70 text-sm mb-1">نام کتاب</label>
+                                <input className="p-2 border rounded-md shadow-inner" style={{ borderColor: "lightgray" }} type="text" name="name" id="name" defaultValue={(modalData.id) && modalData.original.name}
                                     {...register("name", {
                                         required: "فیلد را پر کنید"
                                     })} />
-                                <label htmlFor="name" className="searchLabel">نام کتاب</label>
                                 {errors.bookName && <p style={{ color: "red", fontSize: "12px" }}>{errors.bookName.message}</p>}
                             </div>
                             <div className="flex flex-col flex-1 border items-center justify-center bg-sand rounded-md shadow-inner" style={{ borderColor: "lightgray" }}>
@@ -203,62 +199,67 @@ function BookModal({ setIsModalOpen, modalData, setEditModal }) {
                     </div>
 
                     <div className="flex justify-between gap-5">
-                        <div className="form-group">
-                            <input className="searchInput" style={{ borderColor: "lightgray" }} type="number" placeholder="تعداد صفحات" name="pages" id="pages" defaultValue={(modalData.id) && modalData.original.pageNumber}
+                        <div className="flex flex-col flex-1">
+                            <label htmlFor="pages" className="opacity-70 text-sm mb-1">تعداد صفحات</label>
+                            <input className="p-2 border rounded-md shadow-inner" style={{ borderColor: "lightgray" }} type="number" name="pages" id="pages" defaultValue={(modalData.id) && modalData.original.pageNumber}
                                 {...register("pageNumber", {
                                     required: "فیلد را پر کنید"
                                 })} />
-                            <label htmlFor="pages" className="searchLabel">تعداد صفحات</label>
                             {errors.pageNumber && <p style={{ color: "red", fontSize: "12px" }}>{errors.pageNumber.message}</p>}
 
                         </div>
 
                         <div className="flex flex-col flex-1">
-                            <CategoryInput modalData={modalData} setCategoryValue={setCategoryValue} {...register("categoryId", {
-                                required: "انتخاب کنید"
+                            <CategoryInput modalData={modalData} setCategoryValue={setCategoryValue} floatAlways={true} {...register("categoryId", {
+                                required: "انتخاب کنید" 
                             })} />
                             {errors.categoryId && <p style={{ color: "red", fontSize: "12px" }}>{errors.categoryId.message}</p>}
                         </div>
 
                     </div>
 
-                    <div className="flex flex-col flex-1">
-                        <AuthorsInput modalData={modalData} setAuthorValue={setAuthorValue} {...register("authorIds", {
-                            required: "انتخاب کنید"
-                        })} />
-                        {errors.authorIds && <p style={{ color: "red", fontSize: "12px" }}>{errors.authorIds.message}</p>}
+                    <div className="flex justify-between gap-5">
+                        <div className="flex flex-col flex-1">
+                            <AuthorsInput modalData={modalData} setAuthorValue={setAuthorValue} floatAlways={true} {...register("authorIds", {
+                                required: "انتخاب کنید"
+                            })} />
+                            {errors.authorIds && <p style={{ color: "red", fontSize: "12px" }}>{errors.authorIds.message}</p>}
+                        </div>
+
+                        <div className="flex flex-col flex-1">
+                            <TranslatorsInput modalData={modalData} setTranslatorValue={setTranslatorValue} {...register("translatorIds")} floatAlways={true} />
+                        </div>
+
                     </div>
+
 
                     <div className="flex justify-between gap-5">
 
                         <div className="flex flex-col flex-1">
-                            <PublishersInput modalData={modalData} setPublisherValue={setPublisherValue} {...register("publisherId", {
+                            <PublishersInput modalData={modalData} setPublisherValue={setPublisherValue} floatAlways={true} {...register("publisherId", {
                                 required: "انتخاب کنید"
                             })} />
                             {errors.publisherId && <p style={{ color: "red", fontSize: "12px" }}>{errors.publisherId.message}</p>}
 
                         </div>
 
-                        <div className="form-group">
-                            <input className="searchInput" placeholder="سال انتشار" style={{ borderColor: "lightgray" }} type="number" name="year" id="year" defaultValue={(modalData.id) && modalData.original.publicationYear}
+                        <div className="flex flex-col flex-1">
+                            <label htmlFor="year" className="opacity-70 text-sm mb-1">سال انتشار</label>
+                            <input className="p-2 border rounded-md shadow-inner" style={{ borderColor: "lightgray" }} type="number" name="year" id="year" defaultValue={(modalData.id) && modalData.original.publicationYear}
                                 {...register("publicationYear", {
                                     required: "فیلد را پر کنید"
                                 })} />
-                            <label htmlFor="year" className="searchLabel">سال انتشار</label>
                             {errors.publicationYear && <p style={{ color: "red", fontSize: "12px" }}>{errors.publicationYear.message}</p>}
 
                         </div>
 
                     </div>
+
+
                     <div className="flex flex-col flex-1">
-                        <TranslatorsInput modalData={modalData} setTranslatorValue={setTranslatorValue} {...register("translatorIds")} />
-                    </div>
-
-
-                    <div className="form-group w-full">
-                        <textarea className="searchInput" placeholder="توضیحات" style={{ borderColor: "lightgray" }} type="text" name="desc" id="desc" defaultValue={(modalData.id) && modalData.original.description}
+                        <label htmlFor="desc" className="opacity-70 text-sm mb-1">توضیحات</label>
+                        <textarea className="p-2 border rounded-md shadow-inner min-h-40" style={{ borderColor: "lightgray" }} type="text" name="desc" id="desc" defaultValue={(modalData.id) && modalData.original.description}
                             {...register("description")} />
-                        <label htmlFor="desc" className="searchLabel">توضیحات</label>
                     </div>
 
                     <div className="flex justify-between px-5 pb-5">

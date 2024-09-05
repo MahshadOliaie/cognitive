@@ -5,7 +5,7 @@ import Select from 'react-select'
 
 
 
-function PublishersInput({ modalData, setPublisherValue }) {
+function PublishersInput({ modalData, setPublisherValue , floatAlways }) {
 
     const publishers = useFetch('https://cogcenter.ir/library/api/v1/publishers?page=0')
     const [isFloat, setIsFloat] = useState(false)
@@ -37,10 +37,10 @@ function PublishersInput({ modalData, setPublisherValue }) {
     return (
         <>
             <div className="flex flex-col flex-1">
-                {(isFloat) &&
+                {(floatAlways || isFloat) &&
                     <label htmlFor="publisher" className="opacity-70 text-sm mb-1">ناشر</label>
                 }
-                <Select options={options} onChange={handleChange} placeholder="ناشر" defaultInputValue={(modalData.id) ? modalData.original.publisher.name : ""} />
+                <Select options={options} onChange={handleChange} placeholder={(floatAlways)? "" :"ناشر"} defaultInputValue={(modalData.id) ? modalData.original.publisher.name : ""} />
             </div>
         </>
     )

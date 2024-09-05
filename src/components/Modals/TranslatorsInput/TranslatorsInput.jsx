@@ -4,7 +4,7 @@ import Select from 'react-select'
 let arr = []
 
 
-function TranslatorsInput({ modalData, setTranslatorValue }) {
+function TranslatorsInput({ modalData, setTranslatorValue , floatAlways }) {
     const authors = useFetch('https://cogcenter.ir/library/api/v1/authors?page=0')
     const [options, setOptions] = useState([])
     const [isFloat, setIsFloat] = useState(false)
@@ -40,10 +40,10 @@ function TranslatorsInput({ modalData, setTranslatorValue }) {
         <>
             <div className="flex flex-col">
 
-                {(isFloat) &&
+                {(floatAlways || isFloat) &&
                     <label htmlFor="translators" className="opacity-70 text-sm mb-1">مترجمان</label>
                 }
-                <Select options={options} onChange={handleChange} placeholder="مترجمان" isMulti defaultValue={modalData.original?.translators.map(translator => { return { label: `${translator.firstName + " " + translator.lastName}`, value: translator.id } })} />
+                <Select options={options} onChange={handleChange} placeholder={(floatAlways)? "" : "مترجمان"} isMulti defaultValue={modalData.original?.translators.map(translator => { return { label: `${translator.firstName + " " + translator.lastName}`, value: translator.id } })} />
             </div>
 
         </>

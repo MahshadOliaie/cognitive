@@ -4,7 +4,7 @@ import Select from 'react-select'
 let arr = []
 
 
-function AuthorsInput({ modalData, setAuthorValue }) {
+function AuthorsInput({ modalData, setAuthorValue, floatAlways }) {
 
     const authors = useFetch('https://cogcenter.ir/library/api/v1/authors?page=0')
     const [isFloat, setIsFloat] = useState(false)
@@ -39,10 +39,10 @@ function AuthorsInput({ modalData, setAuthorValue }) {
     return (
         <>
             <div className="flex flex-col">
-                {(isFloat) &&
+                {(floatAlways || isFloat) &&
                     <label htmlFor="authors" className="opacity-70 text-sm mb-1">نویسندگان</label>
                 }
-                <Select options={options} onChange={handleChange} placeholder="نویسندگان" isMulti defaultValue={modalData.original?.authors.map(author => { return { label: `${author.firstName + " " + author.lastName}`, value: author.id } })} />
+                <Select options={options} onChange={handleChange} placeholder={(floatAlways) ? "" : "نویسندگان"} isMulti defaultValue={modalData.original?.authors.map(author => { return { label: `${author.firstName + " " + author.lastName}`, value: author.id } })} />
             </div>
 
         </>

@@ -19,7 +19,7 @@ function TodayReport(){
                     </div>
                     <div className="flex flex-col items-center justify-center gap-3">
                         <div className="flex gap-3 w-full justify-center">
-                            <div className="flex flex-col items-center p-3 gap-3 bg-orange text-white h-24 w-40 rounded-lg shadow-md">
+                            <div className="flex flex-col items-center p-3 gap-3 bg-sand text-dark h-24 w-40 rounded-lg shadow-md">
                                 <p>کتاب‌های ثبت شده</p>
                                 <p className="font-bold text-xl">{data?.createCount}</p>
                             </div>
