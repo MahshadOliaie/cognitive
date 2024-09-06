@@ -13,11 +13,6 @@ import { useForm } from "react-hook-form"
 import CategoryInput from "../../Modals/CategoryInput/CategoryInput"
 import PublishersInput from "../../Modals/PublishersInput/PublishersInput"
 import AuthorsInput from "../../Modals/AuthorsInput/AuthorsInput"
-// import 'react-datetime-picker/dist/DateTimePicker.css';
-// import 'react-calendar/dist/Calendar.css';
-// import 'react-clock/dist/Clock.css';
-import DatePicker from 'rsuite/DatePicker';
-import 'rsuite/DatePicker/styles/index.css';
 import TOKEN from "../../../../public/token"
 import EditBtn from "../../Buttons/EditBtn"
 import SelectBtn from "../../Buttons/SelectBtn"
@@ -27,6 +22,9 @@ import AuthorsNameTd from "./AuthorsNameTd"
 import PublisherTd from "./PublisherTd"
 import TranslatorTd from "./TranslatorTd"
 import jalaliMoment from 'jalali-moment';
+import { DatePicker } from "zaman"
+
+
 
 
 function AddBookPage() {
@@ -299,10 +297,9 @@ function AddBookPage() {
 
     function formatDateToISO(date) {
         if (date) {
-            const year = date.getFullYear();
-            const month = String(date.getMonth() + 1).padStart(2, '0');
-            const day = String(date.getDate()).padStart(2, '0');
-
+            const year = date.value.getFullYear();
+            const month = String(date.value.getMonth() + 1).padStart(2, '0');
+            const day = String(date.value.getDate()).padStart(2, '0');
             return `${year}-${month}-${day}`;
         }
     }
@@ -362,13 +359,21 @@ function AddBookPage() {
                         {(toDateFloat) &&
                             <label htmlFor="" className="opacity-70 text-sm mb-1">از تاریخ:</label>
                         }
-                        <DatePicker placeholder="از تاریخ" editable={false} onChange={getTo} />
+                        <div className="p-1.5 bg-white flex items-center justify-start" style={{ borderRadius: "5px", border: "1px solid lightgray" }}>
+                            <DatePicker accentColor="#D1BAA7" inputClass="focus-visible:outline-none" onChange={getTo} />
+                            {(!toDateFloat) &&
+                                <p className="absolute opacity-50">از تاریخ</p>}
+                        </div>
                     </div>
                     <div className="flex flex-col">
                         {(fromDateFloat) &&
                             <label htmlFor="" className="opacity-70 text-sm mb-1">تا تاریخ:</label>
                         }
-                        <DatePicker placeholder="تا تاریخ" editable={false} onChange={getFrom} />
+                        <div className="p-1.5 bg-white flex items-center justify-start" style={{ borderRadius: "5px", border: "1px solid lightgray" }}>
+                            <DatePicker accentColor="#D1BAA7" inputClass="focus-visible:outline-none" onChange={getFrom} />
+                            {(!fromDateFloat) &&
+                                <p className="absolute opacity-50">تا تاریخ</p>}
+                        </div>
                     </div>
 
 
