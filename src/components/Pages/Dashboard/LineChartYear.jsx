@@ -1,18 +1,10 @@
 
-import { Line } from "react-chartjs-2"
-import { CategoryScale, Chart, defaults } from "chart.js/auto"
+
 import { useEffect, useState } from "react";
 import useFetch from "../../../hooks/useFetch";
+import HighchartsReact from "highcharts-react-official";
+import Highcharts, { chart, Series } from 'highcharts'
 
-Chart.register(CategoryScale);
-defaults.maintainAspectRatio = false;
-defaults.responsive = true
-
-defaults.plugins.title.display = true;
-defaults.plugins.title.align = "end";
-defaults.plugins.title.font.size = 18;
-defaults.plugins.title.font.family = "vazirMedium"
-defaults.plugins.title.color = "black";
 
 
 function LineChartYear() {
@@ -23,50 +15,71 @@ function LineChartYear() {
         setData(yearReport)
     }, [yearReport])
 
+    const opt = {
+        series: [
+            {
+                name: "تعداد کامنت‌ها",
+                data: data.map(item => item.commentCount),
+            },
+            {
+                name: "کتاب‌های منتشر شده",
+                data: data.map(item => item.publishCount),
+            },
+            {
+                name: "کتاب‌های ثبت شده",
+                data: data.map(item => item.createCount),
+            },
+            {
+                name: "تعداد دانلود‌ها",
+                data: data.map(item => item.downloadCount),
+            }
+        ],
+        colors: ['#2c2c2c', "#ef7729" , "#806c60" , "#a1ced6"],
+        title: {
+            text: "گزارش ماهانه",
+            align: "right",
+            style: {
+                fontFamily: "vazirBold"
+            }
+        },
+      
+        chart: {
+            type: 'spline',
+            scrollablePlotArea: {
+                minWidth: 600,
+                scrollPositionX: 1
+            },
+            height: "350px",
+            style: {
+                fontFamily: 'vazir'
+            },
+        },
+        xAxis: {
+            categories: data.map(item => `${item.monthTitle} ${item.year}`),
+            labels: {
+                overflow: 'justify'
+            }
+        },
+
+        plotOptions: {
+            spline: {
+                lineWidth: 4,
+                states: {
+                    hover: {
+                        lineWidth: 5
+                    }
+                },
+                marker: {
+                    enabled: false
+                },
+              
+            }
+        },
+    }
 
     return (
         <>
-            <Line data={{
-                labels: data.map(item => `${item.monthTitle} ${item.year}` ),
-                datasets: [
-                    {
-                        label: "تعداد کامنت‌ها",
-                        data: data.map(item => item.commentCount),
-                        backgroundColor: "#DF5330",
-                        borderColor: "#DF5330"
-                    },
-                    {
-                        label: "کتاب‌های منتشر شده",
-                        data: data.map(item => item.publishCount),
-                        backgroundColor: "#101321",
-                        borderColor: "#101321",
-                    },
-                    {
-                        label: "کتاب‌های ثبت شده",
-                        data: data.map(item => item.createCount),
-                        backgroundColor: "#D1BAA7",
-                        borderColor: "#D1BAA7",
-                    },
-                    {
-                        label: "تعداد دانلود‌ها",
-                        data: data.map(item => item.downloadCount),
-                        backgroundColor: "#A1CED6",
-                        borderColor: "#A1CED6",
-                    }
-                ]
-            }}
-                options={{
-                    elements: {
-                        line: {
-                            tension: 0.5
-                        }
-                    },
-                    plugins: {
-                        title: {
-                            text: "گزارش ماهانه"
-                        }
-                    }
-                }} />
+            <HighchartsReact highcharts={Highcharts} options={opt} />
         </>
     )
 }

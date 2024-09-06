@@ -13,7 +13,7 @@ function TodayReport(){
 
     return(
         <>
-          <div className="flex flex-col gap-6 w-2/4 h-80 bg-dark rounded-xl shadow-md p-5">
+          <div className="flex flex-col gap-6 w-2/4 h-80 rounded-xl shadow-md p-5" style={{backgroundColor: "#2c2c2c"}}>
                     <div className="flex justify-between items-center px-9 text-white">
                         <p className="font-semibold text-lg">گزارش امروز</p>
                     </div>

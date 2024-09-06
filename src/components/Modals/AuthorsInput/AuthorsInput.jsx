@@ -16,9 +16,6 @@ function AuthorsInput({ modalData, setAuthorValue, floatAlways }) {
             setOptions((prev) => [...prev, { value: author.id, label: `${author.firstName + " " + author.lastName}` }])
         })
 
-        return () => {
-
-        }
 
     }, [authors])
 
