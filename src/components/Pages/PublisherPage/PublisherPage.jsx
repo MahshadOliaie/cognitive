@@ -13,6 +13,7 @@ import TOKEN from "../../../../public/token"
 import EditBtn from "../../Buttons/EditBtn"
 import SelectBtn from "../../Buttons/SelectBtn"
 import SelectedCounter from "../../SelectedCounter/SelectedCounter"
+import jalaliMoment from 'jalali-moment';
 
 
 function PublisherPage() {
@@ -36,26 +37,26 @@ function PublisherPage() {
 
     async function putData(data, enableState) {
         const { id, name, coverImage } = data
-        const formData = new FormData()
-        formData.append("coverImage", coverImage)
-        formData.append("id", id)
-        formData.append("name", name)
-        formData.append("enable", enableState)
+
+        let newData = { coverImage, id, name, enable: enableState }
 
         fetch(`https://cogcenter.ir/library/api/v1/manager/0/publishers/${data.id}`, {
             method: 'PUT',
             headers: {
                 'accept': '*/*',
                 'Authorization': TOKEN,
+                'content-type': "application/json",
                 'scope': [
                     "SUPER_ADMIN"
                 ],
                 "expiresIn": 1724266116069,
                 "refreshToken": "3eb183b8-340f-4452-af97-55015dd105b8",
             },
-            body: formData
+            body: JSON.stringify(newData)
         });
         await setSelectedItems([])
+        setTimeout(() => { window.location.reload() }, 300)
+
     }
 
     useEffect(() => {
@@ -120,14 +121,16 @@ function PublisherPage() {
             header: "تاریخ ثبت",
             cell: (props) => {
                 let date = new Date(props.getValue()).toLocaleDateString()
-                return <p>{(props.getValue()) ? date : "-"}</p>
+                const persianDate = jalaliMoment(date, 'MM/DD/YYYY').format('jYYYY/jMM/jDD')
+                return <p>{(props.getValue()) ? persianDate : "-"}</p>
             }
         }, {
             accessorKey: "updatedAt",
             header: "آخرین ویرایش",
             cell: (props) => {
                 let date = new Date(props.getValue()).toLocaleDateString()
-                return <p>{(props.getValue()) ? date : "-"}</p>
+                const persianDate = jalaliMoment(date, 'MM/DD/YYYY').format('jYYYY/jMM/jDD')
+                return <p>{(props.getValue()) ? persianDate : "-"}</p>
             }
         },
         {
@@ -196,16 +199,16 @@ function PublisherPage() {
 
             <table className="w-full relative border-collapse mt-10">
                 <TableHeader>
-                    {table.getHeaderGroups()[0].headers.map((header , index) => {
+                    {table.getHeaderGroups()[0].headers.map((header, index) => {
                         return <TableHeaderItem header={header} key={index} />
                     })}
                 </TableHeader>
 
                 <tbody>
-                    {table.getRowModel().rows.map((row , index) =>
+                    {table.getRowModel().rows.map((row, index) =>
                         <TableRow key={index} selected={(selectedItems.includes(row.original))}>
                             {
-                                row.getVisibleCells().map((cell , index) =>
+                                row.getVisibleCells().map((cell, index) =>
                                     <td key={index} width={cell.column.getSize()}>
                                         {
                                             flexRender(

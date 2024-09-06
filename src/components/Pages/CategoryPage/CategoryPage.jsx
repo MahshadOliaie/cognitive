@@ -13,6 +13,8 @@ import TOKEN from "../../../../public/token"
 import EditBtn from "../../Buttons/EditBtn"
 import SelectBtn from "../../Buttons/SelectBtn"
 import SelectedCounter from "../../SelectedCounter/SelectedCounter"
+import jalaliMoment from 'jalali-moment';
+
 
 
 function CategoryPage() {
@@ -33,27 +35,26 @@ function CategoryPage() {
 
     async function putData(data, enableState) {
         const { coverImage, scopeId, id, title } = data
-        const formData = new FormData()
-        formData.append("coverImage", coverImage)
-        formData.append("enable", enableState)
-        formData.append("scopeId", scopeId)
-        formData.append("id", id)
-        formData.append("title", title)
+
+        let newData = {coverImage , enable: enableState , scopeId , id , title}
 
         fetch(`https://cogcenter.ir/library/api/v1/manager/0/categories/${data.id}`, {
             method: 'PUT',
             headers: {
                 'accept': '*/*',
                 'Authorization': TOKEN,
+                'content-type': "application/json",
                 'scope': [
                     "SUPER_ADMIN"
                 ],
                 "expiresIn": 1724266116069,
                 "refreshToken": "3eb183b8-340f-4452-af97-55015dd105b8",
             },
-            body: formData
+            body: JSON.stringify(newData)
         });
         await setSelectedItems([])
+        setTimeout(() => { window.location.reload() }, 300)
+
     }
 
     useEffect(() => {
@@ -120,14 +121,16 @@ function CategoryPage() {
             header: "تاریخ ثبت",
             cell: (props) => {
                 let date = new Date(props.getValue()).toLocaleDateString()
-                return <p>{(props.getValue()) ? date : "-"}</p>
+                const persianDate = jalaliMoment(date, 'MM/DD/YYYY').format('jYYYY/jMM/jDD')
+                return <p>{(props.getValue()) ? persianDate : "-"}</p>
             }
         }, {
             accessorKey: "updatedAt",
             header: "آخرین ویرایش",
             cell: (props) => {
                 let date = new Date(props.getValue()).toLocaleDateString()
-                return <p>{(props.getValue()) ? date : "-"}</p>
+                const persianDate = jalaliMoment(date, 'MM/DD/YYYY').format('jYYYY/jMM/jDD')
+                return <p>{(props.getValue()) ? persianDate : "-"}</p>
             }
         },
         {

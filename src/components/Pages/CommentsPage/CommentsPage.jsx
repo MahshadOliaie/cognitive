@@ -11,11 +11,11 @@ import TableHeaderItem from "../../TableHeaderItem/TableHeaderItem"
 import TableHeader from "../../TableHeader/TableHeader"
 import SettingBtn from "../../Buttons/SettingBtn"
 import ReplyBtn from "../../Buttons/ReplyBtn"
-import SelectBtn from "../../Buttons/SelectBtn"
 import { DatePicker } from "rsuite"
 import CommentTextTd from "./CommentTextTd"
 import CommentsReplyTd from "./CommentsReplyTd"
-import { sign } from "chart.js/helpers"
+import jalaliMoment from 'jalali-moment';
+
 
 
 
@@ -121,14 +121,16 @@ function CommentsPage() {
             header: "تاریخ ثبت",
             cell: (props) => {
                 let date = new Date(props.getValue()).toLocaleDateString()
-                return <p>{(props.getValue()) ? date : "-"}</p>
+                const persianDate = jalaliMoment(date, 'MM/DD/YYYY').format('jYYYY/jMM/jDD')
+                return <p>{(props.getValue()) ? persianDate : "-"}</p>
             }
         }, {
             accessorKey: "updatedAt",
             header: "آخرین ویرایش",
             cell: (props) => {
                 let date = new Date(props.getValue()).toLocaleDateString()
-                return <p>{(props.getValue()) ? date : "-"}</p>
+                const persianDate = jalaliMoment(date, 'MM/DD/YYYY').format('jYYYY/jMM/jDD')
+                return <p>{(props.getValue()) ? persianDate : "-"}</p>
             }
         },
         {
@@ -240,11 +242,6 @@ function CommentsPage() {
                         <input type="text" id="postId" className="searchInput" placeholder="شماره پست" {...register("id")} />
                         <label htmlFor="postId" className="searchLabel">شماره پست</label>
                     </div>
-                    <select name="publish" id="publish" className="p-2 py-1.5 rounded-md focus-visible:outline-dark" style={{ border: "1px solid lightgray" }} {...register("publish")}>
-                        <option value="">وضعیت انتشار</option>
-                        <option value="true">منتشر شده</option>
-                        <option value="false">لغو انتشار</option>
-                    </select>
 
                     <div className="flex flex-col">
                         {(toDateFloat) &&
@@ -258,6 +255,11 @@ function CommentsPage() {
                         }
                         <DatePicker placeholder="تا تاریخ" editable={false} onChange={getFrom} />
                     </div>
+                    <select name="publish" id="publish" className="p-2 py-1.5 rounded-md focus-visible:outline-dark" style={{ border: "1px solid lightgray" }} {...register("publish")}>
+                        <option value="">وضعیت انتشار</option>
+                        <option value="true">منتشر شده</option>
+                        <option value="false">لغو انتشار</option>
+                    </select>
                     <SubmitSearch onClick={handleSubmit(submit)} />
                 </form>
             </div>

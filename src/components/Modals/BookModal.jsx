@@ -58,65 +58,34 @@ function BookModal({ setIsModalOpen, modalData, setEditModal }) {
     }
 
     async function putData(data) {
-        const { authorIds, categoryId, coverImage, description, file, id, name, pageNumber, publicationYear, publish, publisherId, scopeId, translatorIds
-        } = data
-        const formData = new FormData()
-        formData.append("authorIds", authorIds)
-        formData.append("categoryId", categoryId)
-        formData.append("coverImage", coverImage)
-        formData.append("description", description)
-        formData.append("file", file)
-        formData.append("id", id)
-        formData.append("name", name)
-        formData.append("pageNumber", pageNumber)
-        formData.append("publicationYear", publicationYear)
-        formData.append("publish", publish)
-        formData.append("public", data.public)
-        formData.append("publisherId", publisherId)
-        formData.append("scopeId", scopeId)
-        formData.append("translatorIds", translatorIds)
-
+console.log(data)
         fetch(`https://cogcenter.ir/library/api/v1/manager/0/books/${data.id}`, {
             method: 'PUT',
             headers: {
                 'accept': '*/*',
                 'Authorization': TOKEN,
+                'content-type': "application/json",
                 'scope': [
                     "SUPER_ADMIN"
                 ],
                 "expiresIn": 1724266116069,
                 "refreshToken": "3eb183b8-340f-4452-af97-55015dd105b8",
             },
-            body: formData
+            body: JSON.stringify(data)
+
         });
         await setIsModalOpen(false)
+        // setTimeout(() => { window.location.reload() }, 300)
+
     }
 
     async function postData(data) {
-        console.log(data)
-        const { authorIds, categoryId, coverImage, description, file, id, name, pageNumber, publicationYear, publish, publisherId, scopeId, translatorIds
-        } = data
-        const formData = new FormData()
-        formData.append("authorIds", authorIds)
-        formData.append("categoryId", categoryId)
-        formData.append("coverImage", coverImage)
-        formData.append("description", description)
-        if (file)
-            formData.append("file", file)
-        formData.append("name", name)
-        formData.append("pageNumber", pageNumber)
-        formData.append("publicationYear", publicationYear)
-        formData.append("publish", publish)
-        formData.append("public", data.public)
-        formData.append("publisherId", publisherId)
-        formData.append("scopeId", scopeId)
-        formData.append("translatorIds", translatorIds)
-
         fetch('https://cogcenter.ir/library/api/v1/manager/0/books', {
             method: 'POST',
             headers: {
                 'accept': '*/*',
                 'Authorization': TOKEN,
+                'content-type': "application/json",
                 'scope': [
                     "SUPER_ADMIN"
                 ],
@@ -126,6 +95,8 @@ function BookModal({ setIsModalOpen, modalData, setEditModal }) {
             body: JSON.stringify(data)
         });
         await setIsModalOpen(false)
+        setTimeout(() => { window.location.reload() }, 300)
+
     }
 
     setValue("categoryId", categoryValue)

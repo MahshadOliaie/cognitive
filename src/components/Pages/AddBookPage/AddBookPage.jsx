@@ -13,9 +13,9 @@ import { useForm } from "react-hook-form"
 import CategoryInput from "../../Modals/CategoryInput/CategoryInput"
 import PublishersInput from "../../Modals/PublishersInput/PublishersInput"
 import AuthorsInput from "../../Modals/AuthorsInput/AuthorsInput"
-import 'react-datetime-picker/dist/DateTimePicker.css';
-import 'react-calendar/dist/Calendar.css';
-import 'react-clock/dist/Clock.css';
+// import 'react-datetime-picker/dist/DateTimePicker.css';
+// import 'react-calendar/dist/Calendar.css';
+// import 'react-clock/dist/Clock.css';
 import DatePicker from 'rsuite/DatePicker';
 import 'rsuite/DatePicker/styles/index.css';
 import TOKEN from "../../../../public/token"
@@ -26,6 +26,8 @@ import BookNameTd from "./BookNameTd"
 import AuthorsNameTd from "./AuthorsNameTd"
 import PublisherTd from "./PublisherTd"
 import TranslatorTd from "./TranslatorTd"
+import jalaliMoment from 'jalali-moment';
+
 
 function AddBookPage() {
     const [data, setData] = useState([])
@@ -59,7 +61,7 @@ function AddBookPage() {
 
 
     async function putData(data, publishState) {
-        const { authors, category, coverImage, description, file, id, name, pageNumber, publicationYear, publisher, scopeId, translators
+        const { authors, category, coverImage, description, file, id, name, pageNumber, publicationYear, publisher, scopeId, translators, isPublic
         } = data
 
         let authorIds = []
@@ -71,37 +73,26 @@ function AddBookPage() {
         translators.map(translator => {
             translatorIds.push(translator.id)
         })
-
-        const formData = new FormData()
-        formData.append("authorIds", authorIds)
-        formData.append("categoryId", category.id)
-        formData.append("coverImage", coverImage)
-        formData.append("description", description)
-        formData.append("file", file)
-        formData.append("id", id)
-        formData.append("name", name)
-        formData.append("pageNumber", pageNumber)
-        formData.append("publicationYear", publicationYear)
-        formData.append("publish", publishState)
-        formData.append("isPublic", data.isPublic)
-        formData.append("publisherId", publisher.id)
-        formData.append("scopeId", 0)
-        formData.append("translatorIds", translatorIds)
+        let newData = { authorIds, categoryId: category.id, coverImage, file, id, name, pageNumber, publicationYear, publish: publishState, isPublic, publisherId: publisher.id, scopeId, translatorIds }
 
         fetch(`https://cogcenter.ir/library/api/v1/manager/0/books/${data.id}`, {
             method: 'PUT',
             headers: {
                 'accept': '*/*',
                 'Authorization': TOKEN,
+                'content-type': "application/json",
                 'scope': [
                     "SUPER_ADMIN"
                 ],
                 "expiresIn": 1724266116069,
                 "refreshToken": "3eb183b8-340f-4452-af97-55015dd105b8",
             },
-            body: formData
+            body: JSON.stringify(newData)
         });
         await setSelectedItems([])
+        setTimeout(() => { window.location.reload() }, 300)
+
+
     }
 
     useEffect(() => {
@@ -225,7 +216,8 @@ function AddBookPage() {
             size: 100,
             cell: (props) => {
                 let date = new Date(props.getValue()).toLocaleDateString()
-                return <p>{(props.getValue()) ? date : "-"}</p>
+                const persianDate = jalaliMoment(date, 'MM/DD/YYYY').format('jYYYY/jMM/jDD')
+                return <p>{(props.getValue()) ? persianDate : "-"}</p>
             }
         }, {
             accessorKey: "publishedAt",
@@ -233,7 +225,8 @@ function AddBookPage() {
             size: 100,
             cell: (props) => {
                 let date = new Date(props.getValue()).toLocaleDateString()
-                return <p>{(props.getValue()) ? date : "-"}</p>
+                const persianDate = jalaliMoment(date, 'MM/DD/YYYY').format('jYYYY/jMM/jDD')
+                return <p>{(props.getValue()) ? persianDate : "-"}</p>
             }
         },
 
