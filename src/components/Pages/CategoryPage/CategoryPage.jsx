@@ -14,6 +14,7 @@ import EditBtn from "../../Buttons/EditBtn"
 import SelectBtn from "../../Buttons/SelectBtn"
 import SelectedCounter from "../../SelectedCounter/SelectedCounter"
 import jalaliMoment from 'jalali-moment';
+import Select from 'react-select'
 
 
 
@@ -21,12 +22,13 @@ function CategoryPage() {
     const [data, setData] = useState([])
     const [filtering, setFiltering] = useState("")
     const [isModalOpen, setIsModalOpen] = useState(false)
-    const { register, handleSubmit } = useForm()
+    const { register, handleSubmit , setValue } = useForm()
     const [editModal, setEditModal] = useState({})
     const [properties, setProperties] = useState('')
     const [selectedItems, setSelectedItems] = useState([])
+    const [isEnableFloat , setIsEnableFloat] = useState(false)
     const [filteredList, setFilteredList] = useState({
-        "enable": "",
+        "isEnable": "",
     })
 
 
@@ -80,14 +82,14 @@ function CategoryPage() {
 
         })
             .then(res => res.json())
-            .then(result => setData(result.content))
+            .then(result => setData(result))
 
     }, [properties])
 
 
 
     useEffect(() => {
-        setProperties(`?enable=${filteredList.enable}`)
+        setProperties(`?isEnable=${filteredList.isEnable}`)
     }, [filteredList])
 
 
@@ -148,7 +150,6 @@ function CategoryPage() {
         },
     ]
 
-
     const table = useReactTable({
         data,
         columns,
@@ -171,16 +172,31 @@ function CategoryPage() {
         setFilteredList(data)
     }
 
+    register("isEnable")
+
+    function handleEnableChange(selectedOption) {
+        setValue("isEnable", selectedOption.value)
+
+        if (selectedOption) {
+            setIsEnableFloat(true)
+        }
+        else
+            setIsEnableFloat(false)
+    }
+
+
+
     return (
         <>
             {(isModalOpen) && <CategoryModal setIsModalOpen={setIsModalOpen} modalData={editModal} setEditModal={setEditModal} />}
             <div className="flex items-center justify-between px-4">
-                <form className="flex items-center gap-4">
-                    <select name="enable" id="enable" className="p-2 py-1.5 rounded-md focus-visible:outline-dark" style={{ border: "1px solid lightgray" }} {...register("enable")}>
-                        <option value="">وضعیت</option>
-                        <option value="true">فعال</option>
-                        <option value="false">غیرفعال</option>
-                    </select>
+                <form className="flex items-end gap-4">
+                        <div className="flex flex-col flex-1">
+                            {(isEnableFloat) &&
+                                <label htmlFor="enable" className="opacity-70 text-sm mb-1">وضعیت</label>
+                            }
+                            <Select options={[{ value: "", label: "همه" }, { value: true, label: "فعال" }, { value: false, label: "غیرفعال" }]} onChange={handleEnableChange} placeholder="وضعیت" />
+                        </div>
                     <SubmitSearch onClick={handleSubmit(submit)} />
                 </form>
                 <AddBtn onClick={openModal} />

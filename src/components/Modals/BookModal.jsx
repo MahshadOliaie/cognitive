@@ -75,7 +75,7 @@ console.log(data)
 
         });
         await setIsModalOpen(false)
-        // setTimeout(() => { window.location.reload() }, 300)
+        setTimeout(() => { window.location.reload() }, 300)
 
     }
 

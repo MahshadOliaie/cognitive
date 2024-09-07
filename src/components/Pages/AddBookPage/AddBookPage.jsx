@@ -23,6 +23,8 @@ import PublisherTd from "./PublisherTd"
 import TranslatorTd from "./TranslatorTd"
 import jalaliMoment from 'jalali-moment';
 import { DatePicker } from "zaman"
+import Select from 'react-select'
+
 
 
 
@@ -42,6 +44,8 @@ function AddBookPage() {
     const [toDateFloat, setToDateFloat] = useState(false)
     const [properties, setProperties] = useState(`?page=${currentPage}&size=10`)
     const [selectedItems, setSelectedItems] = useState([])
+    const [isPublishFloat, setIsPublishFloat] = useState(false)
+    const [isPublicFloat, setIsPublicFloat] = useState(false)
     const [filteredList, setFilteredList] = useState({
         "name": "",
         "isPublic": "",
@@ -125,7 +129,7 @@ function AddBookPage() {
 
 
     useEffect(() => {
-        setProperties(`?categoryIds=${filteredList.categoryIds || []}&publish=${filteredList.publish || ""}&name=${filteredList.name || ""}&authorIds=${filteredList.authorIds || []}&publisherIds=${filteredList.publisherIds || []}&isPublic=${filteredList.isPublic || ""}&from=${filteredList.from || ""}&to=${filteredList.to || ""}&page=${currentPage}&size=10`)
+        setProperties(`?categoryIds=${filteredList.categoryIds || []}&publish=${(filteredList.publish !== undefined )? filteredList.publish : ""}&name=${filteredList.name || ""}&authorIds=${filteredList.authorIds || []}&publisherIds=${filteredList.publisherIds || []}&isPublic=${(filteredList.isPublic !== undefined)? filteredList.isPublic : ""}&from=${filteredList.from || ""}&to=${filteredList.to || ""}&page=${currentPage}&size=10`)
     }, [filteredList, currentPage])
 
 
@@ -283,6 +287,7 @@ function AddBookPage() {
     })
 
     function submit(data) {
+        console.log(data)
         setCurrentPage(0)
         setIsFilter(true)
         setFilteredList(data)
@@ -292,6 +297,8 @@ function AddBookPage() {
     setValue("categoryIds", categories)
     setValue("publisherIds", publisher)
     setValue("authorIds", authors)
+    register("publish")
+    register("isPublic")
     register("from")
     register("to")
 
@@ -322,6 +329,26 @@ function AddBookPage() {
             setToDateFloat(false)
     }
 
+    function handlePublishChange(selectedOption) {
+        setValue("publish", selectedOption.value)
+
+        if (selectedOption) {
+            setIsPublishFloat(true)
+        }
+        else
+            setIsPublishFloat(false)
+    }
+
+    function handlePublicChange(selectedOption) {
+        setValue("isPublic", selectedOption.value)
+
+        if (selectedOption) {
+            setIsPublicFloat(true)
+        }
+        else
+            setIsPublicFloat(false)
+    }
+
 
 
     return (
@@ -343,17 +370,22 @@ function AddBookPage() {
                         <CategoryInput modalData={{}} setCategoryValue={setCategories} {...register("categoryIds")} multi={true} />
                     </div>
 
-                    <select name="publish" id="publish" className="p-2 py-1.5 rounded-md focus-visible:outline-dark" style={{ border: "1px solid lightgray" }} {...register("publish")}>
-                        <option value="">وضعیت انتشار</option>
-                        <option value="true">منتشر شده</option>
-                        <option value="false">لغو انتشار</option>
-                    </select>
-
-                    <select name="enable" id="enable" className="p-2 py-1.5 rounded-md focus-visible:outline-dark" style={{ border: "1px solid lightgray" }} {...register("isPublic")}>
-                        <option value="">سطح دسترسی</option>
-                        <option value="true">عمومی</option>
-                        <option value="false">خصوصی</option>
-                    </select>
+                    <div>
+                        <div className="flex flex-col flex-1">
+                            {(isPublishFloat) &&
+                                <label htmlFor="publish" className="opacity-70 text-sm mb-1">وضعیت انتشار</label>
+                            }
+                            <Select options={[{ value: "", label: "همه" }, { value: true, label: "منتشر شده" }, { value: false, label: "لغو انتشار" }]} onChange={handlePublishChange} placeholder="وضعیت انتشار" />
+                        </div>
+                    </div>
+                    <div>
+                        <div className="flex flex-col flex-1">
+                            {(isPublicFloat) &&
+                                <label htmlFor="enable" className="opacity-70 text-sm mb-1">سطح دسترسی</label>
+                            }
+                            <Select options={[{ value: "", label: "همه" }, { value: true, label: "عمومی" }, { value: false, label: "خصوصی" }]} onChange={handlePublicChange} placeholder="سطح دسترسی" />
+                        </div>
+                    </div>
 
                     <div className="flex flex-col">
                         {(toDateFloat) &&

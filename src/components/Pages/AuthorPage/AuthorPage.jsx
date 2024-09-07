@@ -14,6 +14,8 @@ import EditBtn from "../../Buttons/EditBtn"
 import SelectBtn from "../../Buttons/SelectBtn"
 import SelectedCounter from "../../SelectedCounter/SelectedCounter"
 import jalaliMoment from 'jalali-moment';
+import Select from 'react-select'
+
 
 
 
@@ -26,8 +28,9 @@ function AuthorPage() {
     const [editModal, setEditModal] = useState({})
     const [pages, setPages] = useState(0)
     const [currentPage, setCurrentPage] = useState(0)
-    const { register, handleSubmit } = useForm()
+    const { register, handleSubmit, setValue } = useForm()
     const [selectedItems, setSelectedItems] = useState([])
+    const [isEnableFloat, setIsEnableFloat] = useState(false)
     const [properties, setProperties] = useState(`?page=${currentPage}&size=10`)
     const [filteredList, setFilteredList] = useState({
         "firstName": "",
@@ -186,6 +189,17 @@ function AuthorPage() {
         setFilteredList(data)
     }
 
+    register("enable")
+
+    function handleEnableChange(selectedOption) {
+        setValue("enable", selectedOption.value)
+
+        if (selectedOption) {
+            setIsEnableFloat(true)
+        }
+        else
+            setIsEnableFloat(false)
+    }
 
 
     return (
@@ -201,11 +215,14 @@ function AuthorPage() {
                         <input type="text" id="lastName" className="searchInput" placeholder="نام خانوادگی" {...register("lastName")} />
                         <label htmlFor="lastName" className="searchLabel">نام خانوادگی</label>
                     </div>
-                    <select name="enable" id="enable" className="p-2 py-1.5 rounded-md focus-visible:outline-dark" style={{ border: "1px solid lightgray" }} {...register("enable")}>
-                        <option value="">وضعیت</option>
-                        <option value="true">فعال</option>
-                        <option value="false">غیرفعال</option>
-                    </select>
+                    <div>
+                        <div className="flex flex-col flex-1">
+                            {(isEnableFloat) &&
+                                <label htmlFor="enable" className="opacity-70 text-sm mb-1">وضعیت</label>
+                            }
+                            <Select options={[{ value: "", label: "همه" }, { value: true, label: "فعال" }, { value: false, label: "غیرفعال" }]} onChange={handleEnableChange} placeholder="وضعیت" />
+                        </div>
+                    </div>
                     <SubmitSearch onClick={handleSubmit(submit)} />
                 </form>
                 <AddBtn onClick={openModal} />

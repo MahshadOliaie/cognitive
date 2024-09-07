@@ -15,6 +15,8 @@ import CommentTextTd from "./CommentTextTd"
 import CommentsReplyTd from "./CommentsReplyTd"
 import jalaliMoment from 'jalali-moment';
 import { DatePicker } from "zaman"
+import Select from 'react-select'
+
 
 
 
@@ -29,6 +31,7 @@ function CommentsPage() {
     const [currentPage, setCurrentPage] = useState(0)
     const [fromDateFloat, setFromDateFloat] = useState(false)
     const [toDateFloat, setToDateFloat] = useState(false)
+    const [isPublishFloat, setIsPublishFloat] = useState(false)
     const [properties, setProperties] = useState(`?page=${currentPage}&size=10`)
     const [filteredList, setFilteredList] = useState({
         "publish": "",
@@ -70,7 +73,7 @@ function CommentsPage() {
 
 
     useEffect(() => {
-        setProperties(`?modelTypeId=${filteredList.id}&publish=${filteredList.publish}&from=${filteredList.from}&to=${filteredList.to}&page=${currentPage}&size=10`)
+        setProperties(`?modelTypeId=${filteredList.id}&publish=${filteredList.publish}&from=${filteredList.from || ""}&to=${filteredList.to || ""}&page=${currentPage}&size=10`)
     }, [filteredList, currentPage])
 
 
@@ -199,6 +202,8 @@ function CommentsPage() {
 
     register("from")
     register("to")
+    register("publish")
+
 
     function formatDateToISO(date) {
         if (date) {
@@ -229,6 +234,15 @@ function CommentsPage() {
     }
 
 
+    function handlePublishChange(selectedOption) {
+        setValue("publish", selectedOption.value)
+
+        if (selectedOption) {
+            setIsPublishFloat(true)
+        }
+        else
+            setIsPublishFloat(false)
+    }
 
 
     return (
@@ -263,11 +277,14 @@ function CommentsPage() {
                                 <p className="absolute opacity-50">تا تاریخ</p>}
                         </div>
                     </div>
-                    <select name="publish" id="publish" className="p-2 py-1.5 rounded-md focus-visible:outline-dark" style={{ border: "1px solid lightgray" }} {...register("publish")}>
-                        <option value="">وضعیت انتشار</option>
-                        <option value="true">منتشر شده</option>
-                        <option value="false">لغو انتشار</option>
-                    </select>
+                    <div>
+                        <div className="flex flex-col flex-1">
+                            {(isPublishFloat) &&
+                                <label htmlFor="publish" className="opacity-70 text-sm mb-1">وضعیت انتشار</label>
+                            }
+                            <Select options={[{ value: "", label: "همه" }, { value: true, label: "منتشر شده" }, { value: false, label: "لغو انتشار" }]} onChange={handlePublishChange} placeholder="وضعیت انتشار" />
+                        </div>
+                    </div>
                     <SubmitSearch onClick={handleSubmit(submit)} />
                 </form>
             </div>
