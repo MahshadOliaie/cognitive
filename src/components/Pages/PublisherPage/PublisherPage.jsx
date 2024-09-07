@@ -106,22 +106,25 @@ function PublisherPage() {
         {
             accessorKey: "id",
             header: "ID",
-            size: 50,
+            size: 30,
             cell: (props) => <p>{props.getValue()}</p>
         },
         {
             accessorFn: (row) => `${row.coverImage}?key=${row.fileKey}`,
             header: "عکس",
+            size: 50,
             cell: (props) => <img src={`http://cogcenter.ir/api/fs/v1/files/download/${props.getValue()}`} alt="" className="m-auto cursor-pointer" style={{ maxHeight: "32px" }} />
         },
         {
             accessorKey: "name",
             header: "نام",
+            size: 300,
             cell: (props) => <p>{props.getValue()}</p>
         },
         {
             accessorKey: "createdAt",
             header: "تاریخ ثبت",
+            size: 80,
             cell: (props) => {
                 let date = new Date(props.getValue()).toLocaleDateString()
                 const persianDate = jalaliMoment(date, 'MM/DD/YYYY').format('jYYYY/jMM/jDD')
@@ -130,6 +133,7 @@ function PublisherPage() {
         }, {
             accessorKey: "updatedAt",
             header: "آخرین ویرایش",
+            size: 80,
             cell: (props) => {
                 let date = new Date(props.getValue()).toLocaleDateString()
                 const persianDate = jalaliMoment(date, 'MM/DD/YYYY').format('jYYYY/jMM/jDD')
@@ -139,12 +143,13 @@ function PublisherPage() {
         {
             accessorKey: "enable",
             header: "وضعیت",
+            size: 50,
             cell: (props) => <p>{(props.getValue()) ? "فعال" : "غیرفعال"}</p>
         },
         {
             accessorKey: "",
             header: "ویرایش",
-            size: 60,
+            size: 40,
             cell: (props) => {
                 return <EditBtn setEditModal={setEditModal} modalData={props.row} openModal={openModal} />
             }
@@ -193,12 +198,12 @@ function PublisherPage() {
             {(isModalOpen) && <PublisherModal setIsModalOpen={setIsModalOpen} modalData={editModal} setEditModal={setEditModal} />}
             <div className="flex items-center justify-between px-4">
                 <form className="flex items-end gap-4">
-                    <div className="form-group">
+                    <div className="form-group w-44">
                         <input type="text" id="name" placeholder="ناشر" className="searchInput" {...register("name")} />
                         <label htmlFor="name" className="searchLabel">ناشر</label>
                     </div>
                     <div>
-                        <div className="flex flex-col flex-1">
+                        <div className="flex flex-col flex-1 w-44">
                             {(isEnableFloat) &&
                                 <label htmlFor="enable" className="opacity-70 text-sm mb-1">وضعیت</label>
                             }

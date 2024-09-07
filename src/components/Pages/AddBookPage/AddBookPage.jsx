@@ -174,15 +174,6 @@ function AddBookPage() {
             cell: (props) => (props.getValue()) && <TranslatorTd props={props} />
         },
         {
-            accessorKey: "publish",
-            header: "انتشار",
-            size: 50,
-            cell: (props) => (props.getValue()) ?
-                <svg className="w-5 m-auto" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="#77bb41" d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z" /></svg>
-                :
-                <svg className="w-5 m-auto" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path fill="#e32400" d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z" /></svg>
-        },
-        {
             accessorKey: "publisher.name",
             header: "ناشر",
             cell: (props) => <PublisherTd props={props} />
@@ -230,6 +221,15 @@ function AddBookPage() {
                 const persianDate = jalaliMoment(date, 'MM/DD/YYYY').format('jYYYY/jMM/jDD')
                 return <p>{(props.getValue()) ? persianDate : "-"}</p>
             }
+        },
+        {
+            accessorKey: "publish",
+            header: "انتشار",
+            size: 50,
+            cell: (props) => (props.getValue()) ?
+                <svg className="w-5 m-auto" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="#77bb41" d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z" /></svg>
+                :
+                <svg className="w-5 m-auto" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path fill="#e32400" d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z" /></svg>
         },
 
         {
@@ -356,22 +356,22 @@ function AddBookPage() {
             {(isModalOpen) && <BookModal setIsModalOpen={setIsModalOpen} modalData={editModal} setEditModal={setEditModal} />}
             <div className="flex justify-between px-4">
                 <form className="flex items-end gap-4 flex-wrap max-w-5xl">
-                    <div className="form-group">
+                    <div className="form-group w-44">
                         <input type="text" id="name" className="searchInput" placeholder="نام کتاب" {...register("name")} />
                         <label htmlFor="name" className="searchLabel">نام کتاب</label>
                     </div>
-                    <div>
+                    <div className="w-44">
                         <AuthorsInput modalData={{}} setAuthorValue={setAuthors} {...register("authorIds")} />
                     </div>
-                    <div>
+                    <div className="w-44" >
                         <PublishersInput modalData={{}} setPublisherValue={setPublisher} {...register("publisherIds")} />
                     </div>
-                    <div>
+                    <div className="w-44">
                         <CategoryInput modalData={{}} setCategoryValue={setCategories} {...register("categoryIds")} multi={true} />
                     </div>
 
                     <div>
-                        <div className="flex flex-col flex-1">
+                        <div className="flex flex-col flex-1 w-44">
                             {(isPublishFloat) &&
                                 <label htmlFor="publish" className="opacity-70 text-sm mb-1">وضعیت انتشار</label>
                             }
@@ -379,7 +379,7 @@ function AddBookPage() {
                         </div>
                     </div>
                     <div>
-                        <div className="flex flex-col flex-1">
+                        <div className="flex flex-col flex-1 w-44">
                             {(isPublicFloat) &&
                                 <label htmlFor="enable" className="opacity-70 text-sm mb-1">سطح دسترسی</label>
                             }
@@ -391,8 +391,8 @@ function AddBookPage() {
                         {(toDateFloat) &&
                             <label htmlFor="" className="opacity-70 text-sm mb-1">از تاریخ:</label>
                         }
-                        <div className="p-1.5 bg-white flex items-center justify-start" style={{ borderRadius: "5px", border: "1px solid lightgray" }}>
-                            <DatePicker accentColor="#D1BAA7" inputClass="focus-visible:outline-none" onChange={getTo} />
+                        <div className="p-1.5 bg-white flex items-center justify-start overflow-hidden" style={{ borderRadius: "5px", border: "1px solid lightgray" , width: "176px" }}>
+                            <DatePicker accentColor="#D1BAA7" inputClass="focus-visible:outline-none w-44" onChange={getTo} />
                             {(!toDateFloat) &&
                                 <p className="absolute opacity-50">از تاریخ</p>}
                         </div>
@@ -401,8 +401,8 @@ function AddBookPage() {
                         {(fromDateFloat) &&
                             <label htmlFor="" className="opacity-70 text-sm mb-1">تا تاریخ:</label>
                         }
-                        <div className="p-1.5 bg-white flex items-center justify-start" style={{ borderRadius: "5px", border: "1px solid lightgray" }}>
-                            <DatePicker accentColor="#D1BAA7" inputClass="focus-visible:outline-none" onChange={getFrom} />
+                        <div className="p-1.5 bg-white flex items-center justify-start overflow-hidden" style={{ borderRadius: "5px", border: "1px solid lightgray" , width: "176px"}}>
+                            <DatePicker accentColor="#D1BAA7" inputClass="focus-visible:outline-none w-44" onChange={getFrom} />
                             {(!fromDateFloat) &&
                                 <p className="absolute opacity-50">تا تاریخ</p>}
                         </div>

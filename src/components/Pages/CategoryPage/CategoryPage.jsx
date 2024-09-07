@@ -104,7 +104,7 @@ function CategoryPage() {
         {
             accessorKey: "id",
             header: "ID",
-            size: 50,
+            size: 30,
             cell: (props) => <p>{props.getValue()}</p>
         },
         {
@@ -116,11 +116,13 @@ function CategoryPage() {
         {
             accessorKey: "title",
             header: "عنوان",
+            size: 300,
             cell: (props) => <p>{props.getValue()}</p>
         },
         {
             accessorKey: "createdAt",
             header: "تاریخ ثبت",
+            size: 80,
             cell: (props) => {
                 let date = new Date(props.getValue()).toLocaleDateString()
                 const persianDate = jalaliMoment(date, 'MM/DD/YYYY').format('jYYYY/jMM/jDD')
@@ -129,6 +131,7 @@ function CategoryPage() {
         }, {
             accessorKey: "updatedAt",
             header: "آخرین ویرایش",
+            size: 80,
             cell: (props) => {
                 let date = new Date(props.getValue()).toLocaleDateString()
                 const persianDate = jalaliMoment(date, 'MM/DD/YYYY').format('jYYYY/jMM/jDD')
@@ -138,12 +141,13 @@ function CategoryPage() {
         {
             accessorKey: "enable",
             header: "وضعیت",
+            size: 50,
             cell: (props) => <p>{(props.getValue()) ? "فعال" : "غیرفعال"}</p>
         },
         {
             accessorKey: "",
             header: "ویرایش",
-            size: 60,
+            size: 40,
             cell: (props) => {
                 return <EditBtn setEditModal={setEditModal} modalData={props.row} openModal={openModal} />
             }
@@ -191,7 +195,7 @@ function CategoryPage() {
             {(isModalOpen) && <CategoryModal setIsModalOpen={setIsModalOpen} modalData={editModal} setEditModal={setEditModal} />}
             <div className="flex items-center justify-between px-4">
                 <form className="flex items-end gap-4">
-                        <div className="flex flex-col flex-1">
+                        <div className="flex flex-col flex-1 w-44">
                             {(isEnableFloat) &&
                                 <label htmlFor="enable" className="opacity-70 text-sm mb-1">وضعیت</label>
                             }

@@ -100,6 +100,7 @@ function CommentsPage() {
         {
             accessorKey: "userName",
             header: "نام کاربری",
+            size: 100,
             cell: (props) => <p>{props.getValue()}</p>
         },
         {
@@ -109,8 +110,8 @@ function CommentsPage() {
         },
         {
             accessorKey: "modelType.id",
-            header: "شماره کتاب",
-            size: 80,
+            header: "آیدی کتاب",
+            size: 60,
             cell: (props) => <p>{props.getValue()}</p>
         },
         {
@@ -122,14 +123,7 @@ function CommentsPage() {
         {
             accessorKey: "createdAt",
             header: "تاریخ ثبت",
-            cell: (props) => {
-                let date = new Date(props.getValue()).toLocaleDateString()
-                const persianDate = jalaliMoment(date, 'MM/DD/YYYY').format('jYYYY/jMM/jDD')
-                return <p>{(props.getValue()) ? persianDate : "-"}</p>
-            }
-        }, {
-            accessorKey: "updatedAt",
-            header: "آخرین ویرایش",
+            size: 100,
             cell: (props) => {
                 let date = new Date(props.getValue()).toLocaleDateString()
                 const persianDate = jalaliMoment(date, 'MM/DD/YYYY').format('jYYYY/jMM/jDD')
@@ -147,13 +141,13 @@ function CommentsPage() {
         },
         {
             accessorKey: "unPublishReason",
-            header: "علت",
+            header: "علت عدم انتشار",
             cell: (props) => (props.getValue() && !props.row.original.publish) && <p>{props.getValue()}</p>
         },
         {
             accessorKey: "feedbackStats.reaction",
             header: "بازخورد‌ها",
-            size: 100,
+            size: 70,
             cell: (props) => <div className="flex gap-4 justify-center">
                 <p className="flex flex-col items-center gap-2 text-xs">
                     <svg className="w-4 opacity-80" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="green" d="M313.4 32.9c26 5.2 42.9 30.5 37.7 56.5l-2.3 11.4c-5.3 26.7-15.1 52.1-28.8 75.2l144 0c26.5 0 48 21.5 48 48c0 18.5-10.5 34.6-25.9 42.6C497 275.4 504 288.9 504 304c0 23.4-16.8 42.9-38.9 47.1c4.4 7.3 6.9 15.8 6.9 24.9c0 21.3-13.9 39.4-33.1 45.6c.7 3.3 1.1 6.8 1.1 10.4c0 26.5-21.5 48-48 48l-97.5 0c-19 0-37.5-5.6-53.3-16.1l-38.5-25.7C176 420.4 160 390.4 160 358.3l0-38.3 0-48 0-24.9c0-29.2 13.3-56.7 36-75l7.4-5.9c26.5-21.2 44.6-51 51.2-84.2l2.3-11.4c5.2-26 30.5-42.9 56.5-37.7zM32 192l64 0c17.7 0 32 14.3 32 32l0 224c0 17.7-14.3 32-32 32l-64 0c-17.7 0-32-14.3-32-32L0 224c0-17.7 14.3-32 32-32z" /></svg>
@@ -252,17 +246,17 @@ function CommentsPage() {
 
             <div className="flex justify-between px-4">
                 <form className="flex items-end gap-4">
-                    <div className="form-group">
-                        <input type="text" id="postId" className="searchInput" placeholder="شماره پست" {...register("id")} />
-                        <label htmlFor="postId" className="searchLabel">شماره پست</label>
+                    <div className="form-group w-44">
+                        <input type="text" id="postId" className="searchInput" placeholder="آیدی کتاب" {...register("id")} />
+                        <label htmlFor="postId" className="searchLabel"> آیدی کتاب</label>
                     </div>
 
                     <div className="flex flex-col">
                         {(toDateFloat) &&
                             <label htmlFor="" className="opacity-70 text-sm mb-1">از تاریخ:</label>
                         }
-                        <div className="p-1.5 bg-white flex items-center justify-start" style={{ borderRadius: "5px", border: "1px solid lightgray" }}>
-                            <DatePicker accentColor="#D1BAA7" inputClass="focus-visible:outline-none" onChange={getTo} />
+                        <div className="p-1.5 bg-white flex items-center justify-start overflow-hidden" style={{ borderRadius: "5px", border: "1px solid lightgray", width: "176px" }}>
+                            <DatePicker accentColor="#D1BAA7" inputClass="focus-visible:outline-none w-44" onChange={getTo} />
                             {(!toDateFloat) &&
                                 <p className="absolute opacity-50">از تاریخ</p>}
                         </div>
@@ -271,14 +265,14 @@ function CommentsPage() {
                         {(fromDateFloat) &&
                             <label htmlFor="" className="opacity-70 text-sm mb-1">تا تاریخ:</label>
                         }
-                        <div className="p-1.5 bg-white flex items-center justify-start" style={{ borderRadius: "5px", border: "1px solid lightgray" }}>
-                            <DatePicker accentColor="#D1BAA7" inputClass="focus-visible:outline-none" onChange={getFrom} />
+                        <div className="p-1.5 bg-white flex items-center justify-start overflow-hidden" style={{ borderRadius: "5px", border: "1px solid lightgray", width: "176px" }}>
+                            <DatePicker accentColor="#D1BAA7" inputClass="focus-visible:outline-none w-44" onChange={getFrom} />
                             {(!fromDateFloat) &&
                                 <p className="absolute opacity-50">تا تاریخ</p>}
                         </div>
                     </div>
                     <div>
-                        <div className="flex flex-col flex-1">
+                        <div className="flex flex-col flex-1 w-44">
                             {(isPublishFloat) &&
                                 <label htmlFor="publish" className="opacity-70 text-sm mb-1">وضعیت انتشار</label>
                             }
