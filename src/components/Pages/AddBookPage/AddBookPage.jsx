@@ -129,7 +129,7 @@ function AddBookPage() {
 
 
     useEffect(() => {
-        setProperties(`?categoryIds=${filteredList.categoryIds || []}&publish=${(filteredList.publish !== undefined )? filteredList.publish : ""}&name=${filteredList.name || ""}&authorIds=${filteredList.authorIds || []}&publisherIds=${filteredList.publisherIds || []}&isPublic=${(filteredList.isPublic !== undefined)? filteredList.isPublic : ""}&from=${filteredList.from || ""}&to=${filteredList.to || ""}&page=${currentPage}&size=10`)
+        setProperties(`?categoryIds=${filteredList.categoryIds || []}&publish=${(filteredList.publish !== undefined) ? filteredList.publish : ""}&name=${filteredList.name || ""}&authorIds=${filteredList.authorIds || []}&publisherIds=${filteredList.publisherIds || []}&isPublic=${(filteredList.isPublic !== undefined) ? filteredList.isPublic : ""}&from=${filteredList.from || ""}&to=${filteredList.to || ""}&page=${currentPage}&size=10`)
     }, [filteredList, currentPage])
 
 
@@ -355,7 +355,7 @@ function AddBookPage() {
         <>
             {(isModalOpen) && <BookModal setIsModalOpen={setIsModalOpen} modalData={editModal} setEditModal={setEditModal} />}
             <div className="flex justify-between px-4">
-                <form className="flex items-end gap-4 flex-wrap max-w-5xl">
+                <form className="flex items-end gap-4 flex-wrap">
                     <div className="form-group w-44">
                         <input type="text" id="name" className="searchInput" placeholder="نام کتاب" {...register("name")} />
                         <label htmlFor="name" className="searchLabel">نام کتاب</label>
@@ -391,7 +391,7 @@ function AddBookPage() {
                         {(toDateFloat) &&
                             <label htmlFor="" className="opacity-70 text-sm mb-1">از تاریخ:</label>
                         }
-                        <div className="p-1.5 bg-white flex items-center justify-start overflow-hidden" style={{ borderRadius: "5px", border: "1px solid lightgray" , width: "176px" }}>
+                        <div className="p-1.5 bg-white flex items-center justify-start overflow-hidden" style={{ borderRadius: "5px", border: "1px solid lightgray", width: "176px" }}>
                             <DatePicker accentColor="#D1BAA7" inputClass="focus-visible:outline-none w-44" onChange={getTo} />
                             {(!toDateFloat) &&
                                 <p className="absolute opacity-50">از تاریخ</p>}
@@ -401,7 +401,7 @@ function AddBookPage() {
                         {(fromDateFloat) &&
                             <label htmlFor="" className="opacity-70 text-sm mb-1">تا تاریخ:</label>
                         }
-                        <div className="p-1.5 bg-white flex items-center justify-start overflow-hidden" style={{ borderRadius: "5px", border: "1px solid lightgray" , width: "176px"}}>
+                        <div className="p-1.5 bg-white flex items-center justify-start overflow-hidden" style={{ borderRadius: "5px", border: "1px solid lightgray", width: "176px" }}>
                             <DatePicker accentColor="#D1BAA7" inputClass="focus-visible:outline-none w-44" onChange={getFrom} />
                             {(!fromDateFloat) &&
                                 <p className="absolute opacity-50">تا تاریخ</p>}
@@ -411,8 +411,8 @@ function AddBookPage() {
 
                     <SubmitSearch onClick={handleSubmit(submit)} />
                 </form>
-                <AddBtn onClick={openModal} />
             </div>
+            <AddBtn onClick={openModal} />
 
 
             {(selectedItems.length > 0) &&
