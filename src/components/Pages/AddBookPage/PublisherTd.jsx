@@ -12,7 +12,7 @@ function PublisherTd({ props }) {
                 {(props.getValue().length > 12) &&
                     <p>...</p>
                 }
-                {(showFullName && (props.getValue().length > 10)) && <div className="absolute right-24 bg-white rounded-md shadow-sm p-3 z-30"><p className="text-nowrap">{props.getValue()}</p></div>}
+                {(showFullName && (props.getValue().length > 12)) && <div className="absolute right-24 bg-white rounded-md shadow-sm p-3 z-30"><p className="text-nowrap">{props.getValue()}</p></div>}
             </div>
         </>
     )
