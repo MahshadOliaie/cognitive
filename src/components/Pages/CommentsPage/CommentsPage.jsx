@@ -16,6 +16,7 @@ import CommentsReplyTd from "./CommentsReplyTd"
 import jalaliMoment from 'jalali-moment';
 import { DatePicker } from "zaman"
 import Select from 'react-select'
+import ShowRepliesBtn from "../../Buttons/ShowRepliesBtn"
 
 
 
@@ -115,12 +116,6 @@ function CommentsPage() {
             cell: (props) => <p>{props.getValue()}</p>
         },
         {
-            accessorKey: "text",
-            header: "جواب‌ها",
-            size: 80,
-            cell: (props) => (props.row.original.replies[0]) && <CommentsReplyTd props={props} />
-        },
-        {
             accessorKey: "createdAt",
             header: "تاریخ ثبت",
             size: 100,
@@ -165,6 +160,8 @@ function CommentsPage() {
                 return <div className="flex gap-3 justify-center">
                     <SettingBtn onClick={() => openModal(props.row.original)} />
                     <ReplyBtn onClick={() => openReply(props.row.original)} />
+                    <ShowRepliesBtn props={props} />
+
                 </div>
             }
         },
