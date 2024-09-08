@@ -15,6 +15,7 @@ import SelectBtn from "../../Buttons/SelectBtn"
 import SelectedCounter from "../../SelectedCounter/SelectedCounter"
 import jalaliMoment from 'jalali-moment';
 import Select from 'react-select'
+import AuthorNameTd from "./AuthorNameTd"
 
 
 
@@ -127,12 +128,12 @@ function AuthorPage() {
         {
             accessorKey: "firstName",
             header: "نام",
-            cell: (props) => <p>{props.getValue()}</p>
+            cell: (props) => <AuthorNameTd props={props}/>
         },
         {
             accessorKey: "lastName",
             header: "نام خانوادگی",
-            cell: (props) => <p>{props.getValue()}</p>
+            cell: (props) => <AuthorNameTd props={props}/>
         },
         {
             accessorKey: "createdAt",

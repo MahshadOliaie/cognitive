@@ -15,6 +15,7 @@ import SelectBtn from "../../Buttons/SelectBtn"
 import SelectedCounter from "../../SelectedCounter/SelectedCounter"
 import jalaliMoment from 'jalali-moment';
 import Select from 'react-select'
+import CategoryTitleTd from "../CategoryPage/CategoryTitleTd"
 
 
 
@@ -119,7 +120,7 @@ function PublisherPage() {
             accessorKey: "name",
             header: "نام",
             size: 300,
-            cell: (props) => <p>{props.getValue()}</p>
+            cell: (props) => <CategoryTitleTd props={props}/>
         },
         {
             accessorKey: "createdAt",

@@ -20,7 +20,6 @@ import SelectedCounter from "../../SelectedCounter/SelectedCounter"
 import BookNameTd from "./BookNameTd"
 import AuthorsNameTd from "./AuthorsNameTd"
 import PublisherTd from "./PublisherTd"
-import TranslatorTd from "./TranslatorTd"
 import jalaliMoment from 'jalali-moment';
 import { DatePicker } from "zaman"
 import Select from 'react-select'
@@ -171,7 +170,7 @@ function AddBookPage() {
         {
             accessorKey: "translators",
             header: "مترجم",
-            cell: (props) => (props.getValue()) && <TranslatorTd props={props} />
+            cell: (props) => (props.getValue()) && <AuthorsNameTd props={props} />
         },
         {
             accessorKey: "publisher.name",

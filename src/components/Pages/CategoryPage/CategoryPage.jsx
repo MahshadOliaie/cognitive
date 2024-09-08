@@ -15,6 +15,7 @@ import SelectBtn from "../../Buttons/SelectBtn"
 import SelectedCounter from "../../SelectedCounter/SelectedCounter"
 import jalaliMoment from 'jalali-moment';
 import Select from 'react-select'
+import CategoryTitleTd from "./CategoryTitleTd"
 
 
 
@@ -22,11 +23,11 @@ function CategoryPage() {
     const [data, setData] = useState([])
     const [filtering, setFiltering] = useState("")
     const [isModalOpen, setIsModalOpen] = useState(false)
-    const { register, handleSubmit , setValue } = useForm()
+    const { register, handleSubmit, setValue } = useForm()
     const [editModal, setEditModal] = useState({})
     const [properties, setProperties] = useState('')
     const [selectedItems, setSelectedItems] = useState([])
-    const [isEnableFloat , setIsEnableFloat] = useState(false)
+    const [isEnableFloat, setIsEnableFloat] = useState(false)
     const [filteredList, setFilteredList] = useState({
         "isEnable": "",
     })
@@ -38,7 +39,7 @@ function CategoryPage() {
     async function putData(data, enableState) {
         const { coverImage, scopeId, id, title } = data
 
-        let newData = {coverImage , enable: enableState , scopeId , id , title}
+        let newData = { coverImage, enable: enableState, scopeId, id, title }
 
         fetch(`https://cogcenter.ir/library/api/v1/manager/0/categories/${data.id}`, {
             method: 'PUT',
@@ -117,7 +118,7 @@ function CategoryPage() {
             accessorKey: "title",
             header: "عنوان",
             size: 300,
-            cell: (props) => <p>{props.getValue()}</p>
+            cell: (props) => <CategoryTitleTd props={props} />
         },
         {
             accessorKey: "createdAt",
@@ -195,12 +196,12 @@ function CategoryPage() {
             {(isModalOpen) && <CategoryModal setIsModalOpen={setIsModalOpen} modalData={editModal} setEditModal={setEditModal} />}
             <div className="flex items-center justify-between px-4">
                 <form className="flex items-end gap-4">
-                        <div className="flex flex-col flex-1 w-44">
-                            {(isEnableFloat) &&
-                                <label htmlFor="enable" className="opacity-70 text-sm mb-1">وضعیت</label>
-                            }
-                            <Select options={[{ value: "", label: "همه" }, { value: true, label: "فعال" }, { value: false, label: "غیرفعال" }]} onChange={handleEnableChange} placeholder="وضعیت" />
-                        </div>
+                    <div className="flex flex-col flex-1 w-44">
+                        {(isEnableFloat) &&
+                            <label htmlFor="enable" className="opacity-70 text-sm mb-1">وضعیت</label>
+                        }
+                        <Select options={[{ value: "", label: "همه" }, { value: true, label: "فعال" }, { value: false, label: "غیرفعال" }]} onChange={handleEnableChange} placeholder="وضعیت" />
+                    </div>
                     <SubmitSearch onClick={handleSubmit(submit)} />
                 </form>
                 <AddBtn onClick={openModal} />
