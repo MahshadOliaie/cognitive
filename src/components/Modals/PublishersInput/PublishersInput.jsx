@@ -40,7 +40,7 @@ function PublishersInput({ modalData, setPublisherValue , floatAlways }) {
                 {(floatAlways || isFloat) &&
                     <label htmlFor="publisher" className="opacity-70 text-sm mb-1">ناشر</label>
                 }
-                <Select options={options} onChange={handleChange} placeholder={(floatAlways)? "" :"ناشر"} defaultInputValue={(modalData.id) ? modalData.original.publisher.name : ""} />
+                <Select options={options} onChange={handleChange} placeholder={(floatAlways)? "" :"ناشر"} defaultInputValue={(modalData.original) ? modalData.original.publisher.name : ""} />
             </div>
         </>
     )

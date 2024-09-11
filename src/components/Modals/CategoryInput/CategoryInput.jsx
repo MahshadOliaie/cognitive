@@ -47,7 +47,7 @@ function CategoryInput({ modalData, setCategoryValue, multi, floatAlways }) {
                 {(floatAlways || isFloat) &&
                     <label htmlFor="category" className="opacity-70 text-sm mb-1">دسته بندی</label>
                 }
-                <Select options={options} onChange={handleChange} placeholder={(floatAlways) ? "" : "دسته بندی"} isMulti={multi} defaultInputValue={(modalData.id) ? modalData.original.category.title : ""} />
+                <Select options={options} onChange={handleChange} placeholder={(floatAlways) ? "" : "دسته بندی"} isMulti={multi} defaultInputValue={(modalData.original) ? modalData.original.category.title : ""} />
             </div>
         </>
     )
