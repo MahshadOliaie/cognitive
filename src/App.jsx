@@ -10,6 +10,7 @@ import Sidebar from "./components/Sidebar/Sidebar"
 import { useState } from "react"
 import { CustomProvider } from "rsuite"
 import { faIR } from "rsuite/esm/locales"
+import BookFormPage from "./components/Pages/BookFormPage/BookFormPage"
 
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
             <Route path="/publishers" element={<><Header title={title} /><Sidebar setTitle={setTitle} /><PublisherPage /></>}></Route>
             <Route path="/authors" element={<><Header title={title} /><Sidebar setTitle={setTitle} /><AuthorPage /></>}></Route>
             <Route path="/comments" element={<><Header title={title} /><Sidebar setTitle={setTitle} /><CommentsPage /></>}></Route>
+            <Route path="/bookForm" element={<BookFormPage />}></Route>
           </Routes>
         </BrowserRouter>
       </CustomProvider>

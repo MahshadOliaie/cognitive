@@ -23,12 +23,14 @@ import PublisherTd from "./PublisherTd"
 import jalaliMoment from 'jalali-moment';
 import { DatePicker } from "zaman"
 import Select from 'react-select'
+import { useNavigate } from "react-router-dom"
 
 
 
 
 
 function AddBookPage() {
+    const nav = useNavigate()
     const [data, setData] = useState([])
     const [isFilter, setIsFilter] = useState(false)
     const [isModalOpen, setIsModalOpen] = useState(false)
@@ -133,8 +135,9 @@ function AddBookPage() {
 
 
 
-    function openModal() {
+    function openModal(modalData) {
         setIsModalOpen(true)
+        nav("/bookForm" , {state: modalData.original})
     }
 
 
