@@ -7,7 +7,6 @@ import AddBtn from "../../Buttons/AddBtn"
 import TableHeaderItem from "../../TableHeaderItem/TableHeaderItem"
 import Pagination from "../../Pagination/Pagination"
 import useFetch from "../../../hooks/useFetch"
-import BookModal from "../../Modals/BookModal"
 import SubmitSearch from "../../Buttons/SubmitSearch"
 import { useForm } from "react-hook-form"
 import CategoryInput from "../../Modals/CategoryInput/CategoryInput"
@@ -33,7 +32,6 @@ function AddBookPage() {
     const nav = useNavigate()
     const [data, setData] = useState([])
     const [isFilter, setIsFilter] = useState(false)
-    const [isModalOpen, setIsModalOpen] = useState(false)
     const [editModal, setEditModal] = useState({})
     const [pages, setPages] = useState(0)
     const [categories, setCategories] = useState([])
@@ -136,7 +134,6 @@ function AddBookPage() {
 
 
     function openModal(modalData) {
-        setIsModalOpen(true)
         nav("/bookForm" , {state: modalData.original})
     }
 
@@ -355,7 +352,6 @@ function AddBookPage() {
 
     return (
         <>
-            {(isModalOpen) && <BookModal setIsModalOpen={setIsModalOpen} modalData={editModal} setEditModal={setEditModal} />}
             <div className="flex justify-between px-4">
                 <form className="flex items-end gap-4 flex-wrap">
                     <div className="form-group w-44">

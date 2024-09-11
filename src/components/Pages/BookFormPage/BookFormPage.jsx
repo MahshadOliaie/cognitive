@@ -122,34 +122,34 @@ function BookFormPage() {
 
 
     return (
-        <div className="flex items-center justify-center top-0 right-0 fixed w-screen h-screen z-50" style={{ backgroundColor: "rgba(0 ,0 ,0 , 0.1)", backdropFilter: "blur(3px)" }}>
-            <div className="shadow-md rounded-lg p-10 pt-0 bg-linen">
+        <div className="top-0 right-0 absolute h-screen bg-linen">
+            <div className="p-20 pt-0 pb-10 w-screen">
                 <ModalHeader title={(modalData?.id) ? "ویرایش کتاب" : 'افزودن کتاب'} id={(modalData?.id) ? (modalData.id) : ""} />
 
                 <form className="flex flex-col gap-3" style={{ minWidth: "650px" }}>
                     <div className="flex gap-5 items-end">
                         <FileInput setImage={setImage} image={image} modalData={{ original: modalData }} {...register("coverImage")} />
-                        <div className="flex flex-col gap-2 flex-1">
-                            <div className="flex flex-col flex-1">
-                                <label htmlFor="name" className="opacity-70 text-sm mb-1">نام کتاب</label>
-                                <input className="p-2 border rounded-md shadow-inner" style={{ borderColor: "lightgray" }} type="text" name="name" id="name" defaultValue={(modalData) && modalData.name}
-                                    {...register("name", {
-                                        required: "فیلد را پر کنید"
-                                    })} />
-                                {errors.bookName && <p style={{ color: "red", fontSize: "12px" }}>{errors.bookName.message}</p>}
-                            </div>
-                            <div className="flex flex-col flex-1 border items-center justify-center bg-sand rounded-md shadow-inner" style={{ borderColor: "lightgray" }}>
-                                {(bookFile) ?
-                                    (modalData.file) ?
-                                        <label htmlFor="pdf" ><img src={`http://cogcenter.ir/api/fs/v1/files/download/${bookFile}?key=${modalData.fileKey}`} alt="" className="max-w-48" /></label>
-                                        :
-                                        <label htmlFor="pdf" >{bookFile.name}</label>
+
+                        <div className="flex flex-col flex-1 border items-center justify-center py-6 bg-sand rounded-md shadow-inner" style={{ borderColor: "lightgray" }}>
+                            {(bookFile) ?
+                                (modalData.file) ?
+                                    <label htmlFor="pdf" ><img src={`http://cogcenter.ir/api/fs/v1/files/download/${bookFile}?key=${modalData.fileKey}`} alt="" className="max-w-48" /></label>
                                     :
-                                    <label htmlFor="pdf" className="cursor-pointer opacity-70 text-sm p-2">آپلود کتاب</label>
-                                }
-                                <input type="file" name="pdf" id="pdf" accept="application/pdf" style={{ display: "none" }} {...register("file")} onChange={getFile} />
-                            </div>
+                                    <label htmlFor="pdf" >{bookFile.name}</label>
+                                :
+                                <label htmlFor="pdf" className="cursor-pointer opacity-70 text-sm p-2">آپلود کتاب</label>
+                            }
+                            <input type="file" name="pdf" id="pdf" accept="application/pdf" style={{ display: "none" }} {...register("file")} onChange={getFile} />
                         </div>
+
+                    </div>
+                    <div className="flex flex-col flex-1">
+                        <label htmlFor="name" className="opacity-70 text-sm mb-1">نام کتاب</label>
+                        <input className="p-2 border rounded-md shadow-inner" style={{ borderColor: "lightgray" }} type="text" name="name" id="name" defaultValue={(modalData) && modalData.name}
+                            {...register("name", {
+                                required: "فیلد را پر کنید"
+                            })} />
+                        {errors.bookName && <p style={{ color: "red", fontSize: "12px" }}>{errors.bookName.message}</p>}
                     </div>
 
                     <div className="flex justify-between gap-5">
@@ -164,40 +164,6 @@ function BookFormPage() {
                         </div>
 
                         <div className="flex flex-col flex-1">
-                            <CategoryInput modalData={{ original: modalData }} setCategoryValue={setCategoryValue} floatAlways={true} {...register("categoryId", {
-                                required: "انتخاب کنید"
-                            })} />
-                            {errors.categoryId && <p style={{ color: "red", fontSize: "12px" }}>{errors.categoryId.message}</p>}
-                        </div>
-
-                    </div>
-
-                    <div className="flex justify-between gap-5">
-                        <div className="flex flex-col flex-1">
-                            <AuthorsInput modalData={{ original: modalData }} setAuthorValue={setAuthorValue} floatAlways={true} {...register("authorIds", {
-                                required: "انتخاب کنید"
-                            })} />
-                            {errors.authorIds && <p style={{ color: "red", fontSize: "12px" }}>{errors.authorIds.message}</p>}
-                        </div>
-
-                        <div className="flex flex-col flex-1">
-                            <TranslatorsInput modalData={{ original: modalData }} setTranslatorValue={setTranslatorValue} {...register("translatorIds")} floatAlways={true} />
-                        </div>
-
-                    </div>
-
-
-                    <div className="flex justify-between gap-5">
-
-                        <div className="flex flex-col flex-1">
-                            <PublishersInput modalData={{ original: modalData }} setPublisherValue={setPublisherValue} floatAlways={true} {...register("publisherId", {
-                                required: "انتخاب کنید"
-                            })} />
-                            {errors.publisherId && <p style={{ color: "red", fontSize: "12px" }}>{errors.publisherId.message}</p>}
-
-                        </div>
-
-                        <div className="flex flex-col flex-1">
                             <label htmlFor="year" className="opacity-70 text-sm mb-1">سال انتشار</label>
                             <input className="p-2 border rounded-md shadow-inner" style={{ borderColor: "lightgray" }} type="number" name="year" id="year" defaultValue={(modalData) && modalData.publicationYear}
                                 {...register("publicationYear", {
@@ -208,6 +174,36 @@ function BookFormPage() {
                         </div>
 
                     </div>
+                    <div className="flex flex-col flex-1">
+                        <CategoryInput modalData={{ original: modalData }} setCategoryValue={setCategoryValue} floatAlways={true} {...register("categoryId", {
+                            required: "انتخاب کنید"
+                        })} />
+                        {errors.categoryId && <p style={{ color: "red", fontSize: "12px" }}>{errors.categoryId.message}</p>}
+                    </div>
+
+
+                    <div className="flex flex-col flex-1">
+                        <AuthorsInput modalData={{ original: modalData }} setAuthorValue={setAuthorValue} floatAlways={true} {...register("authorIds", {
+                            required: "انتخاب کنید"
+                        })} />
+                        {errors.authorIds && <p style={{ color: "red", fontSize: "12px" }}>{errors.authorIds.message}</p>}
+                    </div>
+
+                    <div className="flex flex-col flex-1">
+                        <TranslatorsInput modalData={{ original: modalData }} setTranslatorValue={setTranslatorValue} {...register("translatorIds")} floatAlways={true} />
+                    </div>
+
+
+
+                    <div className="flex flex-col flex-1">
+                        <PublishersInput modalData={{ original: modalData }} setPublisherValue={setPublisherValue} floatAlways={true} {...register("publisherId", {
+                            required: "انتخاب کنید"
+                        })} />
+                        {errors.publisherId && <p style={{ color: "red", fontSize: "12px" }}>{errors.publisherId.message}</p>}
+
+                    </div>
+
+
 
 
                     <div className="flex flex-col flex-1">
