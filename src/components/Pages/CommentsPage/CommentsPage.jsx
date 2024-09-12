@@ -12,17 +12,18 @@ import TableHeader from "../../TableHeader/TableHeader"
 import SettingBtn from "../../Buttons/SettingBtn"
 import ReplyBtn from "../../Buttons/ReplyBtn"
 import CommentTextTd from "./CommentTextTd"
-import CommentsReplyTd from "./CommentsReplyTd"
 import jalaliMoment from 'jalali-moment';
 import { DatePicker } from "zaman"
 import Select from 'react-select'
 import ShowRepliesBtn from "../../Buttons/ShowRepliesBtn"
+import { useNavigate } from "react-router-dom"
 
 
 
 
 
 function CommentsPage() {
+    const nav = useNavigate()
     const [data, setData] = useState([])
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [isReplyOpen, setIsReplyOpen] = useState(false)
@@ -78,6 +79,15 @@ function CommentsPage() {
     }, [filteredList, currentPage])
 
 
+
+    function goToBookData(id) {
+
+        fetch(`https://cogcenter.ir/library/api/v1/scope/0/books/${id}`)
+        .then(res => res.json())
+        .then(data => nav("/bookForm" , {state: data}))
+
+    }
+
     const columns = [
         {
             accessorKey: "id",
@@ -113,7 +123,7 @@ function CommentsPage() {
             accessorKey: "modelType.id",
             header: "آیدی کتاب",
             size: 60,
-            cell: (props) => <p>{props.getValue()}</p>
+            cell: (props) => <p className="hover:underline cursor-pointer" onClick={() => { goToBookData(props.getValue())}}>{props.getValue()}</p>
         },
         {
             accessorKey: "createdAt",
@@ -234,6 +244,9 @@ function CommentsPage() {
         else
             setIsPublishFloat(false)
     }
+
+
+
 
 
     return (
