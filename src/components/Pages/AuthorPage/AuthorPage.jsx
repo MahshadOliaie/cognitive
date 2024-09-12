@@ -1,4 +1,4 @@
-import { flexRender, getCoreRowModel, getFilteredRowModel, getPaginationRowModel, useReactTable } from "@tanstack/react-table"
+import { flexRender, getCoreRowModel, getFilteredRowModel, getPaginationRowModel, getSortedRowModel, useReactTable } from "@tanstack/react-table"
 import { useEffect, useState } from "react"
 import useFetch from "../../../hooks/useFetch"
 import TableHeader from "../../TableHeader/TableHeader"
@@ -111,6 +111,7 @@ function AuthorPage() {
             accessorKey: "id",
             header: "",
             size: 10,
+            enableSorting: false,
             cell: (props) => <SelectBtn setSelectedItems={setSelectedItems} selectedItems={selectedItems} bookData={props.row.original} />
         },
         {
@@ -123,6 +124,7 @@ function AuthorPage() {
             accessorFn: (row) => `${row.coverImage}?key=${row.fileKey}`,
             header: "عکس",
             size: 50,
+            enableSorting: false,
             cell: (props) => <img src={`http://cogcenter.ir/api/fs/v1/files/download/${props.getValue()}`} alt="" className="m-auto cursor-pointer" style={{ maxHeight: "32px" }} />
         },
         {
@@ -164,6 +166,7 @@ function AuthorPage() {
             accessorKey: "",
             header: "ویرایش",
             size: 30,
+            enableSorting: false,
             cell: (props) => {
                 return <EditBtn setEditModal={setEditModal} modalData={props.row} openModal={openModal} />
             }
@@ -180,6 +183,7 @@ function AuthorPage() {
         getFilteredRowModel: getFilteredRowModel(),
         getCoreRowModel: getCoreRowModel(),
         onGlobalFilterChange: setFiltering,
+        getSortedRowModel: getSortedRowModel(),
         getPaginationRowModel: getPaginationRowModel()
 
 

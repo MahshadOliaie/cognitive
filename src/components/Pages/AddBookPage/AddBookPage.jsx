@@ -1,5 +1,5 @@
 
-import { flexRender, getCoreRowModel, getFilteredRowModel, getPaginationRowModel, useReactTable } from "@tanstack/react-table"
+import { flexRender, getCoreRowModel, getFilteredRowModel, getPaginationRowModel, getSortedRowModel, useReactTable } from "@tanstack/react-table"
 import { useEffect, useState } from "react"
 import TableHeader from "../../TableHeader/TableHeader"
 import TableRow from "../../TableRow/TableRow"
@@ -143,6 +143,7 @@ function AddBookPage() {
             accessorKey: "id",
             header: "",
             size: 10,
+            enableSorting: false,
             cell: (props) => <SelectBtn setSelectedItems={setSelectedItems} selectedItems={selectedItems} bookData={props.row.original} />
         },
         {
@@ -155,6 +156,7 @@ function AddBookPage() {
             accessorFn: (row) => `${row.coverImage}?key=${row.fileKey}`,
             header: "عکس",
             size: 90,
+            enableSorting: false,
             cell: (props) => <img src={`http://cogcenter.ir/api/fs/v1/files/download/${props.getValue()}`} alt="" className="m-auto cursor-pointer" style={{ maxHeight: "32px" }} />
         },
         {
@@ -225,6 +227,7 @@ function AddBookPage() {
             accessorKey: "publish",
             header: "انتشار",
             size: 50,
+            enableSorting: false,
             cell: (props) => (props.getValue()) ?
                 <svg className="w-5 m-auto" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="#77bb41" d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z" /></svg>
                 :
@@ -234,6 +237,7 @@ function AddBookPage() {
         {
             accessorKey: "feedbackStats",
             header: "بازخورد‌ها",
+            enableSorting: false,
             cell: (props) => <div className="flex gap-4 justify-center">
                 <p className="flex flex-col items-center gap-2 text-xs">
                     <svg xmlns="http://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 11 13" fill="none">
@@ -270,6 +274,7 @@ function AddBookPage() {
             accessorKey: "",
             header: "ویرایش",
             size: 60,
+            enableSorting: false,
             cell: (props) => {
                 return <EditBtn setEditModal={setEditModal} modalData={props.row} openModal={openModal} />
             }
@@ -281,6 +286,7 @@ function AddBookPage() {
         columns,
         getFilteredRowModel: getFilteredRowModel(),
         getCoreRowModel: getCoreRowModel(),
+        getSortedRowModel: getSortedRowModel(),
         getPaginationRowModel: getPaginationRowModel(),
 
     })

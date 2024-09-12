@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import useFetch from "../../../hooks/useFetch"
-import { flexRender, getCoreRowModel, getFilteredRowModel, getPaginationRowModel, useReactTable } from "@tanstack/react-table"
+import { flexRender, getCoreRowModel, getFilteredRowModel, getPaginationRowModel, getSortedRowModel, useReactTable } from "@tanstack/react-table"
 import TableHeader from "../../TableHeader/TableHeader"
 import TableRow from "../../TableRow/TableRow"
 import AddBtn from "../../Buttons/AddBtn"
@@ -102,6 +102,7 @@ function PublisherPage() {
             accessorKey: "id",
             header: "",
             size: 10,
+            enableSorting: false,
             cell: (props) => <SelectBtn setSelectedItems={setSelectedItems} selectedItems={selectedItems} bookData={props.row.original} />
         },
         {
@@ -114,6 +115,7 @@ function PublisherPage() {
             accessorFn: (row) => `${row.coverImage}?key=${row.fileKey}`,
             header: "عکس",
             size: 50,
+            enableSorting: false,
             cell: (props) => <img src={`http://cogcenter.ir/api/fs/v1/files/download/${props.getValue()}`} alt="" className="m-auto cursor-pointer" style={{ maxHeight: "32px" }} />
         },
         {
@@ -151,6 +153,7 @@ function PublisherPage() {
             accessorKey: "",
             header: "ویرایش",
             size: 40,
+            enableSorting: false,
             cell: (props) => {
                 return <EditBtn setEditModal={setEditModal} modalData={props.row} openModal={openModal} />
             }
@@ -168,6 +171,7 @@ function PublisherPage() {
         getFilteredRowModel: getFilteredRowModel(),
         getCoreRowModel: getCoreRowModel(),
         onGlobalFilterChange: setFiltering,
+        getSortedRowModel: getSortedRowModel(),
         getPaginationRowModel: getPaginationRowModel()
     })
 

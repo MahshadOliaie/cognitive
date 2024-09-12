@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import useFetch from "../../../hooks/useFetch"
 import AddBtn from "../../Buttons/AddBtn"
 import CategoryModal from "../../Modals/CategoryModal"
-import { flexRender, getCoreRowModel, getFilteredRowModel, getPaginationRowModel, useReactTable } from "@tanstack/react-table"
+import { flexRender, getCoreRowModel, getFilteredRowModel, getPaginationRowModel, getSortedRowModel, useReactTable } from "@tanstack/react-table"
 import TableHeaderItem from "../../TableHeaderItem/TableHeaderItem"
 import TableRow from "../../TableRow/TableRow"
 import TableHeader from "../../TableHeader/TableHeader"
@@ -100,6 +100,7 @@ function CategoryPage() {
             accessorKey: "id",
             header: "",
             size: 10,
+            enableSorting: false,
             cell: (props) => <SelectBtn setSelectedItems={setSelectedItems} selectedItems={selectedItems} bookData={props.row.original} />
         },
         {
@@ -112,6 +113,7 @@ function CategoryPage() {
             accessorFn: (row) => `${row.coverImage}?key=${row.fileKey}`,
             header: "عکس",
             size: 80,
+            enableSorting: false,
             cell: (props) => <img src={`http://cogcenter.ir/api/fs/v1/files/download/${props.getValue()}`} alt="" className="m-auto cursor-pointer" style={{ maxHeight: "32px" }} />
         },
         {
@@ -163,6 +165,7 @@ function CategoryPage() {
         },
         getFilteredRowModel: getFilteredRowModel(),
         getCoreRowModel: getCoreRowModel(),
+        getSortedRowModel: getSortedRowModel(),
         onGlobalFilterChange: setFiltering,
         getPaginationRowModel: getPaginationRowModel()
 
@@ -214,7 +217,7 @@ function CategoryPage() {
             <table className="w-full relative border-collapse mt-10">
                 <TableHeader>
                     {table.getHeaderGroups()[0].headers.map((header, index) => {
-                        return <TableHeaderItem header={header} key={index} />
+                        return  <TableHeaderItem header={header} key={index} />
                     })}
                 </TableHeader>
 
