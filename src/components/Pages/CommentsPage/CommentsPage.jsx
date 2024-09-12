@@ -273,7 +273,7 @@ function CommentsPage() {
                         <div className="p-1.5 bg-white flex items-center justify-start overflow-hidden" style={{ borderRadius: "5px", border: "1px solid lightgray", width: "176px" }}>
                             <DatePicker accentColor="#D1BAA7" inputClass="focus-visible:outline-none w-44" onChange={getTo} />
                             {(!toDateFloat) &&
-                                <p className="absolute opacity-50">از تاریخ</p>}
+                                <p className="absolute opacity-50 pointer-events-none">از تاریخ</p>}
                         </div>
                     </div>
                     <div className="flex flex-col">
@@ -283,7 +283,7 @@ function CommentsPage() {
                         <div className="p-1.5 bg-white flex items-center justify-start overflow-hidden" style={{ borderRadius: "5px", border: "1px solid lightgray", width: "176px" }}>
                             <DatePicker accentColor="#D1BAA7" inputClass="focus-visible:outline-none w-44" onChange={getFrom} />
                             {(!fromDateFloat) &&
-                                <p className="absolute opacity-50">تا تاریخ</p>}
+                                <p className="absolute opacity-50 pointer-events-none">تا تاریخ</p>}
                         </div>
                     </div>
                     <div>
