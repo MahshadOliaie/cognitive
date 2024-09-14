@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react"
 import useFetch from "../../../hooks/useFetch"
 import Select from 'react-select'
+let arr = []
 
 
 
 
-function PublishersInput({ modalData, setPublisherValue, publisherValue, floatAlways  }) {
+function PublishersInput({ modalData, setPublisherValue, publisherValue, floatAlways , multi  }) {
 
     const publishers = useFetch('https://cogcenter.ir/library/api/v1/publishers?page=0')
     const [isFloat, setIsFloat] = useState(false)
@@ -24,14 +25,22 @@ function PublishersInput({ modalData, setPublisherValue, publisherValue, floatAl
 
 
     function handleChange(selectedOption) {
-        setPublisherValue(selectedOption.value)
+        if (multi) {
+            arr = []
+            selectedOption.map(item => {
+                arr.push(item.value)
+            })
+            setPublisherValue(arr)
+        }
+        else {
+            setPublisherValue(selectedOption.value)
+        }
 
-        if (selectedOption) {
+        if (selectedOption.length > 0) {
             setIsFloat(true)
         }
         else
             setIsFloat(false)
-
     }
 
 
@@ -53,11 +62,11 @@ function PublishersInput({ modalData, setPublisherValue, publisherValue, floatAl
                         <label htmlFor="publisher" className="opacity-70 text-sm mb-1">ناشر</label>
                     }
                     {(publisherValue?.length > 0) &&
-                        <p className="ml-2 text-sm bg-dark text-white w-4 h-4 flex items-center justify-center p-2.5 rounded-full ">{categoryValue.length}</p>
+                        <p className="ml-2 text-sm bg-dark text-white w-4 h-4 flex items-center justify-center p-2.5 rounded-full ">{publisherValue.length}</p>
                     }
                 </div>
 
-                <Select options={options} styles={style} onChange={handleChange} placeholder={(floatAlways) ? "" : "ناشر"} defaultInputValue={(modalData.original) ? modalData.original.publisher.name : ""}  />
+                <Select options={options} styles={style} onChange={handleChange} placeholder={(floatAlways) ? "" : "ناشر"} isMulti={multi} defaultInputValue={(modalData.original) ? modalData.original.publisher.name : ""}  />
             </div>
         </>
     )
