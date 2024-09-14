@@ -175,7 +175,7 @@ function BookFormPage() {
 
                     </div>
                     <div className="flex flex-col flex-1">
-                        <CategoryInput modalData={{ original: modalData }} setCategoryValue={setCategoryValue} floatAlways={true} {...register("categoryId", {
+                        <CategoryInput modalData={{ original: modalData }} setCategoryValue={setCategoryValue} floatAlways={true} categoryValue={categoryValue} {...register("categoryId", {
                             required: "انتخاب کنید"
                         })} />
                         {errors.categoryId && <p style={{ color: "red", fontSize: "12px" }}>{errors.categoryId.message}</p>}
@@ -183,14 +183,14 @@ function BookFormPage() {
 
 
                     <div className="flex flex-col flex-1">
-                        <AuthorsInput modalData={{ original: modalData }} setAuthorValue={setAuthorValue} floatAlways={true} {...register("authorIds", {
+                        <AuthorsInput modalData={{ original: modalData }} setAuthorValue={setAuthorValue} authorValue={authorValue} floatAlways={true} {...register("authorIds", {
                             required: "انتخاب کنید"
                         })} />
                         {errors.authorIds && <p style={{ color: "red", fontSize: "12px" }}>{errors.authorIds.message}</p>}
                     </div>
 
                     <div className="flex flex-col flex-1">
-                        <TranslatorsInput modalData={{ original: modalData }} setTranslatorValue={setTranslatorValue} {...register("translatorIds")} floatAlways={true} />
+                        <TranslatorsInput modalData={{ original: modalData }} setTranslatorValue={setTranslatorValue} translatorValue={translatorValue} {...register("translatorIds")} floatAlways={true} />
                     </div>
 
 

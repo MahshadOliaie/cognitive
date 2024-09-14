@@ -365,13 +365,13 @@ function AddBookPage() {
                         <label htmlFor="name" className="searchLabel">نام کتاب</label>
                     </div>
                     <div className="w-44">
-                        <AuthorsInput modalData={{}} setAuthorValue={setAuthors} {...register("authorIds")} />
+                        <AuthorsInput modalData={{}} setAuthorValue={setAuthors} {...register("authorIds")} authorValue={authors} />
                     </div>
                     <div className="w-44" >
-                        <PublishersInput modalData={{}} setPublisherValue={setPublisher} {...register("publisherIds")} />
+                        <PublishersInput modalData={{}} setPublisherValue={setPublisher} publisherValue={publisher} {...register("publisherIds")} multi={true} />
                     </div>
                     <div className="w-44">
-                        <CategoryInput modalData={{}} setCategoryValue={setCategories} {...register("categoryIds")} multi={true} />
+                        <CategoryInput modalData={{}} setCategoryValue={setCategories} categoryValue={categories} {...register("categoryIds")} multi={true} />
                     </div>
 
                     <div>

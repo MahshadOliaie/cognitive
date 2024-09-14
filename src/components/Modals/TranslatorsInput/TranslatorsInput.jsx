@@ -4,7 +4,7 @@ import Select from 'react-select'
 let arr = []
 
 
-function TranslatorsInput({ modalData, setTranslatorValue , floatAlways }) {
+function TranslatorsInput({ modalData, setTranslatorValue, floatAlways, translatorValue }) {
     const authors = useFetch('https://cogcenter.ir/library/api/v1/authors?page=0')
     const [options, setOptions] = useState([])
     const [isFloat, setIsFloat] = useState(false)
@@ -36,14 +36,27 @@ function TranslatorsInput({ modalData, setTranslatorValue , floatAlways }) {
             setIsFloat(false)
     }
 
+    const style = {
+        valueContainer: (provided) => ({
+            ...provided,
+            maxHeight: "40px",
+            overflow: "scroll !important"
+        }),
+    }
+
+
     return (
         <>
             <div className="flex flex-col">
-
-                {(floatAlways || isFloat) &&
-                    <label htmlFor="translators" className="opacity-70 text-sm mb-1">مترجمان</label>
-                }
-                <Select options={options} onChange={handleChange} placeholder={(floatAlways)? "" : "مترجمان"} isMulti defaultValue={modalData.original?.translators.map(translator => { return { label: `${translator.firstName + " " + translator.lastName}`, value: translator.id } })} />
+                <div className="flex justify-between">
+                    {(floatAlways || isFloat) &&
+                        <label htmlFor="translators" className="opacity-70 text-sm mb-1">مترجمان</label>
+                    }
+                    {(translatorValue?.length > 0) &&
+                        <p className="ml-2 text-sm">{translatorValue.length} مورد</p>
+                    }
+                </div>
+                <Select styles={style} options={options} onChange={handleChange} placeholder={(floatAlways) ? "" : "مترجمان"} isMulti defaultValue={modalData.original?.translators.map(translator => { return { label: `${translator.firstName + " " + translator.lastName}`, value: translator.id } })} />
             </div>
 
         </>

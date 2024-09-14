@@ -138,7 +138,20 @@ th {
 
 
 
-select{
+select {
     background-color: white;
     padding: .4rem;
+}
+
+.custom-select__menu {
+    max-height: 150px;
+    /* Set the maximum height for the dropdown menu */
+    overflow-y: auto;
+    /* Add scroll if the content exceeds the maximum height */
+}
+
+.custom-select__menu-list {
+    max-height: 150px;
+    /* Ensure the list within the menu has a maximum height */
+    overflow-y: auto;
 }

@@ -4,7 +4,7 @@ import Select from 'react-select'
 let arr = []
 
 
-function CategoryInput({ modalData, setCategoryValue, multi, floatAlways }) {
+function CategoryInput({ modalData, setCategoryValue, categoryValue, multi, floatAlways }) {
     const categories = useFetch('https://cogcenter.ir/library/api/v1/categories')
     const [isFloat, setIsFloat] = useState(false)
     const [options, setOptions] = useState([])
@@ -40,14 +40,29 @@ function CategoryInput({ modalData, setCategoryValue, multi, floatAlways }) {
 
     }
 
+    const style = {
+        valueContainer: (provided) => ({
+            ...provided,
+            maxHeight: "40px",
+            overflow: "scroll !important"
+        }),
+    }
+
+
+
 
     return (
         <>
             <div className="flex flex-col flex-1">
-                {(floatAlways || isFloat) &&
-                    <label htmlFor="category" className="opacity-70 text-sm mb-1">دسته بندی</label>
-                }
-                <Select options={options} onChange={handleChange} placeholder={(floatAlways) ? "" : "دسته بندی"} isMulti={multi} defaultInputValue={(modalData.original) ? modalData.original.category.title : ""} />
+                <div className="flex justify-between">
+                    {(floatAlways || isFloat) &&
+                        <label htmlFor="category" className="opacity-70 text-sm mb-1">دسته بندی</label>
+                    }
+                    {(categoryValue?.length > 0) &&
+                        <p className="ml-2 text-sm">{categoryValue.length} مورد</p>
+                    }
+                </div>
+                <Select options={options} styles={style} onChange={handleChange} placeholder={(floatAlways) ? "" : "دسته بندی"} isMulti={multi} defaultInputValue={(modalData.original) ? modalData.original.category.title : ""} />
             </div>
         </>
     )

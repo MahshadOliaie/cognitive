@@ -75,7 +75,7 @@ function CommentsPage() {
 
 
     useEffect(() => {
-        setProperties(`?modelTypeId=${filteredList.id}&publish=${filteredList.publish}&from=${filteredList.from || ""}&to=${filteredList.to || ""}&page=${currentPage}&size=10`)
+        setProperties(`?modelTypeId=${filteredList.id}&publish=${(filteredList.publish !== undefined) ? filteredList.publish : ""}&from=${filteredList.from || ""}&to=${filteredList.to || ""}&page=${currentPage}&size=10`)
     }, [filteredList, currentPage])
 
 
@@ -83,8 +83,8 @@ function CommentsPage() {
     function goToBookData(id) {
 
         fetch(`https://cogcenter.ir/library/api/v1/scope/0/books/${id}`)
-        .then(res => res.json())
-        .then(data => nav("/bookForm" , {state: data}))
+            .then(res => res.json())
+            .then(data => nav("/bookForm", { state: data }))
 
     }
 
@@ -124,7 +124,7 @@ function CommentsPage() {
             accessorKey: "modelType.id",
             header: "آیدی کتاب",
             size: 60,
-            cell: (props) => <p className="hover:underline cursor-pointer" onClick={() => { goToBookData(props.getValue())}}>{props.getValue()}</p>
+            cell: (props) => <p className="hover:underline cursor-pointer" onClick={() => { goToBookData(props.getValue()) }}>{props.getValue()}</p>
         },
         {
             accessorKey: "createdAt",
@@ -266,24 +266,32 @@ function CommentsPage() {
                         <label htmlFor="postId" className="searchLabel"> آیدی کتاب</label>
                     </div>
 
-                    <div className="flex flex-col">
+                    <div className="flex flex-col relative">
                         {(toDateFloat) &&
-                            <label htmlFor="" className="opacity-70 text-sm mb-1">از تاریخ:</label>
+                            <>
+                                <label htmlFor="" className="opacity-70 text-sm mb-1">از تاریخ:</label>
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" className="absolute left-2 w-3 opacity-60 cursor-pointer" onClick={() => { setValue("from", "") }}><path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z" /></svg>
+                            </>
+
                         }
                         <div className="p-1.5 bg-white flex items-center justify-start overflow-hidden" style={{ borderRadius: "5px", border: "1px solid lightgray", width: "176px" }}>
                             <DatePicker accentColor="#D1BAA7" inputClass="focus-visible:outline-none w-44" onChange={getTo} />
-                            {(!toDateFloat) &&
-                                <p className="absolute opacity-50 pointer-events-none">از تاریخ</p>}
+                            {(!toDateFloat) && <p className="absolute opacity-50 pointer-events-none">از تاریخ</p>
+                            }
                         </div>
                     </div>
-                    <div className="flex flex-col">
+                    <div className="flex flex-col relative">
                         {(fromDateFloat) &&
-                            <label htmlFor="" className="opacity-70 text-sm mb-1">تا تاریخ:</label>
+                            <>
+                                <label htmlFor="" className="opacity-70 text-sm mb-1">تا تاریخ:</label>
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" className="absolute left-2 top-9 w-3 opacity-60 cursor-pointer" onClick={() => { setValue("to", "") }}><path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z" /></svg>
+                            </>
                         }
                         <div className="p-1.5 bg-white flex items-center justify-start overflow-hidden" style={{ borderRadius: "5px", border: "1px solid lightgray", width: "176px" }}>
-                            <DatePicker accentColor="#D1BAA7" inputClass="focus-visible:outline-none w-44" onChange={getFrom} />
+                            <DatePicker accentColor="#D1BAA7" inputClass="focus-visible:outline-none w-44" onChange={getFrom} show={false}/>
                             {(!fromDateFloat) &&
-                                <p className="absolute opacity-50 pointer-events-none">تا تاریخ</p>}
+                                <p className="absolute opacity-50 pointer-events-none">تا تاریخ</p>
+                            }
                         </div>
                     </div>
                     <div>

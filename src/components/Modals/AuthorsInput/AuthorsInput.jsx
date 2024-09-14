@@ -4,7 +4,7 @@ import Select from 'react-select'
 let arr = []
 
 
-function AuthorsInput({ modalData, setAuthorValue, floatAlways }) {
+function AuthorsInput({ modalData, setAuthorValue, floatAlways, authorValue }) {
 
     const authors = useFetch('https://cogcenter.ir/library/api/v1/authors?page=0')
     const [isFloat, setIsFloat] = useState(false)
@@ -33,13 +33,28 @@ function AuthorsInput({ modalData, setAuthorValue, floatAlways }) {
             setIsFloat(false)
     }
 
+    const style = {
+        valueContainer: (provided) => ({
+            ...provided,
+            maxHeight: "40px",
+            overflow: "scroll !important"
+        }),
+    }
+
+
+
     return (
         <>
             <div className="flex flex-col">
-                {(floatAlways || isFloat) &&
-                    <label htmlFor="authors" className="opacity-70 text-sm mb-1">نویسندگان</label>
-                }
-                <Select options={options} onChange={handleChange} placeholder={(floatAlways) ? "" : "نویسندگان"} isMulti defaultValue={modalData.original?.authors.map(author => { return { label: `${author.firstName + " " + author.lastName}`, value: author.id } })} />
+                <div className="flex justify-between">
+                    {(floatAlways || isFloat) &&
+                        <label htmlFor="authors" className="opacity-70 text-sm mb-1">نویسندگان</label>
+                    }
+                    {(authorValue?.length > 0) &&
+                        <p className="ml-2 text-sm">{authorValue.length} مورد</p>
+                    }
+                </div>
+                <Select styles={style} options={options} onChange={handleChange} placeholder={(floatAlways) ? "" : "نویسندگان"} isMulti defaultValue={modalData.original?.authors.map(author => { return { label: `${author.firstName + " " + author.lastName}`, value: author.id } })} />
             </div>
 
         </>
