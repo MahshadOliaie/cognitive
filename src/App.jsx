@@ -29,7 +29,7 @@ function App() {
             <Route path="/publishers" element={<><Header title={title} /><Sidebar setTitle={setTitle} /><PublisherPage /></>}></Route>
             <Route path="/authors" element={<><Header title={title} /><Sidebar setTitle={setTitle} /><AuthorPage /></>}></Route>
             <Route path="/comments" element={<><Header title={title} /><Sidebar setTitle={setTitle} /><CommentsPage /></>}></Route>
-            <Route path="/bookForm" element={<BookFormPage />}></Route>
+            <Route path="/bookForm" element={<><Header title={title} /><Sidebar setTitle={setTitle} /><BookFormPage /></>}></Route>
           </Routes>
         </BrowserRouter>
       </CustomProvider>

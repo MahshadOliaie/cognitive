@@ -8,6 +8,7 @@ import CategoryBtn from "./CategoryBtn";
 import AuthorsBtn from "./AuthorsBtn";
 import PublishersBtn from "./PublishersBtn";
 import CommentsBtn from "./CommentsBtn";
+import BookformBtn from "./BookFormBtn";
 
 
 function Sidebar({ setTitle }) {
@@ -15,10 +16,11 @@ function Sidebar({ setTitle }) {
     let obj = {
         "/": "داشبورد",
         "/categories": "مدیریت دسته‌ بندی",
-        "/addBook": "افزودن کتاب",
+        "/addBook": "لیست کتاب‌ها",
         "/publishers": "مدیریت ناشران",
         "/authors": "مدیریت نویسندگان",
-        "/comments": "مدیریت کامنت‌ها"
+        "/comments": "مدیریت کامنت‌ها",
+        "/bookForm": "افزودن کتاب"
     }
 
     useEffect(() => {
@@ -56,7 +58,8 @@ function Sidebar({ setTitle }) {
                     </div>
                     <div className="flex flex-col items-center gap-8">
                         <h2 className="cursor-pointer font-medium hover:scale-105 duration-200 hover:duration-200" onClick={() => nav('/')} style={(location.pathname == ("/")) ? { backgroundColor: "#D1BAA7", color: "#101321", padding: "5px 20px", borderRadius: "1000px" } : {}}>داشبورد</h2>
-                        <h2 className="cursor-pointer font-medium hover:scale-105 duration-200 hover:duration-200" onClick={() => nav('/addBook')} style={(location.pathname == ("/addBook")) ? { backgroundColor: "#D1BAA7", color: "#101321", padding: "5px 20px", borderRadius: "1000px" } : {}}>افزودن کتاب</h2>
+                        <h2 className="cursor-pointer font-medium hover:scale-105 duration-200 hover:duration-200" onClick={() => nav('/addBook')} style={(location.pathname == ("/addBook")) ? { backgroundColor: "#D1BAA7", color: "#101321", padding: "5px 20px", borderRadius: "1000px" } : {}}>لیست کتاب‌ها</h2>
+                        <h2 className="cursor-pointer font-medium hover:scale-105 duration-200 hover:duration-200" onClick={() => nav('/bookForm')} style={(location.pathname == ("/bookForm")) ? { backgroundColor: "#D1BAA7", color: "#101321", padding: "5px 20px", borderRadius: "1000px" } : {}}>افزودن کتاب</h2>
                         <h2 className="cursor-pointer font-medium hover:scale-105 duration-200 hover:duration-200" onClick={() => nav('/categories')} style={(location.pathname == ("/categories")) ? { backgroundColor: "#D1BAA7", color: "#101321", padding: "5px 20px", borderRadius: "1000px" } : {}}>مدیریت دسته‌ بندی</h2>
                         <h2 className="cursor-pointer font-medium hover:scale-105 duration-200 hover:duration-200" onClick={() => nav('/authors')} style={(location.pathname == ("/authors")) ? { backgroundColor: "#D1BAA7", color: "#101321", padding: "5px 20px", borderRadius: "1000px" } : {}}>مدیریت نویسندگان</h2>
                         <h2 className="cursor-pointer font-medium hover:scale-105 duration-200 hover:duration-200" onClick={() => nav('/publishers')} style={(location.pathname == ("/publishers")) ? { backgroundColor: "#D1BAA7", color: "#101321", padding: "5px 20px", borderRadius: "1000px" } : {}}>مدیریت ناشران</h2>
@@ -83,6 +86,7 @@ function Sidebar({ setTitle }) {
                     <div className="flex flex-col items-center gap-8">
                         <DashboardBtn />
                         <BooksBtn />
+                        <BookformBtn />
                         <CategoryBtn />
                         <AuthorsBtn />
                         <PublishersBtn />

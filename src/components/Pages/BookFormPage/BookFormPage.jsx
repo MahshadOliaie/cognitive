@@ -122,9 +122,14 @@ function BookFormPage() {
 
 
     return (
-        <div className="top-0 right-0 absolute h-screen bg-linen">
-            <div className="p-20 pt-0 pb-10 w-screen">
-                <ModalHeader title={(modalData?.id) ? "ویرایش کتاب" : 'افزودن کتاب'} id={(modalData?.id) ? (modalData.id) : ""} />
+        <div>
+            <div className="pb-20">
+                {(modalData?.id) &&
+                    <div className="flex items-center justify-between py-5 pt-0 mb-4" style={{ borderBottom: "0.5px solid gray" }}>
+                        <p className="text-xl font-bold text-dark">ویرایش</p>
+                        <p className="text-lg font-bold text-dark"><span className="text-base font-normal">ID: </span>{(modalData?.id) ? (modalData.id) : ""}</p>
+                    </div>
+                }
 
                 <form className="flex flex-col gap-3" style={{ minWidth: "650px" }}>
                     <div className="flex gap-5 items-end">
