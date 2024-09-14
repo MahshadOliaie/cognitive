@@ -13,7 +13,7 @@ function CommentTextTd({ props }) {
             {(props.getValue().length > 30) &&
                 <p className="flex-1 left-0">...</p>
             }
-            {(showFullName && (props.getValue().length > 30)) && <div className="absolute right-full bg-white rounded-md shadow-sm p-3 z-30 top-0 w-max max-w-96"><p>{props.getValue()}</p></div>}
+            {(showFullName && (props.getValue().length > 30)) && <div className="absolute right-full bg-white rounded-md shadow-sm p-3 z-30 top-0 w-max max-w-64"><p>{props.getValue()}</p></div>}
         </div>
     )
 }

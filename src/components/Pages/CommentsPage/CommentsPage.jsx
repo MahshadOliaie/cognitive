@@ -149,7 +149,7 @@ function CommentsPage() {
             accessorKey: "unPublishReason",
             header: "علت عدم انتشار",
             enableSorting: false,
-            cell: (props) => (props.getValue() && !props.row.original.publish) && <p>{props.getValue()}</p>
+            cell: (props) => (props.getValue() && !props.row.original.publish) && <CommentTextTd props={props}/>
         },
         {
             accessorKey: "feedbackStats.reaction",

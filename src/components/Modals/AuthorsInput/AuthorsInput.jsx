@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import useFetch from "../../../hooks/useFetch"
 import Select from 'react-select'
+import { color } from "highcharts"
 let arr = []
 
 
@@ -39,6 +40,12 @@ function AuthorsInput({ modalData, setAuthorValue, floatAlways, authorValue }) {
             maxHeight: "40px",
             overflow: "scroll !important"
         }),
+        multiValue: (provide) => ({
+            ...provide,
+            '&>div:hover': {
+                textOverflow: "inherit"
+            },
+        })
     }
 
 
