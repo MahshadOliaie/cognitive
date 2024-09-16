@@ -179,12 +179,23 @@ function BookFormPage() {
                         </div>
 
                     </div>
-                    <div className="flex flex-col flex-1">
-                        <CategoryInput modalData={{ original: modalData }} setCategoryValue={setCategoryValue} floatAlways={true} categoryValue={categoryValue} {...register("categoryId", {
-                            required: "انتخاب کنید"
-                        })} />
-                        {errors.categoryId && <p style={{ color: "red", fontSize: "12px" }}>{errors.categoryId.message}</p>}
+
+                    <div className="flex justify-between gap-5">
+                        <div className="flex flex-col flex-1">
+                            <CategoryInput modalData={{ original: modalData }} setCategoryValue={setCategoryValue} floatAlways={true} categoryValue={categoryValue} {...register("categoryId", {
+                                required: "انتخاب کنید"
+                            })} />
+                            {errors.categoryId && <p style={{ color: "red", fontSize: "12px" }}>{errors.categoryId.message}</p>}
+                        </div>
+                        <div className="flex flex-col flex-1">
+                            <PublishersInput modalData={{ original: modalData }} setPublisherValue={setPublisherValue} floatAlways={true} {...register("publisherId", {
+                                required: "انتخاب کنید"
+                            })} />
+                            {errors.publisherId && <p style={{ color: "red", fontSize: "12px" }}>{errors.publisherId.message}</p>}
+
+                        </div>
                     </div>
+
 
 
                     <div className="flex flex-col flex-1">
@@ -198,15 +209,6 @@ function BookFormPage() {
                         <TranslatorsInput modalData={{ original: modalData }} setTranslatorValue={setTranslatorValue} translatorValue={translatorValue} {...register("translatorIds")} floatAlways={true} />
                     </div>
 
-
-
-                    <div className="flex flex-col flex-1">
-                        <PublishersInput modalData={{ original: modalData }} setPublisherValue={setPublisherValue} floatAlways={true} {...register("publisherId", {
-                            required: "انتخاب کنید"
-                        })} />
-                        {errors.publisherId && <p style={{ color: "red", fontSize: "12px" }}>{errors.publisherId.message}</p>}
-
-                    </div>
 
 
 

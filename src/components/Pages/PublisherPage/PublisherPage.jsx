@@ -26,10 +26,11 @@ function PublisherPage() {
     const [editModal, setEditModal] = useState({})
     const [currentPage, setCurrentPage] = useState(0)
     const [pages, setPages] = useState(0)
+    const [sort, setSort] = useState([])
     const [selectedItems, setSelectedItems] = useState([])
     const { register, handleSubmit , setValue } = useForm()
     const [isEnableFloat, setIsEnableFloat] = useState(false)
-    const [properties, setProperties] = useState(`?page=${currentPage}&size=10`)
+    const [properties, setProperties] = useState(`?page=${currentPage}&size=10&sort=${sort}`)
     const [filteredList, setFilteredList] = useState({
         "name": "",
         "enable": "",
@@ -92,8 +93,8 @@ function PublisherPage() {
 
 
     useEffect(() => {
-        setProperties(`?name=${filteredList.name}&enable=${(filteredList.enable === undefined)? "" : filteredList.enable}&page=${currentPage}&size=10`)
-    }, [filteredList, currentPage])
+        setProperties(`?name=${filteredList.name}&enable=${(filteredList.enable === undefined)? "" : filteredList.enable}&page=${currentPage}&size=10&sort=${sort}`)
+    }, [filteredList, currentPage , sort])
 
 
 
@@ -109,6 +110,7 @@ function PublisherPage() {
             accessorKey: "id",
             header: "ID",
             size: 30,
+            enableSorting: false,
             cell: (props) => <p>{props.getValue()}</p>
         },
         {
@@ -137,6 +139,7 @@ function PublisherPage() {
             accessorKey: "updatedAt",
             header: "آخرین ویرایش",
             size: 80,
+            enableSorting: false,
             cell: (props) => {
                 let date = new Date(props.getValue()).toLocaleDateString()
                 const persianDate = jalaliMoment(date, 'MM/DD/YYYY').format('jYYYY/jMM/jDD')
@@ -171,7 +174,6 @@ function PublisherPage() {
         getFilteredRowModel: getFilteredRowModel(),
         getCoreRowModel: getCoreRowModel(),
         onGlobalFilterChange: setFiltering,
-        getSortedRowModel: getSortedRowModel(),
         getPaginationRowModel: getPaginationRowModel()
     })
 
@@ -227,7 +229,7 @@ function PublisherPage() {
             <table className="w-full relative border-collapse mt-10">
                 <TableHeader>
                     {table.getHeaderGroups()[0].headers.map((header, index) => {
-                        return <TableHeaderItem header={header} key={index} />
+                        return <TableHeaderItem header={header} setSort={setSort} key={index} />
                     })}
                 </TableHeader>
 

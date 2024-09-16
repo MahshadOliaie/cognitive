@@ -90,7 +90,7 @@ function CategoryPage() {
 
 
     useEffect(() => {
-        setProperties(`?isEnable=${filteredList.isEnable}`)
+        setProperties(`?isEnable=${filteredList.isEnable}}`)
     }, [filteredList])
 
 
@@ -107,6 +107,7 @@ function CategoryPage() {
             accessorKey: "id",
             header: "ID",
             size: 30,
+            enableSorting: false,
             cell: (props) => <p>{props.getValue()}</p>
         },
         {
@@ -135,6 +136,7 @@ function CategoryPage() {
             accessorKey: "updatedAt",
             header: "آخرین ویرایش",
             size: 80,
+            enableSorting: false,
             cell: (props) => {
                 let date = new Date(props.getValue()).toLocaleDateString()
                 const persianDate = jalaliMoment(date, 'MM/DD/YYYY').format('jYYYY/jMM/jDD')
@@ -217,7 +219,7 @@ function CategoryPage() {
             <table className="w-full relative border-collapse mt-10">
                 <TableHeader>
                     {table.getHeaderGroups()[0].headers.map((header, index) => {
-                        return  <TableHeaderItem header={header} key={index} />
+                        return <TableHeaderItem header={header} key={index} tanStackHandle={true} />
                     })}
                 </TableHeader>
 

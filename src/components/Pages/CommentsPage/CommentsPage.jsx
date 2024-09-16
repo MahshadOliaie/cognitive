@@ -30,11 +30,12 @@ function CommentsPage() {
     const [editModal, setEditModal] = useState({})
     const { register, handleSubmit, setValue } = useForm()
     const [pages, setPages] = useState(0)
+    const [sort, setSort] = useState([])
     const [currentPage, setCurrentPage] = useState(0)
     const [fromDateFloat, setFromDateFloat] = useState(false)
     const [toDateFloat, setToDateFloat] = useState(false)
     const [isPublishFloat, setIsPublishFloat] = useState(false)
-    const [properties, setProperties] = useState(`?page=${currentPage}&size=10`)
+    const [properties, setProperties] = useState(`?page=${currentPage}&size=10&sort=${sort}`)
     const [filteredList, setFilteredList] = useState({
         "publish": "",
         "id": "",
@@ -75,8 +76,8 @@ function CommentsPage() {
 
 
     useEffect(() => {
-        setProperties(`?modelTypeId=${filteredList.id}&publish=${(filteredList.publish !== undefined) ? filteredList.publish : ""}&from=${filteredList.from || ""}&to=${filteredList.to || ""}&page=${currentPage}&size=10`)
-    }, [filteredList, currentPage])
+        setProperties(`?modelTypeId=${filteredList.id}&publish=${(filteredList.publish !== undefined) ? filteredList.publish : ""}&from=${filteredList.from || ""}&to=${filteredList.to || ""}&page=${currentPage}&size=10&sort=${sort}`)
+    }, [filteredList, currentPage , sort])
 
 
 
@@ -93,6 +94,7 @@ function CommentsPage() {
             accessorKey: "id",
             header: "ID",
             size: 50,
+            enableSorting: false,
             cell: (props) => <p>{props.getValue()}</p>
         },
         {
@@ -113,22 +115,35 @@ function CommentsPage() {
             accessorKey: "userName",
             header: "نام کاربری",
             size: 100,
+            enableSorting: false,
             cell: (props) => <p>{props.getValue()}</p>
         },
         {
             accessorKey: "text",
             header: "متن کامنت",
+            enableSorting: false,
             cell: (props) => <CommentTextTd props={props} />
         },
         {
             accessorKey: "modelType.id",
             header: "آیدی کتاب",
             size: 60,
+            enableSorting: false,
             cell: (props) => <p className="hover:underline cursor-pointer" onClick={() => { goToBookData(props.getValue()) }}>{props.getValue()}</p>
         },
         {
             accessorKey: "createdAt",
             header: "تاریخ ثبت",
+            size: 100,
+            cell: (props) => {
+                let date = new Date(props.getValue()).toLocaleDateString()
+                const persianDate = jalaliMoment(date, 'MM/DD/YYYY').format('jYYYY/jMM/jDD')
+                return <p>{(props.getValue()) ? persianDate : "-"}</p>
+            }
+        },
+        {
+            accessorKey: "publishAt",
+            header: "تاریخ انتشار",
             size: 100,
             cell: (props) => {
                 let date = new Date(props.getValue()).toLocaleDateString()
@@ -149,7 +164,7 @@ function CommentsPage() {
             accessorKey: "unPublishReason",
             header: "علت عدم انتشار",
             enableSorting: false,
-            cell: (props) => (props.getValue() && !props.row.original.publish) && <CommentTextTd props={props}/>
+            cell: (props) => (props.getValue() && !props.row.original.publish) && <CommentTextTd props={props} />
         },
         {
             accessorKey: "feedbackStats.reaction",
@@ -186,7 +201,6 @@ function CommentsPage() {
         columns,
         getFilteredRowModel: getFilteredRowModel(),
         getCoreRowModel: getCoreRowModel(),
-        getSortedRowModel: getSortedRowModel(),
         getPaginationRowModel: getPaginationRowModel()
     })
 
@@ -288,7 +302,7 @@ function CommentsPage() {
                             </>
                         }
                         <div className="p-1.5 bg-white flex items-center justify-start overflow-hidden" style={{ borderRadius: "5px", border: "1px solid lightgray", width: "176px" }}>
-                            <DatePicker accentColor="#D1BAA7" inputClass="focus-visible:outline-none w-44" onChange={getFrom} show={false}/>
+                            <DatePicker accentColor="#D1BAA7" inputClass="focus-visible:outline-none w-44" onChange={getFrom} show={false} />
                             {(!fromDateFloat) &&
                                 <p className="absolute opacity-50 pointer-events-none">تا تاریخ</p>
                             }
@@ -309,7 +323,7 @@ function CommentsPage() {
             <table className="w-full relative border-collapse mt-10">
                 <TableHeader>
                     {table.getHeaderGroups()[0].headers.map((header, index) => {
-                        return <TableHeaderItem header={header} key={index} />
+                        return <TableHeaderItem header={header} setSort={setSort} key={index} />
                     })}
                 </TableHeader>
 

@@ -39,9 +39,10 @@ function AddBookPage() {
     const [authors, setAuthors] = useState([])
     const { register, handleSubmit, setValue } = useForm()
     const [currentPage, setCurrentPage] = useState(0)
+    const [sort, setSort] = useState([])
     const [fromDateFloat, setFromDateFloat] = useState(false)
     const [toDateFloat, setToDateFloat] = useState(false)
-    const [properties, setProperties] = useState(`?page=${currentPage}&size=10`)
+    const [properties, setProperties] = useState(`?page=${currentPage}&size=10&sort=${sort}`)
     const [selectedItems, setSelectedItems] = useState([])
     const [isPublishFloat, setIsPublishFloat] = useState(false)
     const [isPublicFloat, setIsPublicFloat] = useState(false)
@@ -128,8 +129,8 @@ function AddBookPage() {
 
 
     useEffect(() => {
-        setProperties(`?categoryIds=${filteredList.categoryIds || []}&publish=${(filteredList.publish !== undefined) ? filteredList.publish : ""}&name=${filteredList.name || ""}&authorIds=${filteredList.authorIds || []}&publisherIds=${filteredList.publisherIds || []}&isPublic=${(filteredList.isPublic !== undefined) ? filteredList.isPublic : ""}&from=${filteredList.from || ""}&to=${filteredList.to || ""}&page=${currentPage}&size=10`)
-    }, [filteredList, currentPage])
+        setProperties(`?categoryIds=${filteredList.categoryIds || []}&publish=${(filteredList.publish !== undefined) ? filteredList.publish : ""}&name=${filteredList.name || ""}&authorIds=${filteredList.authorIds || []}&publisherIds=${filteredList.publisherIds || []}&isPublic=${(filteredList.isPublic !== undefined) ? filteredList.isPublic : ""}&from=${filteredList.from || ""}&to=${filteredList.to || ""}&page=${currentPage}&size=10&sort=${sort}`)
+    }, [filteredList, currentPage , sort])
 
 
 
@@ -150,6 +151,7 @@ function AddBookPage() {
             accessorKey: "id",
             header: "ID",
             size: 40,
+            enableSorting: false,
             cell: (props) => <p>{props.getValue()}</p>
         },
         {
@@ -162,6 +164,7 @@ function AddBookPage() {
         {
             accessorKey: "name",
             header: "نام کتاب",
+            enableSorting: false,
             cell: (props) => <BookNameTd props={props} />
         },
         {
@@ -175,7 +178,7 @@ function AddBookPage() {
             cell: (props) => (props.getValue()) && <AuthorsNameTd props={props} />
         },
         {
-            accessorKey: "publisher.name",
+            accessorKey: "publisher",
             header: "ناشر",
             cell: (props) => <PublisherTd props={props} />
         },
@@ -202,6 +205,7 @@ function AddBookPage() {
             accessorKey: "public",
             header: "دسترسی",
             size: 100,
+            enableSorting: false,
             cell: (props) => <p>{(props.getValue()) ? "عمومی" : "خصوصی"}</p>
         },
         {
@@ -286,7 +290,6 @@ function AddBookPage() {
         columns,
         getFilteredRowModel: getFilteredRowModel(),
         getCoreRowModel: getCoreRowModel(),
-        getSortedRowModel: getSortedRowModel(),
         getPaginationRowModel: getPaginationRowModel(),
 
     })
@@ -428,7 +431,7 @@ function AddBookPage() {
 
                 <TableHeader>
                     {table.getHeaderGroups()[0].headers.map((header, index) => {
-                        return <TableHeaderItem header={header} key={index} />
+                        return <TableHeaderItem header={header} setSort={setSort} key={index} />
                     })}
                 </TableHeader>
 

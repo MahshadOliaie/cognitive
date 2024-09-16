@@ -31,8 +31,9 @@ function AuthorPage() {
     const [currentPage, setCurrentPage] = useState(0)
     const { register, handleSubmit, setValue } = useForm()
     const [selectedItems, setSelectedItems] = useState([])
+    const [sort, setSort] = useState([])
     const [isEnableFloat, setIsEnableFloat] = useState(false)
-    const [properties, setProperties] = useState(`?page=${currentPage}&size=10`)
+    const [properties, setProperties] = useState(`?page=${currentPage}&size=10&sort=${sort}`)
     const [filteredList, setFilteredList] = useState({
         "firstName": "",
         "lastName": "",
@@ -101,8 +102,8 @@ function AuthorPage() {
 
 
     useEffect(() => {
-        setProperties(`?firstName=${filteredList.firstName}&lastName=${filteredList.lastName}&enable=${filteredList.enable}&page=${currentPage}&size=10`)
-    }, [filteredList, currentPage])
+        setProperties(`?firstName=${filteredList.firstName}&lastName=${filteredList.lastName}&enable=${filteredList.enable}&page=${currentPage}&size=10&sort=${sort}`)
+    }, [filteredList, currentPage , sort])
 
 
 
@@ -118,6 +119,7 @@ function AuthorPage() {
             accessorKey: "id",
             header: "ID",
             size: 30,
+            enableSorting: false,
             cell: (props) => <p>{props.getValue()}</p>
         },
         {
@@ -150,6 +152,7 @@ function AuthorPage() {
             accessorKey: "updatedAt",
             header: "آخرین ویرایش",
             size: 80,
+            enableSorting: false,
             cell: (props) => {
                 let date = new Date(props.getValue()).toLocaleDateString()
                 const persianDate = jalaliMoment(date, 'MM/DD/YYYY').format('jYYYY/jMM/jDD')
@@ -183,7 +186,6 @@ function AuthorPage() {
         getFilteredRowModel: getFilteredRowModel(),
         getCoreRowModel: getCoreRowModel(),
         onGlobalFilterChange: setFiltering,
-        getSortedRowModel: getSortedRowModel(),
         getPaginationRowModel: getPaginationRowModel()
 
 
@@ -246,7 +248,7 @@ function AuthorPage() {
 
                 <TableHeader>
                     {table.getHeaderGroups()[0].headers.map((header, index) => {
-                        return <TableHeaderItem header={header} key={index} />
+                        return <TableHeaderItem header={header} setSort={setSort} key={index} />
                     })}
                 </TableHeader>
 
