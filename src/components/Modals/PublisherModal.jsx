@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from "react"
-import useFetch from "../../hooks/useFetch"
 import CancelBtn from "./Btns/CancelBtn"
 import ModalHeader from "./ModalHeader/ModalHeader"
 import EnableCheckbox from "./EnableCheckbox/EnableCheckbox"

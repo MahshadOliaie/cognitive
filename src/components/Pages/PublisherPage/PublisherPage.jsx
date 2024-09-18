@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react"
-import useFetch from "../../../hooks/useFetch"
 import { flexRender, getCoreRowModel, getFilteredRowModel, getPaginationRowModel, getSortedRowModel, useReactTable } from "@tanstack/react-table"
 import TableHeader from "../../TableHeader/TableHeader"
 import TableRow from "../../TableRow/TableRow"
@@ -37,9 +36,6 @@ function PublisherPage() {
     })
 
 
-    const publishers = useFetch(`https://cogcenter.ir/library/api/v1/publishers${properties}`)
-
-
     async function putData(data, enableState) {
         const { id, name, coverImage } = data
 
@@ -63,13 +59,6 @@ function PublisherPage() {
         setTimeout(() => { window.location.reload() }, 300)
 
     }
-
-    useEffect(() => {
-        setData(publishers.content)
-        setPages(publishers.totalPages)
-
-    }, [publishers])
-
 
 
     useEffect(() => {

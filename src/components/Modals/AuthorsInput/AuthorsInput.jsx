@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react"
 import useFetch from "../../../hooks/useFetch"
 import Select from 'react-select'
-import { color } from "highcharts"
 let arr = []
 
 

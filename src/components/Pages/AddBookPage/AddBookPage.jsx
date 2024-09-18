@@ -6,7 +6,6 @@ import TableRow from "../../TableRow/TableRow"
 import AddBtn from "../../Buttons/AddBtn"
 import TableHeaderItem from "../../TableHeaderItem/TableHeaderItem"
 import Pagination from "../../Pagination/Pagination"
-import useFetch from "../../../hooks/useFetch"
 import SubmitSearch from "../../Buttons/SubmitSearch"
 import { useForm } from "react-hook-form"
 import CategoryInput from "../../Modals/CategoryInput/CategoryInput"
@@ -62,9 +61,6 @@ function AddBookPage() {
 
 
 
-    const books = useFetch(`https://cogcenter.ir/library/api/v1/manager/0/books${properties}`)
-
-
     async function putData(data, publishState) {
         const { authors, category, coverImage, description, file, id, name, pageNumber, publicationYear, publisher, scopeId, translators, isPublic
         } = data
@@ -99,16 +95,6 @@ function AddBookPage() {
 
 
     }
-
-    useEffect(() => {
-        setData(books.content)
-        setPages(books.totalPages)
-
-        return () => {
-
-        }
-
-    }, [books])
 
 
     useEffect(() => {

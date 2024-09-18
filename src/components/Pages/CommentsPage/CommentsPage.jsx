@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react"
-import useFetch from "../../../hooks/useFetch"
 import CommentEditModal from "./CommentEditModal"
 import Pagination from "../../Pagination/Pagination"
 import CommentsReplyModal from "./CommentsReplyModal"
@@ -47,16 +46,6 @@ function CommentsPage() {
         "page": currentPage
     })
 
-
-    const comments = useFetch(`https://cogcenter.ir/feedback/api/v1/manager/0/comments${properties}`)
-
-    useEffect(() => {
-        setData(comments.content)
-
-        return () => {
-
-        }
-    }, [comments])
 
     useEffect(() => {
         fetch(`https://cogcenter.ir/feedback/api/v1/manager/0/comments${properties}`, {

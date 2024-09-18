@@ -1,6 +1,5 @@
 import { flexRender, getCoreRowModel, getFilteredRowModel, getPaginationRowModel, getSortedRowModel, useReactTable } from "@tanstack/react-table"
 import { useEffect, useState } from "react"
-import useFetch from "../../../hooks/useFetch"
 import TableHeader from "../../TableHeader/TableHeader"
 import TableRow from "../../TableRow/TableRow"
 import AddBtn from "../../Buttons/AddBtn"
@@ -42,7 +41,6 @@ function AuthorPage() {
     })
 
 
-    const authors = useFetch(`https://cogcenter.ir/library/api/v1/authors${properties}`)
 
 
     async function putData(data, enableState) {
@@ -67,17 +65,6 @@ function AuthorPage() {
         setTimeout(() => { window.location.reload() }, 300)
 
     }
-
-
-    useEffect(() => {
-        setData(authors.content)
-        setPages(authors.totalPages)
-
-        return () => {
-        }
-
-    }, [authors])
-
 
 
 

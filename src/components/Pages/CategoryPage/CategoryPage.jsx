@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react"
-import useFetch from "../../../hooks/useFetch"
 import AddBtn from "../../Buttons/AddBtn"
 import CategoryModal from "../../Modals/CategoryModal"
 import { flexRender, getCoreRowModel, getFilteredRowModel, getPaginationRowModel, getSortedRowModel, useReactTable } from "@tanstack/react-table"
@@ -33,7 +32,6 @@ function CategoryPage() {
     })
 
 
-    const categoryData = useFetch('https://cogcenter.ir/library/api/v1/categories')
 
 
     async function putData(data, enableState) {
@@ -60,14 +58,6 @@ function CategoryPage() {
 
     }
 
-    useEffect(() => {
-
-        setData(categoryData)
-
-        return () => {
-
-        }
-    }, [categoryData])
 
     useEffect(() => {
         fetch(`https://cogcenter.ir/library/api/v1/categories${properties}`, {
@@ -90,7 +80,7 @@ function CategoryPage() {
 
 
     useEffect(() => {
-        setProperties(`?isEnable=${filteredList.isEnable}}`)
+        setProperties(`?isEnable=${filteredList.isEnable}`)
     }, [filteredList])
 
 
