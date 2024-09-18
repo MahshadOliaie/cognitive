@@ -20,7 +20,8 @@ import BookNameTd from "./BookNameTd"
 import AuthorsNameTd from "./AuthorsNameTd"
 import PublisherTd from "./PublisherTd"
 import jalaliMoment from 'jalali-moment';
-import { DatePicker } from "zaman"
+import "jalaali-react-date-picker/lib/styles/index.css";
+import { InputDatePicker } from "jalaali-react-date-picker";
 import Select from 'react-select'
 import { useNavigate } from "react-router-dom"
 
@@ -35,6 +36,8 @@ function AddBookPage() {
     const [editModal, setEditModal] = useState({})
     const [pages, setPages] = useState(0)
     const [categories, setCategories] = useState([])
+    const [toVal, setToVal] = useState("")
+    const [fromVal, setFromVal] = useState("")
     const [publisher, setPublisher] = useState([])
     const [authors, setAuthors] = useState([])
     const { register, handleSubmit, setValue } = useForm()
@@ -310,31 +313,31 @@ function AddBookPage() {
     register("from")
     register("to")
 
-    function formatDateToISO(date) {
-        if (date) {
-            const year = date.value.getFullYear();
-            const month = String(date.value.getMonth() + 1).padStart(2, '0');
-            const day = String(date.value.getDate()).padStart(2, '0');
-            return `${year}-${month}-${day}`;
-        }
-    }
-
     function getFrom(date) {
-        setValue("to", formatDateToISO(date))
         if (date) {
+            let persianD = jalaliMoment(date._i, 'YYYY-MM-DD---').format('YYYY-MM-DD')
+            setValue("to", persianD)
             setFromDateFloat(true)
         }
-        else
+        else {
+            setValue("to", "")
             setFromDateFloat(false)
+        }
+        setFromVal(date)
     }
 
     function getTo(date) {
-        setValue("from", formatDateToISO(date))
         if (date) {
+            let persianD = jalaliMoment(date._i, 'YYYY-MM-DD---').format('YYYY-MM-DD')
+            setValue("from", persianD)
             setToDateFloat(true)
         }
-        else
+        else {
+            setValue("from", "")
             setToDateFloat(false)
+        }
+        setToVal(date)
+
     }
 
     function handlePublishChange(selectedOption) {
@@ -394,24 +397,30 @@ function AddBookPage() {
                         </div>
                     </div>
 
-                    <div className="flex flex-col">
+                    <div className="flex flex-col relative">
                         {(toDateFloat) &&
-                            <label htmlFor="" className="opacity-70 text-sm mb-1">از تاریخ:</label>
+                            <>
+                                <label htmlFor="" className="opacity-70 text-sm mb-1">از تاریخ:</label>
+                            </>
+
                         }
-                        <div className="p-1.5 bg-white flex items-center justify-start overflow-hidden" style={{ borderRadius: "5px", border: "1px solid lightgray", width: "176px" }}>
-                            <DatePicker accentColor="#D1BAA7" inputClass="focus-visible:outline-none w-44" onChange={getTo} />
-                            {(!toDateFloat) &&
-                                <p className="absolute opacity-50 pointer-events-none">از تاریخ</p>}
+                        <div className="flex items-center justify-start overflow-hidden">
+                            <InputDatePicker value={toVal} onChange={getTo} />
+                            {(!toDateFloat) && <p className="absolute opacity-50 pr-3 pointer-events-none">از تاریخ</p>
+                            }
                         </div>
                     </div>
-                    <div className="flex flex-col">
+                    <div className="flex flex-col relative">
                         {(fromDateFloat) &&
-                            <label htmlFor="" className="opacity-70 text-sm mb-1">تا تاریخ:</label>
+                            <>
+                                <label htmlFor="" className="opacity-70 text-sm mb-1">تا تاریخ:</label>
+                            </>
                         }
-                        <div className="p-1.5 bg-white flex items-center justify-start overflow-hidden" style={{ borderRadius: "5px", border: "1px solid lightgray", width: "176px" }}>
-                            <DatePicker accentColor="#D1BAA7" inputClass="focus-visible:outline-none w-44" onChange={getFrom} />
+                        <div className="flex items-center justify-start overflow-hidden">
+                            <InputDatePicker value={fromVal} onChange={getFrom} />
                             {(!fromDateFloat) &&
-                                <p className="absolute opacity-50 pointer-events-none">تا تاریخ</p>}
+                                <p className="absolute opacity-50 pr-3 pointer-events-none">تا تاریخ</p>
+                            }
                         </div>
                     </div>
 

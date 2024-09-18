@@ -155,3 +155,12 @@ select {
     /* Ensure the list within the menu has a maximum height */
     overflow-y: auto;
 }
+
+.picker-input-wrapper{
+    width: 11rem !important;
+    min-width: 11rem !important;
+}
+
+.picker-input-fa::placeholder{
+    opacity: 0 !important;
+}

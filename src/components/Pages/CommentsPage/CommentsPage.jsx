@@ -13,7 +13,8 @@ import SettingBtn from "../../Buttons/SettingBtn"
 import ReplyBtn from "../../Buttons/ReplyBtn"
 import CommentTextTd from "./CommentTextTd"
 import jalaliMoment from 'jalali-moment';
-import { DatePicker } from "zaman"
+import "jalaali-react-date-picker/lib/styles/index.css";
+import { InputDatePicker } from "jalaali-react-date-picker";
 import Select from 'react-select'
 import ShowRepliesBtn from "../../Buttons/ShowRepliesBtn"
 import { useNavigate } from "react-router-dom"
@@ -25,6 +26,8 @@ import { useNavigate } from "react-router-dom"
 function CommentsPage() {
     const nav = useNavigate()
     const [data, setData] = useState([])
+    const [toVal, setToVal] = useState("")
+    const [fromVal, setFromVal] = useState("")
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [isReplyOpen, setIsReplyOpen] = useState(false)
     const [editModal, setEditModal] = useState({})
@@ -77,7 +80,7 @@ function CommentsPage() {
 
     useEffect(() => {
         setProperties(`?modelTypeId=${filteredList.id}&publish=${(filteredList.publish !== undefined) ? filteredList.publish : ""}&from=${filteredList.from || ""}&to=${filteredList.to || ""}&page=${currentPage}&size=10&sort=${sort}`)
-    }, [filteredList, currentPage , sort])
+    }, [filteredList, currentPage, sort])
 
 
 
@@ -224,33 +227,31 @@ function CommentsPage() {
     register("to")
     register("publish")
 
-
-    function formatDateToISO(date) {
-        if (date) {
-            const year = date.value.getFullYear();
-            const month = String(date.value.getMonth() + 1).padStart(2, '0');
-            const day = String(date.value.getDate()).padStart(2, '0');
-
-            return `${year}-${month}-${day}`;
-        }
-    }
-
     function getFrom(date) {
-        setValue("to", formatDateToISO(date))
         if (date) {
+            let persianD = jalaliMoment(date._i, 'YYYY-MM-DD---').format('YYYY-MM-DD')
+            setValue("to", persianD)
             setFromDateFloat(true)
         }
-        else
+        else {
+            setValue("to", "")
             setFromDateFloat(false)
+        }
+        setFromVal(date)
     }
 
     function getTo(date) {
-        setValue("from", formatDateToISO(date))
         if (date) {
+            let persianD = jalaliMoment(date._i, 'YYYY-MM-DD---').format('YYYY-MM-DD')
+            setValue("from", persianD)
             setToDateFloat(true)
         }
-        else
+        else {
+            setValue("from", "")
             setToDateFloat(false)
+        }
+        setToVal(date)
+
     }
 
 
@@ -284,13 +285,12 @@ function CommentsPage() {
                         {(toDateFloat) &&
                             <>
                                 <label htmlFor="" className="opacity-70 text-sm mb-1">از تاریخ:</label>
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" className="absolute left-2 w-3 opacity-60 cursor-pointer" onClick={() => { setValue("from", "") }}><path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z" /></svg>
                             </>
 
                         }
-                        <div className="p-1.5 bg-white flex items-center justify-start overflow-hidden" style={{ borderRadius: "5px", border: "1px solid lightgray", width: "176px" }}>
-                            <DatePicker accentColor="#D1BAA7" inputClass="focus-visible:outline-none w-44" onChange={getTo} />
-                            {(!toDateFloat) && <p className="absolute opacity-50 pointer-events-none">از تاریخ</p>
+                        <div className="flex items-center justify-start overflow-hidden">
+                            <InputDatePicker value={toVal} onChange={getTo} />
+                            {(!toDateFloat) && <p className="absolute opacity-50 pr-3 pointer-events-none">از تاریخ</p>
                             }
                         </div>
                     </div>
@@ -298,13 +298,12 @@ function CommentsPage() {
                         {(fromDateFloat) &&
                             <>
                                 <label htmlFor="" className="opacity-70 text-sm mb-1">تا تاریخ:</label>
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" className="absolute left-2 top-9 w-3 opacity-60 cursor-pointer" onClick={() => { setValue("to", "") }}><path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z" /></svg>
                             </>
                         }
-                        <div className="p-1.5 bg-white flex items-center justify-start overflow-hidden" style={{ borderRadius: "5px", border: "1px solid lightgray", width: "176px" }}>
-                            <DatePicker accentColor="#D1BAA7" inputClass="focus-visible:outline-none w-44" onChange={getFrom} show={false} />
+                        <div className="flex items-center justify-start overflow-hidden">
+                            <InputDatePicker value={fromVal} onChange={getFrom} />
                             {(!fromDateFloat) &&
-                                <p className="absolute opacity-50 pointer-events-none">تا تاریخ</p>
+                                <p className="absolute opacity-50 pr-3 pointer-events-none">تا تاریخ</p>
                             }
                         </div>
                     </div>
