@@ -242,7 +242,7 @@ function PublisherPage() {
                 </tbody>
 
             </table>
-            <Pagination pages={publishers.totalPages} currentPage={currentPage} setCurrentPage={setCurrentPage} />
+            <Pagination pages={pages} currentPage={currentPage} setCurrentPage={setCurrentPage} />
         </>
     )
 }
