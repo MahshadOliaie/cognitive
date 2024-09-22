@@ -62,8 +62,7 @@ function PublishersInput({ modalData, setPublisherValue, publisherValue, floatAl
                         <label htmlFor="publisher" className="opacity-70 text-sm mb-1">ناشر</label>
                     }
                     {(publisherValue?.length > 0) &&
-                        <p className="ml-2 text-sm bg-dark text-white w-4 h-4 flex items-center justify-center p-2.5 rounded-full ">{publisherValue.length}</p>
-                    }
+                        <p className="ml-2 text-sm">{translatorValue.length} مورد</p>                    }
                 </div>
 
                 <Select options={options} styles={style} onChange={handleChange} placeholder={(floatAlways) ? "" : "ناشر"} isMulti={multi} defaultInputValue={(modalData.original) ? modalData.original.publisher.name : ""}  />
