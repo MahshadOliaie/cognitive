@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react"
 import useFetch from "../../../hooks/useFetch"
 import Select from 'react-select'
+import { MultiValue } from "react-select/animated"
 let arr = []
 
 
 
 
-function PublishersInput({ modalData, setPublisherValue, publisherValue, floatAlways , multi  }) {
+function PublishersInput({ modalData, setPublisherValue, publisherValue, floatAlways, multi }) {
 
     const publishers = useFetch('https://cogcenter.ir/library/api/v1/publishers?page=0')
     const [isFloat, setIsFloat] = useState(false)
@@ -41,8 +42,17 @@ function PublishersInput({ modalData, setPublisherValue, publisherValue, floatAl
         }
         else
             setIsFloat(false)
+
+        orderOptions(selectedOption)
     }
 
+
+    function orderOptions(selectedOption) {
+        const selectedValues = selectedOption.map(option => option.value);
+        let selected = options.filter(item => selectedValues.includes(item.value))
+        let unSelected = options.filter(item => !selectedValues.includes(item.value))
+        setOptions([...selected, ...unSelected])
+    }
 
     const style = {
         valueContainer: (provided) => ({
@@ -50,6 +60,15 @@ function PublishersInput({ modalData, setPublisherValue, publisherValue, floatAl
             maxHeight: "40px",
             overflow: "scroll !important"
         }),
+        option: (provided, state) => ({
+            ...provided,
+            color: state.isSelected ? 'black' : 'black',
+            backgroundColor: state.isSelected ? '#D1BAA7' : 'white',
+            '&:hover': {
+                backgroundColor: state.isSelected ? '#b79c85' : '#e3d6ca',
+            },
+
+        })
     }
 
 
@@ -62,10 +81,10 @@ function PublishersInput({ modalData, setPublisherValue, publisherValue, floatAl
                         <label htmlFor="publisher" className="opacity-70 text-sm mb-1">ناشر</label>
                     }
                     {(publisherValue?.length > 0) &&
-                        <p className="ml-2 text-sm">{translatorValue.length} مورد</p>                    }
+                        <p className="ml-2 text-sm">{publisherValue.length} مورد</p>}
                 </div>
 
-                <Select options={options} styles={style} onChange={handleChange} placeholder={(floatAlways) ? "" : "ناشر"} isMulti={multi} defaultInputValue={(modalData.original) ? modalData.original.publisher.name : ""}  />
+                <Select hideSelectedOptions={false} options={options} styles={style} onChange={handleChange} placeholder={(floatAlways) ? "" : "ناشر"} isMulti={multi} defaultInputValue={(modalData.original) ? modalData.original.publisher.name : ""} />
             </div>
         </>
     )
