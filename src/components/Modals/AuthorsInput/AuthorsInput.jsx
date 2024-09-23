@@ -13,7 +13,9 @@ function AuthorsInput({ modalData, setAuthorValue, floatAlways, authorValue }) {
 
     useEffect(() => {
         (authors.content)?.map(author => {
-            setOptions((prev) => [...prev, { value: author.id, label: `${author.firstName + " " + author.lastName}` }])
+            let optionsIds = options.map(item => item.value)
+            if (!optionsIds.includes(author.id))
+                setOptions((prev) => [...prev, { value: author.id, label: `${author.firstName + " " + author.lastName}` }])
         })
 
 
@@ -31,6 +33,15 @@ function AuthorsInput({ modalData, setAuthorValue, floatAlways, authorValue }) {
         }
         else
             setIsFloat(false)
+
+        orderOptions(selectedOption)
+    }
+
+    function orderOptions(selectedOption) {
+        const selectedValues = selectedOption.map(option => option.value);
+        let selected = options.filter(item => selectedValues.includes(item.value))
+        let unSelected = options.filter(item => !selectedValues.includes(item.value))
+        setOptions([...selected, ...unSelected])
     }
 
     const style = {
@@ -39,11 +50,14 @@ function AuthorsInput({ modalData, setAuthorValue, floatAlways, authorValue }) {
             maxHeight: "40px",
             overflow: "scroll !important"
         }),
-        multiValue: (provide) => ({
-            ...provide,
-            '&>div:hover': {
-                textOverflow: "inherit"
+        option: (provided, state) => ({
+            ...provided,
+            color: state.isSelected ? 'black' : 'black',
+            backgroundColor: state.isSelected ? '#D1BAA7' : 'white',
+            '&:hover': {
+                backgroundColor: state.isSelected ? '#b79c85' : '#e3d6ca',
             },
+
         })
     }
 
@@ -60,7 +74,7 @@ function AuthorsInput({ modalData, setAuthorValue, floatAlways, authorValue }) {
                         <p className="ml-2 text-sm">{authorValue.length} مورد</p>
                     }
                 </div>
-                <Select styles={style} options={options} onChange={handleChange} placeholder={(floatAlways) ? "" : "نویسندگان"} isMulti defaultValue={modalData.original?.authors.map(author => { return { label: `${author.firstName + " " + author.lastName}`, value: author.id } })} />
+                <Select hideSelectedOptions={false} styles={style} options={options} onChange={handleChange} placeholder={(floatAlways) ? "" : "نویسندگان"} isMulti defaultValue={modalData.original?.authors.map(author => { return { label: `${author.firstName + " " + author.lastName}`, value: author.id } })} />
             </div>
 
         </>

@@ -11,7 +11,9 @@ function CategoryInput({ modalData, setCategoryValue, categoryValue, multi, floa
 
     useEffect(() => {
         categories.map(category => {
-            setOptions((prev) => [...prev, { value: category.id, label: category.title }])
+            let optionsIds = options.map(item => item.value)
+            if (!optionsIds.includes(category.id))
+                setOptions((prev) => [...prev, { value: category.id, label: category.title }])
         })
 
         return () => {
@@ -27,9 +29,11 @@ function CategoryInput({ modalData, setCategoryValue, categoryValue, multi, floa
                 arr.push(item.value)
             })
             setCategoryValue(arr)
+            orderOptions(selectedOption)
         }
         else {
             setCategoryValue(selectedOption.value)
+            orderOptions([selectedOption])
         }
 
         if (selectedOption.length > 0) {
@@ -40,12 +44,28 @@ function CategoryInput({ modalData, setCategoryValue, categoryValue, multi, floa
 
     }
 
+    function orderOptions(selectedOption) {
+        const selectedValues = selectedOption.map(option => option.value);
+        let selected = options.filter(item => selectedValues.includes(item.value))
+        let unSelected = options.filter(item => !selectedValues.includes(item.value))
+        setOptions([...selected, ...unSelected])
+    }
+
     const style = {
         valueContainer: (provided) => ({
             ...provided,
             maxHeight: "40px",
             overflow: "scroll !important"
         }),
+        option: (provided, state) => ({
+            ...provided,
+            color: state.isSelected ? 'black' : 'black',
+            backgroundColor: state.isSelected ? '#D1BAA7' : 'white',
+            '&:hover': {
+                backgroundColor: state.isSelected ? '#b79c85' : '#e3d6ca',
+            },
+
+        })
     }
 
 
@@ -62,7 +82,7 @@ function CategoryInput({ modalData, setCategoryValue, categoryValue, multi, floa
                         <p className="ml-2 text-sm">{categoryValue.length} مورد</p>
                     }
                 </div>
-                <Select options={options} styles={style} onChange={handleChange} placeholder={(floatAlways) ? "" : "دسته بندی"} isMulti={multi} defaultInputValue={(modalData.original) ? modalData.original.category.title : ""} />
+                <Select hideSelectedOptions={false} options={options} styles={style} onChange={handleChange} placeholder={(floatAlways) ? "" : "دسته بندی"} isMulti={multi} defaultInputValue={(modalData.original) ? modalData.original.category.title : ""} />
             </div>
         </>
     )

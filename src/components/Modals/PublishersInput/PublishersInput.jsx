@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react"
 import useFetch from "../../../hooks/useFetch"
 import Select from 'react-select'
-import { MultiValue } from "react-select/animated"
 let arr = []
 
 
@@ -15,9 +14,12 @@ function PublishersInput({ modalData, setPublisherValue, publisherValue, floatAl
 
     useEffect(() => {
         (publishers.content)?.map(publisher => {
-            setOptions((prev) => [...prev, { value: publisher.id, label: publisher.name }])
+            let optionsIds = options.map(item => item.value)
+            if (!optionsIds.includes(publisher.id))
+                setOptions((prev) => [...prev, { value: publisher.id, label: publisher.name }])
         })
 
+        console.log(publishers)
         return () => {
 
         }
@@ -32,9 +34,12 @@ function PublishersInput({ modalData, setPublisherValue, publisherValue, floatAl
                 arr.push(item.value)
             })
             setPublisherValue(arr)
+
+            orderOptions(selectedOption)
         }
         else {
             setPublisherValue(selectedOption.value)
+            orderOptions([selectedOption])
         }
 
         if (selectedOption.length > 0) {
@@ -43,7 +48,6 @@ function PublishersInput({ modalData, setPublisherValue, publisherValue, floatAl
         else
             setIsFloat(false)
 
-        orderOptions(selectedOption)
     }
 
 

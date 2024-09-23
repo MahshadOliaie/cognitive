@@ -13,7 +13,9 @@ function TranslatorsInput({ modalData, setTranslatorValue, floatAlways, translat
 
     useEffect(() => {
         (authors.content)?.map(author => {
-            setOptions((prev) => [...prev, { value: author.id, label: `${author.firstName + " " + author.lastName}` }])
+            let optionsIds = options.map(item => item.value)
+            if (!optionsIds.includes(author.id))
+                setOptions((prev) => [...prev, { value: author.id, label: `${author.firstName + " " + author.lastName}` }])
         })
 
         return () => {
@@ -34,6 +36,14 @@ function TranslatorsInput({ modalData, setTranslatorValue, floatAlways, translat
         }
         else
             setIsFloat(false)
+        orderOptions(selectedOption)
+    }
+
+    function orderOptions(selectedOption) {
+        const selectedValues = selectedOption.map(option => option.value);
+        let selected = options.filter(item => selectedValues.includes(item.value))
+        let unSelected = options.filter(item => !selectedValues.includes(item.value))
+        setOptions([...selected, ...unSelected])
     }
 
     const style = {
@@ -42,6 +52,15 @@ function TranslatorsInput({ modalData, setTranslatorValue, floatAlways, translat
             maxHeight: "40px",
             overflow: "scroll !important"
         }),
+        option: (provided, state) => ({
+            ...provided,
+            color: state.isSelected ? 'black' : 'black',
+            backgroundColor: state.isSelected ? '#D1BAA7' : 'white',
+            '&:hover': {
+                backgroundColor: state.isSelected ? '#b79c85' : '#e3d6ca',
+            },
+
+        })
     }
 
 
@@ -56,7 +75,7 @@ function TranslatorsInput({ modalData, setTranslatorValue, floatAlways, translat
                         <p className="ml-2 text-sm">{translatorValue.length} مورد</p>
                     }
                 </div>
-                <Select styles={style} options={options} onChange={handleChange} placeholder={(floatAlways) ? "" : "مترجمان"} isMulti defaultValue={modalData.original?.translators.map(translator => { return { label: `${translator.firstName + " " + translator.lastName}`, value: translator.id } })} />
+                <Select hideSelectedOptions={false} styles={style} options={options} onChange={handleChange} placeholder={(floatAlways) ? "" : "مترجمان"} isMulti defaultValue={modalData.original?.translators.map(translator => { return { label: `${translator.firstName + " " + translator.lastName}`, value: translator.id } })} />
             </div>
 
         </>
