@@ -123,7 +123,7 @@ function BookFormPage() {
 
     return (
         <div>
-            <div className="pb-20">
+            <div className="pb-20 px-10">
                 {(modalData?.id) &&
                     <div className="flex items-center justify-between py-5 pt-0 mb-4" style={{ borderBottom: "0.5px solid gray" }}>
                         <p className="text-xl font-bold text-dark">ویرایش</p>
@@ -132,10 +132,10 @@ function BookFormPage() {
                 }
 
                 <form className="flex flex-col gap-3" style={{ minWidth: "650px" }}>
-                    <div className="flex gap-5 items-end">
+                    <div className="flex gap-5 items-end" style={{width: "60%"}}>
                         <FileInput setImage={setImage} image={image} modalData={{ original: modalData }} {...register("coverImage")} />
 
-                        <div className="flex flex-col flex-1 border items-center justify-center py-6 bg-sand rounded-md shadow-inner" style={{ borderColor: "lightgray" }}>
+                        <div className="flex flex-col flex-1 border items-center justify-center py-6 bg-sand rounded-md shadow-inner" style={{ borderColor: "lightgray", maxWidth: "16.65rem" }}>
                             {(bookFile) ?
                                 (modalData.file) ?
                                     <label htmlFor="pdf" ><img src={`http://cogcenter.ir/api/fs/v1/files/download/${bookFile}?key=${modalData.fileKey}`} alt="" className="max-w-48" /></label>
